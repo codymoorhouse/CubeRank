@@ -1,0 +1,9 @@
+Tournament Generator and Ranking System:
+
+Ranking					(CORE)
+Brackets				(CORE)
+Log-In System for users/companies	(CORE)
+Stats/LeaderBoards			(CORE)
+Forums
+Chat
+Betting
