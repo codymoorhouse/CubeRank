@@ -7,3 +7,6 @@ Stats/LeaderBoards			(CORE)
 Forums
 Chat
 Betting
+
+What should the website look like
+color schemes ect
