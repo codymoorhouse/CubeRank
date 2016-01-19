@@ -8,5 +8,21 @@ Forums
 Chat
 Betting
 
-What should the website look like
-color schemes ect
+What should the website look like?
+    - Color scheme
+    - Layout
+    - Functionality
+
+Proposal Criteria
+    (1) Problem definition (first paragraph)
+        - Why is it important?
+        - Benefits
+
+    (2) Illustrate how the problem is going to be address/solved
+
+    (3) Main features of the application / Use cases
+        - Expected benefits
+
+    - Technologies to be used (DEFERRED)
+        - Server: node.js
+	- Client: Your choice (angular java, etc.)
