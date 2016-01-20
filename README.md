@@ -1,7 +1,4 @@
-# TGRS
-Tournament Generator and Ranking System
-
-We can change the name of it later, just wanted to set up the repo.
+# Open-Rank
 
 Group Members
 -------------
