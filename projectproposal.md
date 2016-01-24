@@ -1,16 +1,15 @@
-
 CMPT 315 Project Proposal: Open Rank
 ====================================
 Tournaments, leagues and various competitions are taking place everyday in
-various forms across the planet. Planning can become a problem for small
-organizations who just want to create and track small competition
-with multiple teams/people. The members of these organizations need a way to
-see up-to-date results and schedules as well as rankings and statistics of the
-participating members. A need for message forms for games, tournaments, and
-leagues to allow people to communicate and comment on progress. While programs
-do exist to create tournaments these programs exist for a single purpose of
-creating a tournament bracket and leave out the social aspect of tournaments
-and discussing results that as shown by the success of sport channels people desire.
+modern day society. Planning for these types of events becomes a burden for
+small organizations who want a simple outlet for creating small tournaments,
+leagues and competitions. A system is needed to allow for small organizations
+to display up-to-date results, schedules, rankings, and statistics for members
+of that particular organization. The social aspect of competition must also be
+addressed to include for various types of communications throughout the
+system, such as being able to banter with others on results in a real-time
+fashion. Current systems lack this social aspect and only allow for the simple
+creation of tournament brackets.
 
 
 Open Rank will fill in this void in the market by creating a dynamic web
