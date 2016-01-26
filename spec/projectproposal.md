@@ -1,4 +1,4 @@
-CMPT 315 Project Proposal: Open Rank
+CMPT 315 Project Proposal: Open-Rank
 ====================================
 Tournaments, leagues and various competitions are extremely prevelant in
 modern day society. Planning for these types of events becomes a burden for
@@ -23,6 +23,27 @@ tournaments, leagues, and competitions. They will be able to use the
 *Open-Rank* system as an easy way to manage competitions on-the-fly. 
 Participants of the organization will also have a place to communicate 
 with each other while being able to view results, leaderboards, and statistics.
+These features will primarily be built using the following tools: mySQL,
+node.js, angularjs.
+
+**Phase 1:**
+- Ranking
+- Input match results
+- User
+- Organization/League
+
+**Phase 2:**
+- Brackets/Tournaments
+
+**Phase 3:**
+- Forums/Posting/Commenting
+
+**Phase 4:**
+- Chat/Private Messaging
+- Mobile View
+
+**Phase 5:**
+- Betting
 
 The main goal of this website will be to help small organizations and clubs organize 
 and track the progress of its members through rankings and leaderboards.  It will also
