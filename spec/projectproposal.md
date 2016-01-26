@@ -12,8 +12,8 @@ fashion. Current systems lack this social aspect and only allow for the simple
 creation of tournament brackets.
 
 Based on the lack of social engagement for competitions, *Open-Rank* will
-create an environment that promotes communication among participants. It will also
-give small organizations an intuitive and dynamic system for creating and
+create an environment that promotes communication among participants. It will
+also give small organizations an intuitive and dynamic system for creating and
 managing tournaments/leagues. During a tournament, administrators will be able
 to add in the results instantly which will in turn update visualization
 charts, leaderboards, and statistics. 
