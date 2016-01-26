@@ -17,8 +17,26 @@ give small organizations an intuitive and dynamic system for creating and
 managing tournaments/leagues. During a tournament, administrators will be able
 to add in the results instantly which will in turn update visualization
 charts, leaderboards, and statistics. These features will primarily
-be built using the following tools: /* Someone add in what tools we are using
-to build this. */.
+be built using the following tools: mySQL, node.js, angularjs.
+
+**Phase 1:**
+- Ranking
+- Input match results
+- User
+- Organization/League
+
+**Phase 2:**
+- Brackets/Tournaments
+
+**Phase 3:**
+- Forums/Posting/Commenting
+
+**Phase 4:**
+- Chat/Private Messaging
+- Mobile View
+
+**Phase 5:**
+- Betting
 
 With simple tools, small organizations will remove the hassle of creating
 tournaments, leagues, and competitions. They will be able to use the *Open
