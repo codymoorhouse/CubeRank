@@ -1,7 +1,43 @@
 body {
-     background-color:		#DBD5B8;
-     color:			black;
-     margin:			0;
-     padding:			0;
-     text-align:		center;
+    background-color: #DBD5B8;
+    color: black;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+header {
+    color: #E5FFFD;
+}
+
+header.top {
+    background-color: #665663;
+    height: 108px;
+}
+
+header.top img#headerLogo{
+    float: left;
+    padding-left: 5px;
+    padding-top: 5px;
+}
+
+
+header.top h3#headerButtons{
+    float: right;
+}
+
+.login {
+    font-size: xx-large;
+    position: absolute;
+    margin-left: 80%;
+    padding-top: 65px;
+    padding-left: 125px;
+
+}
+
+.signup {
+    font-size: x-large;
+    position: absolute;
+    margin-left: 80%;
+    padding-top: 70px;
 }
