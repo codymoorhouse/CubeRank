@@ -6,6 +6,15 @@ body {
     text-align: center;
 }
 
+.middleInfo {
+    padding-top: 100px;
+    color: #B2A8B1;
+    font-family: "Verdana","Arial", Sans-Serif;
+}
+h1, h3{
+    color: #665663;
+}
+
 header {
     color: #E5FFFD;
 }
@@ -22,22 +31,10 @@ header.top img#headerLogo{
 }
 
 
-header.top h3#headerButtons{
-    float: right;
-}
-
-.login {
-    font-size: xx-large;
-    position: absolute;
-    margin-left: 80%;
-    padding-top: 65px;
-    padding-left: 125px;
-
-}
-
-.signup {
+.topBar {
     font-size: x-large;
     position: absolute;
-    margin-left: 80%;
+    margin-left: 85%;
     padding-top: 70px;
+    word-spacing: 30px;
 }
