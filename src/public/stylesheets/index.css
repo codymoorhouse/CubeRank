@@ -10,6 +10,7 @@ body {
     padding-top: 100px;
     color: #B2A8B1;
     font-family: "Verdana","Arial", Sans-Serif;
+    padding-bottom: 10px;
 }
 h1, h3{
     color: #665663;
@@ -37,4 +38,14 @@ header.top img#headerLogo{
     margin-left: 85%;
     padding-top: 70px;
     word-spacing: 30px;
+}
+
+footer{
+    background-color: #665663;
+    color:            #E5FFFD;
+    text-align:       center;
+    padding:          15px;
+    font-size:        90%;
+    clear:            right;
+
 }
