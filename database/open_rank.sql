@@ -48,7 +48,7 @@ CREATE TABLE Team(
 ) ENGINE InnoDB;
 
 
-CREATE TABLE Contest(
+CREATE TABLE Contest(  /* called contest because TID was taken */
        CID BIGINT UNSIGNED AUTO_INCREMENT NOT NULL,
        title VARCHAR(30),
        LID BIGINT UNSIGNED NOT NULL,
@@ -60,7 +60,7 @@ CREATE TABLE Contest(
 ) ENGINE InnoDB;
 
 
-CREATE TABLE Placed(
+CREATE TABLE Placed( /* many-to-many relationship between Team and Tournament*/
        TID BIGINT UNSIGNED NOT NULL,
        CID BIGINT UNSIGNED NOT NULL,
        placed SMALLINT,
@@ -70,5 +70,19 @@ CREATE TABLE Placed(
        INDEX (CID),
        FOREIGN KEY (CID) REFERENCES Contest (CID)
        ON UPDATE CASCADE ON DELETE CASCADE
+
+) ENGINE InnoDB;
+
+
+CREATE TABLE Member(
+       UID INT UNSIGNED NOT NULL,
+       TID BIGINT UNSIGNED NOT NULL,
+       INDEX (UID),
+       FOREIGN KEY (UID) REFERENCES Users (UID)
+       ON UPDATE CASCADE ON DELETE CASCADE,
+       INDEX (TID),
+       FOREIGN KEY (TID) REFERENCES Team (TID)
+       ON UPDATE CASCADE ON DELETE CASCADE
+
 
 ) ENGINE InnoDB;
