@@ -1,3 +1,15 @@
+/*
+	This database script is brought to you by the talent of 
+	John Robbins ;)
+
+	If you have a current database called open_rank (such as the one
+	created by running this script) this script will drop it, along with
+	all its table rows before creating this one in its place.
+
+	This should be used to initialize the Database ONLY.  
+*/
+
+
 DROP DATABASE IF EXISTS open_rank;
 CREATE DATABASE open_rank;
 USE open_rank;
@@ -10,6 +22,9 @@ CREATE TABLE Organization(
 
 ) ENGINE InnoDB;
 
+/* 
+   The very basics for users for now.  We can add more later if needed
+*/
 
 CREATE TABLE Users(
        UID INT UNSIGNED AUTO_INCREMENT NOT NULL,
@@ -21,6 +36,9 @@ CREATE TABLE Users(
        PRIMARY KEY (UID)
 ) ENGINE InnoDB;
 
+/*
+	Again, very basics for leagues. Can add more later 	
+*/
 
 CREATE TABLE League(
        LID BIGINT UNSIGNED AUTO_INCREMENT NOT NULL,
@@ -34,6 +52,11 @@ CREATE TABLE League(
 
 ) ENGINE InnoDB;
 
+/*
+	A team belongs to a single league.  A user can play in multiple 
+	leagues, but will have to form a new team to play in a different
+	league.  Can be a team of one.  See comments for Member table below
+*/
 
 CREATE TABLE Team(
        TID BIGINT UNSIGNED AUTO_INCREMENT NOT NULL,
@@ -74,7 +97,13 @@ CREATE TABLE Placed( /* many-to-many relationship between Team and Tournament*/
 ) ENGINE InnoDB;
 
 
-CREATE TABLE Member(
+/*  
+    Small change to the schema here.  User now has to belong to a team in
+    the database to belong to a league or play in a tournament.  A user 
+    can be a team of one. 
+
+*/
+CREATE TABLE Member( /* many-to-many relationship between Team and User*/
        UID INT UNSIGNED NOT NULL,
        TID BIGINT UNSIGNED NOT NULL,
        INDEX (UID),
