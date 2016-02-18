@@ -1,0 +1,9 @@
+{
+  "name": "CubeRank",
+  "version": "0.0.1",
+  "description": "Ranking System",
+  "dependencies": {
+    "nodemailer": "0.7.1",
+    "express": "latest"
+  }
+}
