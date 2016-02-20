@@ -1,4 +1,5 @@
 body {
+    font-family: Arial, Helvetica, sans-serif;
     background-color: #DBD5B8;
     color: black;
     margin: 0;
@@ -6,44 +7,90 @@ body {
     text-align: center;
 }
 
+/* styling for main content for the following pages thus far:
+    signup.html
+    quick-create.html
+    */
+#content-container{
+    margin: 120px 300px 0px 450px;
+    text-align: left;
+    height: 500px;
+    width: 500px;
+    background-color: #B2A8B1;
+}
+
+/* Styling for the maain menu bar */
 #nav-list {
-    position: absolute;
-    bottom: 0;
-    right: 0;
+    padding-top: 62px;
+}
+#nav-list ul {
+    list-style-type: none;
     margin: 0;
     padding: 0;
-    font-size: larger;
-    list-style-type: none;
     overflow: hidden;
+    background-color: #665663;
 }
 
-.nav-item {
+#nav-list li {
     float: left;
-    border-right: 1px solid #B2A8B1;
+    border-right:1px solid #bbb;
 }
 
-.nav-item:last-child {
+#nav-list li:last-child {
     border-right: none;
 }
 
-.nav-item .nav-link {
+#nav-list li a {
     display: block;
-    color: #E5FFFD;
+    color: white;
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
 }
 
-#index-content-area {
+#nav-list li a:hover:not(.active) {
+    background-color: #111;
+}
+
+.active {
+    background-color: #0889c6;
+}
+/*#nav-list {*/
+    /*position: absolute;*/
+    /*bottom: 0;*/
+    /*right: 0;*/
+    /*margin: 0;*/
+    /*padding: 0;*/
+    /*font-size: larger;*/
+    /*list-style-type: none;*/
+    /*overflow: hidden;*/
+/*}*/
+
+/*.nav-item {*/
+    /*float: left;*/
+    /*border-right: 1px solid #B2A8B1;*/
+/*}*/
+
+/*.nav-item:last-child {*/
+    /*border-right: none;*/
+/*}*/
+
+/*.nav-item .nav-link {*/
+    /*display: block;*/
+    /*color: #E5FFFD;*/
+    /*text-align: center;*/
+    /*padding: 14px 16px;*/
+    /*text-decoration: none;*/
+/*}*/
+
+#content-area {
     padding-top: 100px;
     color: #B2A8B1;
     font-family: "Verdana", "Arial", Sans-Serif;
     padding-bottom: 10px;
     background-color: #B2A8B1;
-    margin-left: 10%;
-    margin-right: 10%;
-    margin-top: 5%;
-    margin-bottom: 5%;
+    width:1200px;
+    margin: 120px 75px;
     padding-bottom: 10px;
     padding-top: 10px;
     color: black;
@@ -58,15 +105,17 @@ h1, h3 {
 }
 
 .index-content-p {
-    margin-left: 20%;
-    margin-right: 20%;
+    margin: 0px 75px;
 }
 
 .header-content-area {
-    position: relative;
+    position: fixed;
+    top: 0px;
+    left: 75px;
     background-color: #665663;
     color: #E5FFFD;
     height: 108px;
+    width: 1200px;
 }
 
 .header-content-area img#headerLogo {
@@ -76,6 +125,8 @@ h1, h3 {
 }
 
 footer {
+    margin-left: 75px;
+    width: 1200px;
     background-color: #665663;
     color: #E5FFFD;
     text-align: center;
@@ -100,10 +151,7 @@ footer {
     font-family: "Verdana", "Arial", Sans-Serif;
     padding-bottom: 10px;
     background-color: #B2A8B1;
-    margin-left: 10%;
-    margin-right: 10%;
-    margin-top: 5%;
-    margin-bottom: 5%;
+
     padding-bottom: 10px;
     padding-top: 10px;
     color: black;
