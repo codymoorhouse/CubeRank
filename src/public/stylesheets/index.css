@@ -12,10 +12,11 @@ body {
     quick-create.html
     */
 #content-container{
-    margin: 0px 300px 0px 450px;
+    margin: 120px 300px 0px 450px;
     text-align: left;
-    height: 400px;
+    height: 500px;
     width: 500px;
+    background-color: #B2A8B1;
 }
 
 /* Styling for the maain menu bar */
@@ -82,16 +83,14 @@ body {
     /*text-decoration: none;*/
 /*}*/
 
-#index-content-area {
+#content-area {
     padding-top: 100px;
     color: #B2A8B1;
     font-family: "Verdana", "Arial", Sans-Serif;
     padding-bottom: 10px;
     background-color: #B2A8B1;
-    margin-left: 10%;
-    margin-right: 10%;
-    margin-top: 5%;
-    margin-bottom: 5%;
+    width:1200px;
+    margin: 120px 75px;
     padding-bottom: 10px;
     padding-top: 10px;
     color: black;
@@ -106,8 +105,7 @@ h1, h3 {
 }
 
 .index-content-p {
-    margin-left: 20%;
-    margin-right: 20%;
+    margin: 0px 75px;
 }
 
 .header-content-area {
@@ -153,10 +151,7 @@ footer {
     font-family: "Verdana", "Arial", Sans-Serif;
     padding-bottom: 10px;
     background-color: #B2A8B1;
-    margin-left: 10%;
-    margin-right: 10%;
-    margin-top: 5%;
-    margin-bottom: 5%;
+
     padding-bottom: 10px;
     padding-top: 10px;
     color: black;
