@@ -7,6 +7,10 @@ body {
     text-align: center;
 }
 
+/* styling for main content for the following pages thus far:
+    signup.html
+    quick-create.html
+    */
 #content-container{
     margin: 0px 300px 0px 450px;
     text-align: left;
@@ -14,33 +18,69 @@ body {
     width: 500px;
 }
 
+/* Styling for the maain menu bar */
 #nav-list {
-    position: absolute;
-    bottom: 0;
-    right: 0;
+    padding-top: 62px;
+}
+#nav-list ul {
+    list-style-type: none;
     margin: 0;
     padding: 0;
-    font-size: larger;
-    list-style-type: none;
     overflow: hidden;
+    background-color: #665663;
 }
 
-.nav-item {
+#nav-list li {
     float: left;
-    border-right: 1px solid #B2A8B1;
+    border-right:1px solid #bbb;
 }
 
-.nav-item:last-child {
+#nav-list li:last-child {
     border-right: none;
 }
 
-.nav-item .nav-link {
+#nav-list li a {
     display: block;
-    color: #E5FFFD;
+    color: white;
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
 }
+
+#nav-list li a:hover:not(.active) {
+    background-color: #111;
+}
+
+.active {
+    background-color: #4CAF50;
+}
+/*#nav-list {*/
+    /*position: absolute;*/
+    /*bottom: 0;*/
+    /*right: 0;*/
+    /*margin: 0;*/
+    /*padding: 0;*/
+    /*font-size: larger;*/
+    /*list-style-type: none;*/
+    /*overflow: hidden;*/
+/*}*/
+
+/*.nav-item {*/
+    /*float: left;*/
+    /*border-right: 1px solid #B2A8B1;*/
+/*}*/
+
+/*.nav-item:last-child {*/
+    /*border-right: none;*/
+/*}*/
+
+/*.nav-item .nav-link {*/
+    /*display: block;*/
+    /*color: #E5FFFD;*/
+    /*text-align: center;*/
+    /*padding: 14px 16px;*/
+    /*text-decoration: none;*/
+/*}*/
 
 #index-content-area {
     padding-top: 100px;
