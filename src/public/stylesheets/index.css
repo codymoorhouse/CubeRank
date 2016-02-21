@@ -1,9 +1,17 @@
 body {
+    font-family: Arial, Helvetica, sans-serif;
     background-color: #DBD5B8;
     color: black;
     margin: 0;
     padding: 0;
     text-align: center;
+}
+
+#content-container{
+    margin: 0px 300px 0px 450px;
+    text-align: left;
+    height: 400px;
+    width: 500px;
 }
 
 #nav-list {

@@ -1,6 +1,9 @@
 var express = require('express');
 var nodemailer = require("nodemailer");
 var app = express();
+var connect = require('connect');
+
+
 
 var smtpTransport = nodemailer.createTransport("SMTP", {
     service: "Gmail",
@@ -15,6 +18,13 @@ var smtpTransport = nodemailer.createTransport("SMTP", {
 app.get('/', function (req, res) {
     res.sendFile('public/contact.html', {"root": __dirname});
 });
+
+app.get('/user-profile', function(req, res){
+    res.sendFile('public/user-profile.html', {"root": __dirname});
+});
+
+app.use('/', express.static(__dirname + '/contact.html'));
+
 app.get('/send', function (req, res) {
     var mailOptions = {
         to: req.query.to,
@@ -35,5 +45,6 @@ app.get('/send', function (req, res) {
 
 
 app.listen(3000, function () {
-    console.log("Express Started on Port 3000");
+    console.log("Express Started at localhost:3000");
 });
+
