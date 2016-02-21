@@ -52,7 +52,7 @@ body {
 }
 
 .active {
-    background-color: #4CAF50;
+    background-color: #0889c6;
 }
 /*#nav-list {*/
     /*position: absolute;*/
@@ -111,10 +111,13 @@ h1, h3 {
 }
 
 .header-content-area {
-    position: relative;
+    position: fixed;
+    top: 0px;
+    left: 75px;
     background-color: #665663;
     color: #E5FFFD;
     height: 108px;
+    width: 1200px;
 }
 
 .header-content-area img#headerLogo {
@@ -124,6 +127,8 @@ h1, h3 {
 }
 
 footer {
+    margin-left: 75px;
+    width: 1200px;
     background-color: #665663;
     color: #E5FFFD;
     text-align: center;
