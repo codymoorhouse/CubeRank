@@ -11,7 +11,7 @@ var smtpTransport = nodemailer.createTransport("SMTP", {
         /* We need to make an email for this I tested it with my own email
          * and it worked. Will our hosting site provide email? */
         user: "***@gmail.com",
-        pass: "*******"
+        pass: "***********"
     }
 });
 
@@ -28,6 +28,7 @@ app.use('/', express.static(__dirname + '/contact.html'));
 app.get('/send', function (req, res) {
     var mailOptions = {
         to: req.query.to,
+        from: req.query.from,
         subject: req.query.subject,
         text: req.query.text
     }
