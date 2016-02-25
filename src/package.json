@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "Ranking System",
   "dependencies": {
-    "content": "^3.0.0",
+    "connect": "^3.4.1",
     "express": "latest",
     "nodemailer": "0.7.1"
   }
