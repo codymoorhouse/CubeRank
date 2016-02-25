@@ -8,24 +8,7 @@
 </head>
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-<script>
-    $(document).ready(function () {
-        var from, to, subject, text;
-        $("#send_email").click(function () {
-            to = $("#to").val();
-            subject = $("#subject").val();
-            text = $("#content").val();
-            $("#message").text("Sending E-mail...Please wait");
-            $.get("http://localhost:3000/send", {to: to, subject: subject, text: text}, function (data) {
-                if (data == "sent") {
-                    $("#message").empty().html("Email is been sent at " + to + " . Please check inbox !");
-                }
-
-            });
-        });
-    });
-</script>
-<!--<script src="javascripts/contact-email.js"></script>-->
+<script src="javascripts/contact-email.js"></script>
 
 <body>
 
@@ -51,7 +34,7 @@
 
 <div id="content-container">
     <h1>Contact Us</h1>
-    <p class="contact-content-p"><input id="to" type="text" placeholder="E-mail"/></p>
+    <p class="contact-content-p"><input id="from" type="text" placeholder="E-mail"/></p>
     <p class="contact-content-p"><input id="subject" type="text" placeholder="Subject"/></p>
     <p class="contact-content-p"> <textarea id="content" cols="40" rows="5" placeholder="Message"></textarea></p>
     <p class="contact-content-p"><button id="send_email">Send Email</button></p>

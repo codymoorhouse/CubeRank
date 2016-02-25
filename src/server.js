@@ -10,8 +10,8 @@ var smtpTransport = nodemailer.createTransport("SMTP", {
     auth: {
         /* We need to make an email for this I tested it with my own email
          * and it worked. Will our hosting site provide email? */
-        user: "***@gmail.com",
-        pass: "*******"
+        user: "******@gmail.com",
+        pass: "*********"
     }
 });
 
@@ -23,11 +23,12 @@ app.get('/user-profile', function(req, res){
     res.sendFile('public/user-profile.html', {"root": __dirname});
 });
 
-app.use('/', express.static(__dirname + '/contact.html'));
+app.use(express.static(__dirname + '/public')); // this gets all the static files stylesheets and js???
 
 app.get('/send', function (req, res) {
     var mailOptions = {
         to: req.query.to,
+        from: req.query.from,
         subject: req.query.subject,
         text: req.query.text
     }
