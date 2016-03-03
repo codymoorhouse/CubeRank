@@ -14,12 +14,12 @@ DROP DATABASE IF EXISTS open_rank;
 CREATE DATABASE open_rank;
 USE open_rank;
 
-CREATE TABLE organization(
+CREATE TABLE organizations(
        id INT UNSIGNED AUTO_INCREMENT NOT NULL,
        oname VARCHAR (30),
        description VARCHAR(128),
-       PRIMARY KEY (id)
 
+       PRIMARY KEY (id)
 ) ENGINE InnoDB;
 
 /* 
@@ -33,6 +33,7 @@ CREATE TABLE users(
        email VARCHAR(60),
        username VARCHAR(100),
        password VARCHAR(100),
+
        PRIMARY KEY (id)
 ) ENGINE InnoDB;
 
@@ -40,16 +41,17 @@ CREATE TABLE users(
 	Again, very basics for leagues. Can add more later 	
 */
 
-CREATE TABLE league(
-       id BIGINT UNSIGNED AUTO_INCREMENT NOT NULL,
+CREATE TABLE leagues(
+       id INT UNSIGNED AUTO_INCREMENT NOT NULL,
        title VARCHAR(30),
        description VARCHAR(128),
-       oid INT UNSIGNED NOT NULL,
-       INDEX (oid),
-       FOREIGN KEY (oid) REFERENCES organization (id)
-       ON UPDATE CASCADE ON DELETE CASCADE,
-       PRIMARY KEY (id)
+       organization_id INT UNSIGNED NOT NULL,
 
+       INDEX (organization_id),
+       FOREIGN KEY (organization_id) REFERENCES organizations (id)
+       ON UPDATE CASCADE ON DELETE CASCADE,
+
+       PRIMARY KEY (id)
 ) ENGINE InnoDB;
 
 /*
@@ -58,39 +60,72 @@ CREATE TABLE league(
 	league.  Can be a team of one.  See comments for Member table below
 */
 
-CREATE TABLE team(
-       id BIGINT UNSIGNED AUTO_INCREMENT NOT NULL,
+CREATE TABLE teams(
+       id INT UNSIGNED AUTO_INCREMENT NOT NULL,
        title VARCHAR(30),
        rank SMALLINT UNSIGNED NOT NULL,
-       LID BIGINT UNSIGNED NOT NULL,
-       INDEX (lid),
-       FOREIGN KEY (lid) REFERENCES league (id)
-       ON UPDATE CASCADE ON DELETE CASCADE,
-       PRIMARY KEY (id)
+       league_id INT UNSIGNED NOT NULL,
 
+       INDEX (league_id),
+       FOREIGN KEY (league_id) REFERENCES leagues (id)
+       ON UPDATE CASCADE ON DELETE CASCADE,
+
+       PRIMARY KEY (id)
 ) ENGINE InnoDB;
 
 
-CREATE TABLE tournament(
-       id BIGINT UNSIGNED AUTO_INCREMENT NOT NULL,
+CREATE TABLE tournaments(
+       id INT UNSIGNED AUTO_INCREMENT NOT NULL,
        title VARCHAR(30),
-       lid BIGINT UNSIGNED NOT NULL,
-       INDEX (lid),
-       FOREIGN KEY (lid) REFERENCES league (id)
+       league_id INT UNSIGNED NOT NULL,
+
+       INDEX (league_id),
+       FOREIGN KEY (league_id) REFERENCES leagues (id)
        ON UPDATE CASCADE ON DELETE CASCADE,
+
        PRIMARY KEY (id)
 ) ENGINE InnoDB;
 
+CREATE TABLE matches(
+       id INT UNSIGNED AUTO_INCREMENT NOT NULL,
+		
+       /* 0 - Tie, 1 - User 1 wins, 2 User 2 wins, NULL - incomplete match */
+       match_result SMALLINT UNSIGNED NULL,
 
-CREATE TABLE team_tournmanent( /* many-to-many relationship between Team and Tournament*/
-       team_id BIGINT UNSIGNED NOT NULL,
-       tournament_id BIGINT UNSIGNED NOT NULL,
-       placed SMALLINT,
-       INDEX (team_id),
-       FOREIGN KEY (team_id) REFERENCES team (team_id)
+	   league_id INT UNSIGNED NOT NULL,
+       INDEX (league_id),
+       FOREIGN KEY (league_id) REFERENCES leagues (id)
        ON UPDATE CASCADE ON DELETE CASCADE,
+       
+       tournament_id INT UNSIGNED NULL,
        INDEX (tournament_id),
-       FOREIGN KEY (tournament_id) REFERENCES contest (id)
+       FOREIGN KEY (tournament_id) REFERENCES tournaments (id)
+       ON UPDATE CASCADE ON DELETE CASCADE,
+
+	   user1_id INT UNSIGNED NOT NULL,
+       INDEX (user1_id),
+       FOREIGN KEY (user1_id) REFERENCES users (id)
+       ON UPDATE CASCADE ON DELETE CASCADE,
+
+	   user2_id INT UNSIGNED NOT NULL,
+       INDEX (user2_id),
+       FOREIGN KEY (user2_id) REFERENCES users (id)
+       ON UPDATE CASCADE ON DELETE CASCADE,
+
+       PRIMARY KEY (id)
+) ENGINE InnoDB;
+
+CREATE TABLE tournmanent_user(
+       user_rank INT UNSIGNED,
+
+       tournament_id INT UNSIGNED NOT NULL,
+       INDEX (tournament_id),
+       FOREIGN KEY (tournament_id) REFERENCES tournaments (id)
+       ON UPDATE CASCADE ON DELETE CASCADE,
+
+       user_id INT UNSIGNED NOT NULL,
+       INDEX (user_id),
+       FOREIGN KEY (user_id) REFERENCES users (id)
        ON UPDATE CASCADE ON DELETE CASCADE
 
 ) ENGINE InnoDB;
@@ -103,13 +138,52 @@ CREATE TABLE team_tournmanent( /* many-to-many relationship between Team and Tou
 
 */
 CREATE TABLE team_user( /* many-to-many relationship between Team and User*/
+
        user_id INT UNSIGNED NOT NULL,
-       team_id BIGINT UNSIGNED NOT NULL,
        INDEX (user_id),
        FOREIGN KEY (user_id) REFERENCES users (id)
        ON UPDATE CASCADE ON DELETE CASCADE,
+
+       team_id INT UNSIGNED NOT NULL,
        INDEX (team_id),
-       FOREIGN KEY (team_id) REFERENCES team (id)
+       FOREIGN KEY (team_id) REFERENCES teams (id)
+       ON UPDATE CASCADE ON DELETE CASCADE
+
+) ENGINE InnoDB;
+
+
+CREATE TABLE user_organization(
+
+       /* 'O' - Owner, 'A' - Admin, 'M' - Member */
+       user_role CHAR,       		     
+       
+       user_id INT UNSIGNED NOT NULL,
+       INDEX (user_id),
+       FOREIGN KEY (user_id) REFERENCES users (id)
+       ON UPDATE CASCADE ON DELETE CASCADE,
+
+       organization_id INT UNSIGNED NOT NULL,
+       INDEX (organization_id),
+       FOREIGN KEY (organization_id) REFERENCES organizations (id)
+       ON UPDATE CASCADE ON DELETE CASCADE
+
+) ENGINE InnoDB;
+
+
+CREATE TABLE user_league(
+       user_rank INT UNSIGNED,
+       
+       /* 'A' - Admin, 'M' - Member */
+       user_role CHAR,	     
+      
+	   user_id INT UNSIGNED NOT NULL,
+       INDEX (user_id),
+       FOREIGN KEY (user_id) REFERENCES users (id)
+       ON UPDATE CASCADE ON DELETE CASCADE,
+
+       league_id INT UNSIGNED NOT NULL,
+       INDEX (league_id),
+       FOREIGN KEY (league_id) REFERENCES leagues (id)
        ON UPDATE CASCADE ON DELETE CASCADE
 
 ) ENGINE InnoDB;
