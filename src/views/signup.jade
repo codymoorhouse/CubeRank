@@ -1,0 +1,56 @@
+extends layout
+
+block head
+    link(rel='stylesheet', href='stylesheets/index.css')
+    title= "Sign Up"
+
+block link
+    -var active = 'Sign Up';
+
+block content
+
+    div#content-container
+        h1= "Sign Up"
+
+        form(name="signup-user", method="post")
+            div.input.bold
+                span.label * First Name:
+                input(type="text", name="fname")
+
+            div.input.bold
+                span.label * Last Name:
+                input(type="text", name="lname")
+
+            div.input.bold
+                span.label Date of Birth:
+                input(type="date", name="bday", )
+
+            div.input.bold
+                span.label Address
+                div#address-section
+                    div.input
+                        span.label Country:
+                        input(type="text", name="country", style="margin-left: 12px")
+
+                    div.input
+                        span.label Province:
+                        input(type="text", name="province")
+
+                    div.input
+                        span.label City:
+                        input(type="text", name="city", style="margin-left: 35px")
+
+                    div.input.bold
+                        span.label * Username:
+                        input(type="text", name="username")
+
+                    div.input.bold
+                        span.label * Password:
+                        input(type="text", name="password")
+
+                    div.input.bold
+                        span.label * Retype:
+                        input(type="text", name="password")
+
+            div.actions
+                input#signup-submit-button(type="submit", name="submit", value="Sign Up!", disabled='disabled')
