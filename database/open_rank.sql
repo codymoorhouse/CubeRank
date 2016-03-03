@@ -109,7 +109,7 @@ CREATE TABLE team_user( /* many-to-many relationship between Team and User*/
        FOREIGN KEY (user_id) REFERENCES users (id)
        ON UPDATE CASCADE ON DELETE CASCADE,
        INDEX (team_id),
-       FOREIGN KEY (team_id) REFERENCES Team (id)
+       FOREIGN KEY (team_id) REFERENCES team (id)
        ON UPDATE CASCADE ON DELETE CASCADE
 
 ) ENGINE InnoDB;
