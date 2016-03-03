@@ -1,0 +1,30 @@
+extends layout
+
+block head
+    link(rel='stylesheet', href='stylesheets/index.css')
+    script(src='//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js')
+    script(src='/javascripts/contact-email.js')
+
+    title= "Contact"
+
+block link
+    -var active = 'Contact';
+
+block content
+
+    div#content-container
+
+        h1="Contact Us"
+        p.contact-content-p
+            input(id="from", type="text", placeholder="E-mail")
+
+        p.contact-content-p
+            input(id="subject", type="text", placeholder="Subject")
+
+        p.contact-content-p
+            textarea(id="content", cols="40", rows="5", placeholder="Message")
+
+        p.contact-content-p
+            button(id="send_email") Send Email
+
+        p#message= ""

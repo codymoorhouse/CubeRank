@@ -3,8 +3,6 @@ var nodemailer = require("nodemailer");
 var app = express();
 var connect = require('connect');
 
-
-
 var smtpTransport = nodemailer.createTransport("SMTP", {
     service: "Gmail",
     auth: {

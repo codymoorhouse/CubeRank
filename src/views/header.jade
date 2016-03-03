@@ -1,0 +1,28 @@
+link(rel='stylesheet', href='stylesheets/index.css')
+
+header.header-content-area
+    <img id="headerLogo" src="images/logosmall.png" alt="CubeRank Logo">
+
+    // http://stackoverflow.com/questions/15719660/jade-change-active-menu-item-in-parent-template
+    block link
+        -var active = 'Home'; // Default
+
+    -var leftside = { 'Home': '/', 'Quick Tournament': '/quickcreate', 'About': '/about'};
+    -var rightside = { 'Login': '/login', 'Sign Up': '/signup', 'Contact': '/contact'};
+
+    div#nav-list
+        ul
+            each val, key in leftside
+                li
+                    if active === key
+                        a.active(href=val, title=key)= key
+                    else
+                        a(href=val, title=key)= key
+
+            ul#right-menu
+                each val, key in rightside
+                    li
+                        if active === key
+                            a.active(href=val, title=key)= key
+                        else
+                            a(href=val, title=key)= key

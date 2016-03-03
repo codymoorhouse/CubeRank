@@ -1,0 +1,46 @@
+extends layout
+
+block head
+    link(rel='stylesheet', href='stylesheets/index.css')
+    title="Tournament Generator"
+
+block link
+    -var active = 'Quick Tournament';
+
+block content
+    div#content-container
+
+        h1= "Tournament Generator"
+
+        form(name="quick-create", method="post")
+            div.input.bold
+                span.label Tournament Name:
+                input(type="text", name="tournamentName")
+
+            div.input.bold
+                span.label Tournament Type:
+
+                -var options= {'Single Elimination': 'single', 'Double Eliminaion': 'double'}
+                select
+                    each opt, i in options
+                        option(value = opt) #{i}
+
+            div.input
+                input(type="checkbox", name="third_place")
+                span.label Include a match for third place amongst semifinal losers?
+
+            div.float-left
+                p Participants / Teams:
+                ul
+                    li one participant per line
+                    li order by best to worst
+
+                div.input
+                    input(type="checkbox", name="randomizer")
+                    span.label randomize seeds?
+
+            p.contact-content-p
+                textarea(rows="16" cols="30", name="participants")
+
+            div.actions
+                input(type="submit", name="generate", value="Generate!")
