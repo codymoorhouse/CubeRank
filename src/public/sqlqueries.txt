@@ -29,7 +29,7 @@ INSERT INTO `cube_rank`.`tournaments`
 (`id`,`title`,`league_id`)
 VALUES(2,'Title','#id');
 
-SELECT DISTINCT username, id FROM cube_rank.user_league, users where league_id = '#id';
+SELECT DISTINCT username, id FROM cube_rank.user_league, users WHERE league_id = '#id';
 
 INSERT INTO `cube_rank`.`user_league`
 (`user_rank`,`user_role`,`user_id`,`league_id`)
@@ -40,5 +40,5 @@ DELETE FROM `cube_rank`.`user_league`
 WHERE league_id = "#id" AND user_id = "#uid";
 
 SELECT fname, user_rank FROM cube_rank.user_league, cube_rank.users
-WHERE user_rank > 1400 AND user_rank < 1900 AND user_id = id;
+WHERE user_rank > {min} AND user_rank < {max} AND user_id = id AND league_id = "#id";
 -----------------------------------------------------------------------------------------------------------------
