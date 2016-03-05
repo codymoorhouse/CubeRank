@@ -2,7 +2,7 @@
 Just going to put the queries here
 
 
----------------------------- For Leagues ----------------------------
+---------------------------- For Leagues ---------------------------------------------------------------------
 
 SELECT title FROM cube_rank.leagues;
 
