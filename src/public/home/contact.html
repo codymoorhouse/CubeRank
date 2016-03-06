@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Contact Us</title>
+    <meta charset="utf=8">
+    <link type="text/css" rel="stylesheet" href="../stylesheets/index.css">
+</head>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="../javascripts/contact-email.js"></script>
+
+<body>
+
+<header class="header-content-area">
+    <img id="headerLogo" src="../images/logosmall.png" alt="CubeRank Logo">
+
+    <div id="nav-list">
+        <ul>
+
+            <li><a class="active" href="../index.html">Home</a></li>
+            <li><a href="quick-create.html">Quick Tournament</a></li>
+            <li><a href="#login">Login</a></li>
+            <ul style="float:right;list-style-type:none;">
+                <li><a href="signup">Sign up</a></li>
+                <li><a href="about.html">About</a></li>
+            </ul>
+
+        </ul>
+    </div>
+
+</header>
+
+
+<div id="content-container">
+    <h1>Contact Us</h1>
+    <p class="contact-content-p"><input id="from" type="text" placeholder="E-mail"/></p>
+    <p class="contact-content-p"><input id="subject" type="text" placeholder="Subject"/></p>
+    <p class="contact-content-p"> <textarea id="content" cols="40" rows="5" placeholder="Message"></textarea></p>
+    <p class="contact-content-p"><button id="send_email">Send Email</button></p>
+    <span id="message"></span>
+</div>
+
+</body>
+
+</html>

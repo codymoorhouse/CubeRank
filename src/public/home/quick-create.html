@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tournament Generator</title>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="../stylesheets/index.css">
+</head>
+<body>
+
+    <header class="header-content-area">
+        <img id="headerLogo" src="../images/logosmall.png" alt="CubeRank Logo">
+
+        <div id="nav-list">
+            <ul>
+
+                <li><a href="../index.html">Home</a></li>
+                <li><a class="active" href="quick-create.html">Quick Tournament</a></li>
+                <li><a href="#login">Login</a></li>
+                <ul style="float:right;list-style-type:none;">
+                    <li><a href="/signup">Sign up</a></li>
+                    <li><a href="about.html">About</a></li>
+                </ul>
+
+            </ul>
+        </div>
+
+    </header>
+
+    <div id="content-area">
+    <div id="content-container">
+
+        <h1>Tournament Generator</h1>
+        <form>
+            <b>Tournament Name:</b>
+            <input type="text" name="tournamentName">
+            <br><br>
+            <b>Tournament Type</b>
+            <select>
+                <option value="single">Single Elimination</option>
+                <option value="double">Double Elimination</option>
+            </select>
+            <br>
+            <p><input type="checkbox" name="third_place">Include a match for third place amongst semifinal losers? </p>
+            <br>
+            <div style="float: left">Participants / Teams:
+                <ul>
+                    <li>one participant per line</li>
+                    <li>order by best to worst</li>
+                </ul>
+                <br>
+                <input type="checkbox" name="randomizer"> randomize seeds?
+            </div>
+            <textarea rows="16" cols="30" name="participants"></textarea><br><br><br>
+
+            <input type="button" name="generate" value="Generate!">
+        </form>
+    </div>
+        </div>
+</body>
+</html>
