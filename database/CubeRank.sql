@@ -9,10 +9,11 @@
 	This should be used to initialize the Database ONLY.  
 */
 
-
+DROP DATABASE IF EXISTS CubeRank;
 DROP DATABASE IF EXISTS cube_rank;
-CREATE DATABASE cube_rank;
-USE cube_rank;
+DROP DATABASE IF EXISTS open_rank;
+CREATE DATABASE CubeRank;
+USE CubeRank;
 
 CREATE TABLE organizations(
        id INT UNSIGNED AUTO_INCREMENT NOT NULL,
