@@ -1,4 +1,4 @@
-# Open-Rank
+# CubeRank
 
 Group Members
 -------------

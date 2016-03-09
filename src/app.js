@@ -7,14 +7,24 @@ var bodyParser = require('body-parser');
 var nodemailer = require("nodemailer");
 var connect = require('connect');
 
-var routes = require('./routes/index');
-var login = require('./routes/login');
-var users = require('./routes/users');
+var mysql = require('mysql');
+
 var contact = require('./routes/contact');
 var userprofile = require('./routes/userprofile');
 var signup = require('./routes/signup');
 var quickcreate = require('./routes/quickcreate');
 var about = require('./routes/about');
+
+var routes = require('./routes/index');
+var login = require('./routes/login');
+var users = require('./routes/users');
+
+var db = mysql.createConnection({
+  host: '127.0.0.1',
+  user: 'CubeRank_admin',
+  password: 'password',
+  database: 'CubeRank'
+});
 
 var app = express();
 
