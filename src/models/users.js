@@ -13,35 +13,44 @@ exports.createUser = function(db, req, res) {
         ], function(err) {
             if (err)  {
                 res.json({
-                    statusCode: 500,
+                    statusCode: 409,
                     message: "Failed to create new user"
                 });
             }
 
-            db.query(
-                "SELECT LAST_INSERT_ID()", function(err, id) {
-                    if (err) {
-                        res.json({
-                            statusCode: 500,
-                            message: "Failed to create new user"
-                        });
-                    }
-
-                    if (id[0]['LAST_INSERT_ID()'] === 0) {
-                        res.json({
-                            statusCode: 409,
-                            message: "User already exists"
-                        });
-                    }
-
-                    else {
-                        res.json({
-                            statusCode: 200,
-                            message: "New user added"
-                        });
-                    }
+            if (req.body.username === undefined) {
+                res.json({
+                    statusCode: 500,
+                    message: "Failed to create new user, username not specified"
                 });
-            });
+            }
+
+            else {
+                db.query(
+                    "SELECT LAST_INSERT_ID()", function (err, id) {
+                        if (err) {
+                            res.json({
+                                statusCode: 500,
+                                message: "Failed to create new user"
+                            });
+                        }
+
+                        if (id[0]['LAST_INSERT_ID()'] === 0) {
+                            res.json({
+                                statusCode: 409,
+                                message: "User already exists"
+                            });
+                        }
+
+                        else {
+                            res.json({
+                                statusCode: 200,
+                                message: "New user added"
+                            });
+                        }
+                    });
+            }
+        });
 };
 
 // api/v1/users
@@ -105,6 +114,7 @@ exports.updateUser = function(db, req, res) {
                     message: "Failed to update user record"
                 });
             }
+
             res.json({
                 statusCode: 200,
                 message: "User updated"
