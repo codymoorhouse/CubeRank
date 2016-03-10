@@ -47,7 +47,7 @@ exports.createUser = function(db, req, res) {
 // api/v1/users
 exports.retrieveUsers = function(db, req, res) {
     db.query(
-        "SELECT * from users", function(err, users) {
+        "SELECT u.id AS id, CONCAT(u.fname, ' ', u.lname) AS name FROM users AS u", function(err, users) {
             if (err)  {
                 res.json({
                     statusCode: 500,
@@ -64,7 +64,7 @@ exports.retrieveUsers = function(db, req, res) {
 // api/v1/users/:id
 exports.retrieveUser = function(db, req, res) {
     db.query(
-        "SELECT * from users WHERE id = ?", [req.params.id], function(err, userInfo) {
+        "SELECT u.id AS id, CONCAT(u.fname, ' ', u.lname) AS name FROM users AS u WHERE id = ?", [req.params.id], function(err, userInfo) {
             if (err)  {
                 res.json({
                     statusCode: 500,
@@ -214,7 +214,7 @@ exports.retrieveUserOrgs = function(db, req, res) {
 // api/v1/users/:id/teams
 exports.retrieveUserTeams = function(db, req, res) {
     db.query(
-        "SELECT * from team_user WHERE user_id = ?", [req.params.id, req.params.id], function(err, userTeams) {
+        "SELECT * from team_user WHERE user_id = ?", [req.params.id], function(err, userTeams) {
             if (err)  {
                 res.json({
                     statusCode: 500,
@@ -241,7 +241,7 @@ exports.retrieveUserTeams = function(db, req, res) {
 // api/v1/users/:id/tournaments
 exports.retrieveUserTournaments = function(db, req, res) {
     db.query(
-        "SELECT * from tournament_user WHERE user_id = ?", [req.params.id, req.params.id], function(err, userTournaments) {
+        "SELECT u.id AS user_id, CONCAT(u.fname, ' ', u.lname) AS user_name, o.id AS org_id, o.oname AS org_name, o.description AS org_description, l.id AS league_id, l.title AS league_name, l.description AS league_description, t.id AS tournament_id, t.title AS tournament_name, tu.user_rank AS ranking FROM tournament_user as tu INNER JOIN users AS u ON tu.user_id = u.id INNER JOIN tournaments AS t ON tu.tournament_id = t.id INNER JOIN leagues AS l ON t.league_id = l.id INNER JOIN organizations AS o ON l.organization_id = o.id WHERE user_id = ?", [req.params.id], function(err, userTournaments) {
             if (err)  {
                 res.json({
                     statusCode: 500,
