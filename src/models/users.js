@@ -160,7 +160,7 @@ exports.retrieveUserLeagues = function(db, req, res) {
 // api/v1/users/:id/matches
 exports.retrieveUserMatches = function(db, req, res) {
     db.query(
-        "SELECT * from matches WHERE user1_id = ? or user2_id = ?", [req.params.id, req.params.id], function(err, userMatches) {
+        "SELECT l.id AS league_id, l.title AS league_name, l.description AS league_description, m.tournament_id AS tournament_id,  u1.id AS player1_id, CONCAT(u1.fname, ' ', u1.lname) AS player1_name, u2.id AS player2_id, CONCAT(u2.fname, ' ', u2.lname) AS player2_name, m.id AS match_id, DATE_FORMAT(m.match_date, '%M %d, %Y') AS match_date, DATE_FORMAT(m.match_date, '%H:%i HRS') AS match_time, CASE match_result WHEN 0 THEN 'draw' WHEN 1 THEN CONCAT(u1.fname, ' ', u1.lname) WHEN 2 THEN CONCAT(u2.fname, ' ', u2.lname) ELSE 'incomplete' END AS match_winner FROM matches AS m INNER JOIN users AS u1 ON m.user1_id = u1.id INNER JOIN users AS u2 ON m.user2_id = u2.id INNER JOIN leagues AS l ON m.league_id = l.id WHERE user1_id = ? or user2_id = ?", [req.params.id, req.params.id], function(err, userMatches) {
             if (err)  {
                 res.json({
                     statusCode: 500,
