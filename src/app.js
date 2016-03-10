@@ -97,7 +97,7 @@ app.get('/api/v1/users/:id/tournaments', function(req, res) {
 });
 
 app.get('/api/v1/users/:id/matches?recent', function(req, res) {
-  userModel.retrieveUserrecent(db, req, res);
+  userModel.retrieveUserRecent(db, req, res);
 });
 
 // ----------------------------  Post Requests ---------------------------- //
