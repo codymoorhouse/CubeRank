@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sign Up</title>
+        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="../stylesheets/index.css">
+</head>
+<body>
+    <header class="header-content-area">
+        <img id="headerLogo" src="../images/logosmall.png" alt="CubeRank Logo">
+
+        <div id="nav-list">
+            <ul>
+
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../home/quick-create.html">Quick Tournament</a></li>
+                <li><a href="#login">Login</a></li>
+                <ul style="float:right;list-style-type:none;">
+                    <li><a class="active" href="signup.ejs">Sign up</a></li>
+                    <li><a href="../home/about.html">About</a></li>
+                </ul>
+
+            </ul>
+        </div>
+
+    </header>
+    <div id="content-area">
+    <div id="content-container">
+        <h1>Sign Up</h1>
+
+        <form method="POST" style="padding-right: 200px;">
+            <label for="fname">First Name:</label>
+            <input type="text" class="form-control" id="fname" name="fname">
+            <label for="lname">Last Name:</label>
+            <input type="text" class="form-control" id="lname" name="lname"><br><br>
+            <!--<b>  Date of Birth:</b><input type="date" name="bday"><br><br>-->
+            <!--<b>  Address:</b><br><br>-->
+            <!--<div style="margin-left: 8px">-->
+                <!--Country:<input type="text" name="country" style="margin-left: 12px"><br><br>-->
+                <!--Province: <input type="text" name="province"><br><br>-->
+                <!--City: <input type="text" name="city" style="margin-left: 35px"><br><br><br>-->
+            <!--</div>-->
+            <label for="email">Email:</label>
+            <input type="email" class="form-control" id="email" name="email" placeholder="Enter email"><br><br>
+            <label for="username">Username:</label>
+            <input type="text" class="form-control" id="username" name="username">
+            <label for="pwd">Password:</label>
+            <input type="password" class="form-control" id="password" name="password">
+            <label for="confirmpsw">Retype Password:</label>
+            <input type="password" class="form-control" id="confirmpsw"><br><br>
+
+
+            <button type="submit" class="btn btn-default" style="float: right">Submit</button>
+        </form>
+    </div>
+        </div>
+    <footer>
+        <p id="footer-copyright">
+            &copy; 2016, CubeRank.com
+        </p>
+
+        <p id="footer-trademark">
+            All trademarks and registered trademarks appearing on
+            this site are the property of their respective owners.
+        </p>
+    </footer>
+
+</body>
+</html>
