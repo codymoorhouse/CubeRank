@@ -19,6 +19,9 @@ var routes = require('./routes/index');
 var login = require('./routes/login');
 var users = require('./routes/users');
 
+var userModel = require('./models/users.js');
+
+
 var db = mysql.createConnection({
   host: '127.0.0.1',
   user: 'CubeRank_admin',
@@ -62,6 +65,57 @@ app.use('/userprofile', userprofile);
 app.use('/signup', signup);
 app.use('/quickcreate', quickcreate);
 app.use('/about', about);
+
+// ---------------------------- Users Resource ---------------------------- //
+// ----------------------------  Get Requests  ---------------------------- //
+app.get('/api/v1/users', function(req, res) {
+  userModel.retrieveUsers(db, req, res);
+});
+
+app.get('/api/v1/users/:id', function(req, res) {
+  userModel.retrieveUser(db, req, res);
+});
+
+app.get('/api/v1/users/:id/leagues', function(req, res) {
+  userModel.retrieveUserLeagues(db, req, res);
+});
+
+app.get('/api/v1/users/:id/matches', function(req, res) {
+  userModel.retrieveUserMatches(db, req, res);
+});
+
+app.get('/api/v1/users/:id/orgs', function(req, res) {
+  userModel.retrieveUserOrgs(db, req, res);
+});
+
+app.get('/api/v1/users/:id/teams', function(req, res) {
+  userModel.retrieveUserTeams(db, req, res);
+});
+
+app.get('/api/v1/users/:id/tournaments', function(req, res) {
+  userModel.retrieveUserTournaments(db, req, res);
+});
+
+app.get('/api/v1/users/:id/matches?recent', function(req, res) {
+  userModel.retrieveUserrecent(db, req, res);
+});
+
+// ----------------------------  Post Requests ---------------------------- //
+app.post('/api/v1/users', function(req, res) {
+  userModel.createUser(db, req, res);
+});
+
+// ----------------------------  Put Requests  ---------------------------- //
+app.put('/api/v1/users/:id', function(req, res) {
+  userModel.updateUser(db, req, res);
+});
+
+// ----------------------------  Delete Requests  ------------------------- //
+app.delete('/api/v1/users/:id', function(req, res) {
+  userModel.deleteUser(db, req, res);
+});
+// -------------------------- End Users Resource -------------------------- //
+
 
 // Not sure if this is the right place for this...
 app.get('/send', function (req, res) {
