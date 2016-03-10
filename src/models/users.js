@@ -244,9 +244,17 @@ exports.retrieveUserLeagues = function(db, req, res) {
 
 
 // api/v1/users/:id/matches
+// api/v1/users/:id/matches?recent
 exports.retrieveUserMatches = function(db, req, res) {
+
+    var queryStr = "SELECT l.id AS league_id, l.title AS league_name, l.description AS league_description, m.tournament_id AS tournament_id,  u1.id AS player1_id, CONCAT(u1.fname, ' ', u1.lname) AS player1_name, u2.id AS player2_id, CONCAT(u2.fname, ' ', u2.lname) AS player2_name, m.id AS match_id, DATE_FORMAT(m.match_date, '%M %d, %Y') AS match_date, DATE_FORMAT(m.match_date, '%H:%i HRS') AS match_time, CASE match_result WHEN 0 THEN 'draw' WHEN 1 THEN CONCAT(u1.fname, ' ', u1.lname) WHEN 2 THEN CONCAT(u2.fname, ' ', u2.lname) ELSE 'incomplete' END AS match_winner FROM matches AS m INNER JOIN users AS u1 ON m.user1_id = u1.id INNER JOIN users AS u2 ON m.user2_id = u2.id INNER JOIN leagues AS l ON m.league_id = l.id WHERE user1_id = ? or user2_id = ?";
+
+    if (req.query.hasOwnProperty('recent')) {
+        queryStr = "SELECT l.id AS league_id, l.title AS league_name, l.description AS league_description, m.tournament_id AS tournament_id,  u1.id AS player1_id, CONCAT(u1.fname, ' ', u1.lname) AS player1_name, u2.id AS player2_id, CONCAT(u2.fname, ' ', u2.lname) AS player2_name, m.id AS match_id, DATE_FORMAT(m.match_date, '%M %d, %Y') AS match_date, DATE_FORMAT(m.match_date, '%H:%i HRS') AS match_time, CASE match_result WHEN 0 THEN 'draw' WHEN 1 THEN CONCAT(u1.fname, ' ', u1.lname) WHEN 2 THEN CONCAT(u2.fname, ' ', u2.lname) ELSE 'incomplete' END AS match_winner FROM matches AS m INNER JOIN users AS u1 ON m.user1_id = u1.id INNER JOIN users AS u2 ON m.user2_id = u2.id INNER JOIN leagues AS l ON m.league_id = l.id WHERE (user1_id = ? OR user2_id = ?) AND (DATEDIFF(CURDATE(), DATE(m.match_date)) BETWEEN 0 AND 7)";
+    }
+
     db.query(
-        "SELECT l.id AS league_id, l.title AS league_name, l.description AS league_description, m.tournament_id AS tournament_id,  u1.id AS player1_id, CONCAT(u1.fname, ' ', u1.lname) AS player1_name, u2.id AS player2_id, CONCAT(u2.fname, ' ', u2.lname) AS player2_name, m.id AS match_id, DATE_FORMAT(m.match_date, '%M %d, %Y') AS match_date, DATE_FORMAT(m.match_date, '%H:%i HRS') AS match_time, CASE match_result WHEN 0 THEN 'draw' WHEN 1 THEN CONCAT(u1.fname, ' ', u1.lname) WHEN 2 THEN CONCAT(u2.fname, ' ', u2.lname) ELSE 'incomplete' END AS match_winner FROM matches AS m INNER JOIN users AS u1 ON m.user1_id = u1.id INNER JOIN users AS u2 ON m.user2_id = u2.id INNER JOIN leagues AS l ON m.league_id = l.id WHERE user1_id = ? or user2_id = ?", [req.params.id, req.params.id], function(err, userMatches) {
+        queryStr, [req.params.id, req.params.id], function(err, userMatches) {
             if (err)  {
                 res.status(500);
                 res.json({
@@ -341,39 +349,6 @@ exports.retrieveUserTeams = function(db, req, res) {
 
 // api/v1/users/:id/tournaments
 exports.retrieveUserTournaments = function(db, req, res) {
-    db.query(
-        "SELECT u.id AS user_id, CONCAT(u.fname, ' ', u.lname) AS user_name, o.id AS org_id, o.oname AS org_name, o.description AS org_description, l.id AS league_id, l.title AS league_name, l.description AS league_description, t.id AS tournament_id, t.title AS tournament_name, tu.user_rank AS ranking FROM tournament_user as tu INNER JOIN users AS u ON tu.user_id = u.id INNER JOIN tournaments AS t ON tu.tournament_id = t.id INNER JOIN leagues AS l ON t.league_id = l.id INNER JOIN organizations AS o ON l.organization_id = o.id WHERE user_id = ?", [req.params.id], function(err, userTournaments) {
-            if (err)  {
-                res.status(500);
-                res.json({
-                    statusCode: 500,
-                    message: "Failed to find user tournaments"
-                });
-            }
-
-            else {
-                if (userTournaments.length === 0) {
-                    res.status(404);
-                    res.json({
-                        statusCode: 404,
-                        data: "User not found in any tournaments"
-                    });
-                }
-
-                else {
-                    res.status(200);
-                    res.json({
-                        statusCode: 200,
-                        data: userTournaments
-                    });
-                }
-            }
-        });
-};
-
-
-// api/v1/users/:id/matches?recent
-exports.retrieveUserRecent = function(db, req, res) {
     db.query(
         "SELECT u.id AS user_id, CONCAT(u.fname, ' ', u.lname) AS user_name, o.id AS org_id, o.oname AS org_name, o.description AS org_description, l.id AS league_id, l.title AS league_name, l.description AS league_description, t.id AS tournament_id, t.title AS tournament_name, tu.user_rank AS ranking FROM tournament_user as tu INNER JOIN users AS u ON tu.user_id = u.id INNER JOIN tournaments AS t ON tu.tournament_id = t.id INNER JOIN leagues AS l ON t.league_id = l.id INNER JOIN organizations AS o ON l.organization_id = o.id WHERE user_id = ?", [req.params.id], function(err, userTournaments) {
             if (err)  {
