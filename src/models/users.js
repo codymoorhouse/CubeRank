@@ -129,10 +129,10 @@ exports.deleteUser = function(db, req, res) {
         });
 };
 
-// api/v1/users/:id/league
+// api/v1/users/:id/leagues
 exports.retrieveUserLeagues = function(db, req, res) {
     db.query(
-        "SELECT * from user_league WHERE user_id = ?", [req.params.id], function(err, userLeagues) {
+        "SELECT u.id AS user_id, CONCAT(u.fname, ' ', u.lname) AS user_name, o.id AS org_id, o.oname AS org_name, o.description AS org_description, l.id AS league_id, l.title AS league_name, l.description AS league_description, lu.user_rank AS ranking FROM league_user as lu INNER JOIN users AS u ON lu.user_id = u.id INNER JOIN leagues AS l ON lu.league_id = l.id INNER JOIN organizations AS o ON l.organization_id = o.id WHERE user_id = ?", [req.params.id], function(err, userLeagues) {
             if (err)  {
                 res.json({
                     statusCode: 500,
@@ -187,7 +187,7 @@ exports.retrieveUserMatches = function(db, req, res) {
 // api/v1/users/:id/orgs
 exports.retrieveUserOrgs = function(db, req, res) {
     db.query(
-        "SELECT * from user_organization WHERE user_id = ?", [req.params.id, req.params.id], function(err, userOrgs) {
+        "SELECT u.id AS user_id, CONCAT(u.fname, ' ', u.lname) AS user_name, o.id AS org_id, o.oname AS org_name, o.description AS org_description FROM organization_user as ou INNER JOIN users AS u ON ou.user_id = u.id INNER JOIN organizations AS o ON ou.organization_id = o.id WHERE user_id = ?", [req.params.id], function(err, userOrgs) {
             if (err)  {
                 res.json({
                     statusCode: 500,
