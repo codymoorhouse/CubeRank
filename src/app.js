@@ -96,10 +96,6 @@ app.get('/api/v1/users/:id/tournaments', function(req, res) {
   userModel.retrieveUserTournaments(db, req, res);
 });
 
-app.get('/api/v1/users/:id/matches?recent', function(req, res) {
-  userModel.retrieveUserrecent(db, req, res);
-});
-
 // ----------------------------  Post Requests ---------------------------- //
 app.post('/api/v1/users', function(req, res) {
   userModel.createUser(db, req, res);
