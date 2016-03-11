@@ -4,26 +4,26 @@ Just going to put the queries here
 
 ---------------------------- For Leagues --------------------------------------------
 
-SELECT title FROM CubeRank.leagues;
-SELECT title FROM CubeRank.leagues WHERE id = '#id'
-SELECT title, description FROM CubeRank.leagues WHERE id = '#id'
+SELECT title FROM CubeRank.leagues; DONE
+SELECT title FROM CubeRank.leagues WHERE id = '#id' DONE
+SELECT title, description FROM CubeRank.leagues WHERE id = '#id' DONE
 UPDATE CubeRank.leagues SET title="New Title" WHERE id= '#id'; // to update title
 
 UPDATE CubeRank.leagues SET description="New Description" WHERE id= '#id'; // to update description
 
-DELETE FROM CubeRank.leagues WHERE id = 2;
+DELETE FROM CubeRank.leagues WHERE id = ?;
 
-SELECT * FROM CubeRank.matches where league_id = '#id';
+SELECT * FROM CubeRank.matches where league_id = '#id'; DONE
 
-SELECT * FROM CubeRank.tournaments WHERE league_id = '#id';
+SELECT * FROM CubeRank.tournaments WHERE league_id = '#id'; DONE
 
 
-SELECT DISTINCT username, id FROM CubeRank.league_user, users WHERE league_id = '#id';
+SELECT DISTINCT username, id FROM CubeRank.league_user, users WHERE league_id = '#id'; DONE
 
 
 DELETE FROM `CubeRank`.`league_user`
 WHERE league_id = "#id" AND user_id = "#uid";
 
-SELECT fname, user_rank FROM CubeRank.league_user, CubeRank.users
-WHERE user_rank > {min} AND user_rank < {max} AND user_id = id AND league_id = "#id";
+SELECT DISTINCT username, user_rank FROM CubeRank.league_user, CubeRank.users WHERE user_rank > 0 AND user_rank < 5000 AND user_id = id AND league_id = 1 ORDER BY user_rank DESC; DONE
+
 -------------------------------------------------------------------------------------
