@@ -192,7 +192,7 @@ exports.getOneMatch = function(db, req, res){
 exports.updateTournament = function(db, req, res){
     db.query("UPDATE tournaments SET title='?' WHERE id = ?", [req.query.title, req.params.id],
     function(err){
-        
+
     });
 };
 
