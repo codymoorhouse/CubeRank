@@ -3,7 +3,11 @@ html
   head
     block head
       title= title
+      link(rel="stylesheet" href="public/index.css")
+
+
   body
     include header
-    block content
+    div#content-area
+      block content
     include footer

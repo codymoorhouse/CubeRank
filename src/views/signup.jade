@@ -9,33 +9,39 @@ block link
 
 block content
 
-    div#content-container
+    div#signup-container
         h1= "Sign Up"
 
         form(name="signup-user", method="post")
             div.input.bold
                 span.label First Name:
+                br
                 input(type="text", name="fname")
 
             div.input.bold
                 span.label Last Name:
+                br
                 input(type="text", name="lname")
 
             div.input.bold
                 span.label Email:
+                br
                 input(type="text", name="email" )
 
             div.input.bold
                 span.label Username:
+                br
                 input(type="text", name="username")
 
             div.input.bold
                 span.label Password:
+                br
                 input(type="password", name="password")
 
             div.input.bold
-                span.label Retype:
+                span.label Retype password:
+                br
                 input(type="password", name="password")
 
             div.actions
-                input#signup-submit-button(type="submit", name="submit", value="Sign Up!", disabled='disabled')
+                input#signup-submit-button(type="submit", name="submit", value="Sign Up!")

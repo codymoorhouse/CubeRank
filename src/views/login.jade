@@ -14,11 +14,13 @@ block content
         form(name="login-user", method="post")
             div.input.bold
                 span.label Username:
+                br
                 input(type="text", name="fname")
 
             div.input.bold
                 span.label Password:
-                input(type="text", name="lname")
+                br
+                input(type="text", name="lname" style="margin-left: 2px")
 
             div.actions
                 input(type="submit", name="login", value="Login")

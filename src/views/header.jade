@@ -1,4 +1,15 @@
 link(rel='stylesheet', href='stylesheets/index.css')
+script.
+    $(document).ready(function () {
+        $('#login-trigger').click(function () {
+            $(this).next('#login-content').slideToggle();
+            $(this).toggleClass('active');
+
+            if ($(this).hasClass('active')) $(this).find('span').html('&#x25B2;')
+            else $(this).find('span').html('&#x25BC;')
+        })
+    });
+meta( name='viewport', content='width=device-width, initial-scale=1.0' )
 
 header.header-content-area
     <img id="headerLogo" src="images/logosmall.png" alt="CubeRank Logo">
@@ -20,9 +31,24 @@ header.header-content-area
                         a(href=val, title=key)= key
 
             ul#right-menu
+                //li#login
+                //    a(id="login-trigger", href="#", data-toggle="drop")= "▼ Login"
+                //    div#login-content
+                //        form(name="login", method="post", id="inputs")
+                //            div.input.bold
+                //                span.label username:
+                //                br
+                //                input(type="text", name="username", id="username", required=true)
+                //            div.input.bold
+                //                span.label password:
+                //                br
+                //                input(type="text", name="password", id="password", required=true)
+
                 each val, key in rightside
                     li
+
                         if active === key
                             a.active(href=val, title=key)= key
                         else
                             a(href=val, title=key)= key
+
