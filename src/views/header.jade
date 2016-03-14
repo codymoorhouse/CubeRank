@@ -12,13 +12,15 @@ script.
 meta( name='viewport', content='width=device-width, initial-scale=1.0' )
 
 header.header-content-area
-    <img id="headerLogo" src="images/logosmall.png" alt="CubeRank Logo">
+    a(href="/")
+        img(id="headerLogo", src="images/logosmall.png", alt="CubeRank Logo")
+    //<img id="headerLogo" src="images/logosmall.png" alt="CubeRank Logo">
 
     // http://stackoverflow.com/questions/15719660/jade-change-active-menu-item-in-parent-template
     block link
         -var active = 'Home'; // Default
 
-    -var leftside = { 'Home': '/', 'Quick Tournament': '/quickcreate'}; //'About': '/about'
+    -var leftside = { 'Home': '/'}//'Quick Tournament': '/quickcreate'}; //'About': '/about'
     -var rightside = { 'Login': '/login', 'Sign Up': '/signup'};  //'Contact': '/contact'
 
     div#nav-list

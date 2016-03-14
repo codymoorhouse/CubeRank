@@ -9,10 +9,41 @@ body {
     text-align: center;
 }
 
-/* styling for main content for the following pages thus far:
-    signup.ejs
-    quick-create.html
-    */
+#content-area h1{
+    text-shadow: 1px 1px #0c31ff;
+}
+
+#home-containers{
+    display: inline-block;
+    margin: 20px auto;
+}
+
+.home-container{
+    float: left;
+    overflow: hidden;
+    margin: 0px 50px;
+    background: #17bc9e;
+    color: white;
+    background: -moz-linear-gradient(top, #1c7997 0%, #17bc9e 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #1c7997), color-stop(100%, #39b2c6));
+    background: -webkit-linear-gradient(top, #1c7997 0%, #39b2c6 100%);
+    background: -o-linear-gradient(top, #1c7997 0%, #39b2c6 100%);
+    background: -ms-linear-gradient(top, #1c7997 0%, #39b2c6 100%);
+    background: linear-gradient(to bottom, #271baa 80%, #39b2c6 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#54bc3e', endColorstr='#aee850',GradientType=0 );
+    border: 1px solid #1c7997;
+
+}
+
+.home-container a{
+    text-decoration: none;
+    color: white;
+}
+
+.home-container:hover {
+    transform: scale(1.02);
+}
+
 #content-container{
 
     margin: 0px auto 20px auto;
@@ -20,7 +51,7 @@ body {
     text-align: left;
     /*height: 600px;*/
     width: 600px;
-    background-color: #dbd8cd;
+    background-color: #555;
     padding-left: 5px;
     /*padding-bottom: 10%;*/
 }
@@ -30,14 +61,14 @@ body {
     margin: 0px auto 20px auto;
     /*text-align: center;*/
     width: 600px;
-    background-color: #dbd8cd;
+    background-color: #555;
     padding-left: 5px;
     /*padding-bottom: 10%;*/
 }
 
 /* Styling for the main menu bar */
 #nav-list {
-    padding-top: 61px;
+    padding-top: 50px;
 }
 #nav-list ul {
     list-style-type: none;
@@ -67,14 +98,14 @@ body {
 
 
 #nav-list li a:hover:not(.active) {
-    border-top: 2px solid #0889c6;
+    border-bottom: 2px solid #0889c6;
 
     padding-top: 14px;
 }
 
 .active {
 
-    border-top: 2px solid #0889c6;
+    border-bottom: 2px solid #0889c6;
     border-left: 5px solid transparent;
     border-right: 5px solid transparent;
     padding-top: 14px;
@@ -83,14 +114,14 @@ body {
 
 #content-area {
     padding-top: 100px;
-    color: #B2A8B1;
+    color: white;
     padding-bottom: 10px;
-    background-color: #dbd8cd;
-    width:1200px;
+    background-color: #555/*#dbd8cd*/;
+    width: 1200px;
     margin: 20px auto;
-    padding-bottom: 5%;
+    /*padding-bottom: 5%;*/
     padding-top: 10px;
-    color: black;
+
 }
 
 
@@ -113,37 +144,38 @@ body {
     background: linear-gradient(45deg, black , #111, #222, #333, #444, #555, #333, black, black); /* Standard syntax (must be last) */
     color: #E5FFFD;
     height: 108px;
-    width: 1200px;
+    width: 100%/*1200p*/ ;
+
 }
 
 .header-content-area img#headerLogo {
     float: left;
-    padding-left: 5px;
+    padding-left: 6%;
     padding-top: 5px;
 }
 
 footer {
     margin: 0px auto;
-    width: 1200px;
-    background: black; /* For browsers that do not support gradients */
-    background: -webkit-linear-gradient(45deg, black , #111, #222, #333, #444, #555, #333, black, black); /* For Safari 5.1 to 6.0 */
-    background: -o-linear-gradient(45deg, black , #111, #222, #333, #444, #555, #333, black, black); /* For Opera 11.1 to 12.0 */
-    background: -moz-linear-gradient(45deg, black , #111, #222, #333, #444, #555, #333, black, black); /* For Firefox 3.6 to 15 */
-    background: linear-gradient(45deg, black , #111, #222, #333, #444, #555, #333, black, black); /* Standard syntax (must be last) */
-    color: #E5FFFD;
+    width: 100%;
+    /*background: black; !* For browsers that do not support gradients *!*/
+    /*background: -webkit-linear-gradient(45deg, black , #111, #222, #333, #444, #555, #333, black, black); !* For Safari 5.1 to 6.0 *!*/
+    /*background: -o-linear-gradient(45deg, black , #111, #222, #333, #444, #555, #333, black, black); !* For Opera 11.1 to 12.0 *!*/
+    /*background: -moz-linear-gradient(45deg, black , #111, #222, #333, #444, #555, #333, black, black); !* For Firefox 3.6 to 15 *!*/
+    /*background: linear-gradient(45deg, black , #111, #222, #333, #444, #555, #333, black, black); !* Standard syntax (must be last) *!*/
+    color: #fffcef;
     text-align: center;
-    padding: 15px 0px;
+    padding: 0px 0px;
 
     font-size: 90%;
-    clear: right;
+    /*clear: right;*/
 }
 
 footer a{
-    color: white;
+    color: #39b2c6;
 }
 
 footer a:hover:not(.active) {
-    color: #00a5ff;
+    color: #fffcef;
 }
 
 #footer-copyright, #footer-trademark {
@@ -158,6 +190,7 @@ footer a:hover:not(.active) {
 
 #nav-list ul #right-menu {
     float:right;
+    padding-right: 6%;
     list-style-type:none;
 }
 
@@ -197,7 +230,20 @@ footer a:hover:not(.active) {
     float:  left;
 }
 
-
+.glossys {
+    background: #17bc9e;
+    color: white;
+    background: -moz-linear-gradient(top, #1c7997 0%, #17bc9e 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #1c7997), color-stop(100%, #39b2c6));
+    background: -webkit-linear-gradient(top, #1c7997 0%, #39b2c6 100%);
+    background: -o-linear-gradient(top, #1c7997 0%, #39b2c6 100%);
+    background: -ms-linear-gradient(top, #1c7997 0%, #39b2c6 100%);
+    background: linear-gradient(to bottom, #271baa 0%, #39b2c6 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#54bc3e', endColorstr='#aee850',GradientType=0 );
+    border: 1px solid #1c7997;
+    height: 30px;
+    width: 140px;
+}
 
 /*button, input, select, textarea {*/
     /*font-family: inherit;*/
