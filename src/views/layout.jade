@@ -3,7 +3,15 @@ html
   head
     block head
       title= title
+      link(rel="stylesheet" href="public/index.css")
+
+
   body
     include header
-    block content
-    include footer
+    div#content-area
+      block content
+      br
+      br
+      hr
+
+      include footer

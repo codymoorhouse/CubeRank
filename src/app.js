@@ -6,6 +6,9 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var nodemailer = require("nodemailer");
 var connect = require('connect');
+var session = require('express-session');
+var passport = require('passport');
+var local = require('passport-local');
 
 var mysql = require('mysql');
 
@@ -20,6 +23,8 @@ var login = require('./routes/login');
 var users = require('./routes/users');
 
 var userModel = require('./models/users.js');
+
+
 
 
 var db = mysql.createConnection({
@@ -65,6 +70,32 @@ app.use('/userprofile', userprofile);
 app.use('/signup', signup);
 app.use('/quickcreate', quickcreate);
 app.use('/about', about);
+
+
+//======================
+//=====AUTH=============
+app.use(session({
+  secret: "mySecretKey",
+  resave: false,
+  saveUninitialized: false
+}));
+
+app.use(bodyParser.urlencoded({extended: false}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+passport.use(new local.Strategy(function(username, password, done){
+  // logic for login
+}));
+
+passport.serializeUser(function(user, done){
+  //
+});
+
+passport.deserializeUser(function(id, done){
+  //
+});
 
 // ---------------------------- Users Resource ---------------------------- //
 // ----------------------------  Get Requests  ---------------------------- //
