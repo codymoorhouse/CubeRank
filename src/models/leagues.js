@@ -43,7 +43,8 @@ exports.retrieveLeagueId = function (db, req, res) {
             }
         });
 };
-// this one just because I don't know what we want out of league
+
+// /api/v1/leagues/description/:id
 exports.retrieveLeagueDescriptionId = function (db, req, res) {
     db.query(
         "SELECT title, description FROM CubeRank.leagues WHERE id = ?", [req.params.id], function (err, leagueInfo) {
@@ -137,7 +138,7 @@ exports.retrieveLeagueUserId = function (db, req, res) {
             if (err) {
                 res.json({
                     statusCode: 500,
-                    message: "Failed to find league"
+                    message: "Failed to find league user"
                 });
             }
 
@@ -145,7 +146,7 @@ exports.retrieveLeagueUserId = function (db, req, res) {
                 if (userInfo.length === 0) {
                     res.json({
                         statusCode: 404,
-                        data: "league not found"
+                        data: "league user not found"
                     });
                 }
 
@@ -168,134 +169,66 @@ exports.retrieveUserRanks = function (db, req, res) {
     if (req.query.hasOwnProperty('min') && req.query.hasOwnProperty('max')) {
         queryStr = "SELECT DISTINCT username, user_rank FROM CubeRank.league_user, CubeRank.users WHERE user_rank > ? AND user_rank < ? AND user_id = id AND league_id = ? ORDER BY user_rank DESC;";
         db.query(
-            queryStr, [req.query.min, req.query.max, req.params.id], function (err, userMatches) {
-                if (err) {
-                    res.status(500);
-                    res.json({
-                        statusCode: 500,
-                        message: "Failed to find user matches"
-                    });
-                }
-
-                else {
-                    if (userMatches.length === 0) {
-                        res.status(404);
-                        res.json({
-                            statusCode: 404,
-                            data: "User not found in any matches"
-                        });
-                    }
-
-                    else {
-                        res.status(200);
-                        res.json({
-                            statusCode: 200,
-                            data: userMatches
-                        });
-                    }
-                }
+            queryStr, [req.query.min, req.query.max, req.params.id], function (err, userRanks) {
+                errMessage(err, userRanks);
             });
     }
 
     if (req.query.hasOwnProperty('min') && !req.query.hasOwnProperty('max')) {
         queryStr = "SELECT DISTINCT username, user_rank FROM CubeRank.league_user, CubeRank.users WHERE user_rank > ? AND user_rank < 5000 AND user_id = id AND league_id = ? ORDER BY user_rank DESC;";
         db.query(
-            queryStr, [req.query.min, req.params.id], function (err, userMatches) {
-                if (err) {
-                    res.status(500);
-                    res.json({
-                        statusCode: 500,
-                        message: "Failed to find user matches"
-                    });
-                }
-
-                else {
-                    if (userMatches.length === 0) {
-                        res.status(404);
-                        res.json({
-                            statusCode: 404,
-                            data: "User not found in any matches"
-                        });
-                    }
-
-                    else {
-                        res.status(200);
-                        res.json({
-                            statusCode: 200,
-                            data: userMatches
-                        });
-                    }
-                }
+            queryStr, [req.query.min, req.params.id], function (err, userRanks) {
+                errMessage(err, userRanks);
             });
     }
 
     if (req.query.hasOwnProperty('max') && !req.query.hasOwnProperty('min')) {
         queryStr = "SELECT DISTINCT username, user_rank FROM CubeRank.league_user, CubeRank.users WHERE user_rank > 0 AND user_rank < ? AND user_id = id AND league_id = ? ORDER BY user_rank DESC;";
         db.query(
-            queryStr, [req.query.max, req.params.id], function (err, userMatches) {
-                if (err) {
-                    res.status(500);
-                    res.json({
-                        statusCode: 500,
-                        message: "Failed to find user matches"
-                    });
-                }
-
-                else {
-                    if (userMatches.length === 0) {
-                        res.status(404);
-                        res.json({
-                            statusCode: 404,
-                            data: "User not found in any matches"
-                        });
-                    }
-
-                    else {
-                        res.status(200);
-                        res.json({
-                            statusCode: 200,
-                            data: userMatches
-                        });
-                    }
-                }
+            queryStr, [req.query.max, req.params.id], function (err, userRanks) {
+                errMessage(err, userRanks);
             });
     }
 
     if (!req.query.hasOwnProperty('max') && !req.query.hasOwnProperty('min')) {
         queryStr = "SELECT DISTINCT username, user_rank FROM CubeRank.league_user, CubeRank.users WHERE user_rank > 0 AND user_rank < 5000 AND user_id = id AND league_id = ? ORDER BY user_rank DESC;";
         db.query(
-            queryStr, [req.params.id], function (err, userMatches) {
-                if (err) {
-                    res.status(500);
-                    res.json({
-                        statusCode: 500,
-                        message: "Failed to find user matches"
-                    });
-                }
-
-                else {
-                    if (userMatches.length === 0) {
-                        res.status(404);
-                        res.json({
-                            statusCode: 404,
-                            data: "User not found in any matches"
-                        });
-                    }
-
-                    else {
-                        res.status(200);
-                        res.json({
-                            statusCode: 200,
-                            data: userMatches
-                        });
-                    }
-                }
+            queryStr, [req.params.id], function (err, userRanks) {
+                errMessage(err, userRanks);
             });
+    }
+
+    function errMessage(err, userRanks){
+        if (err) {
+            res.status(500);
+            res.json({
+                statusCode: 500,
+                message: "Failed to find user ranks"
+            });
+        }
+
+        else {
+            if (userRanks.length === 0) {
+                res.status(404);
+                res.json({
+                    statusCode: 404,
+                    data: "User rank not found"
+                });
+            }
+
+            else {
+                res.status(200);
+                res.json({
+                    statusCode: 200,
+                    data: userRanks
+                });
+            }
+        }
     }
 
 };
 
-// api/v1/Leagues/:id not sure if working
+// api/v1/Leagues/:id
 exports.updateLeague = function (db, req, res) {
     var title = req.body.title;
     var description = req.body.description;
@@ -372,27 +305,19 @@ exports.deleteLeague = function (db, req, res) {
         });
 };
 
-// not done yet get errors 409 for no reason
-// api/v1/leagues/:id/matches
+// / api/v1/leagues/:id/matches
 exports.createMatch = function (db, req, res) {
     if (req.body.match_date !== undefined &&
         req.body.match_date !== null &&
-        req.body.match_result !== undefined &&
-        req.body.match_result !== null &&
-        req.body.league_id !== undefined &&
-        req.body.league_id !== null &&
-        req.body.tournament_id !== undefined &&
-        req.body.tournament_id !== null &&
         req.body.user1_id !== undefined &&
         req.body.user1_id !== null &&
         req.body.user2_id !== undefined &&
         req.body.user2_id !== null) {
         db.query(
-            "INSERT INTO CubeRank.matches(match_date, match_result, league_id, tournament_id, user1_id, user2_id) VALUES (?, ?, ?, ?, ?, ?)",
+            "INSERT INTO CubeRank.matches(match_date, match_result, league_id, tournament_id, user1_id, user2_id) VALUES (?, ?, "+req.params.id+", ?, ?, ?)",
             [
                 req.body.match_date,
                 req.body.match_result,
-                req.body.league_id,
                 req.body.tournament_id,
                 req.body.user1_id,
                 req.body.user2_id
@@ -404,7 +329,7 @@ exports.createMatch = function (db, req, res) {
                                 res.status(409);
                                 res.json({
                                     statusCode: 409,
-                                    message: "Match already exists"
+                                    message: "Match already exists :" + err
                                 });
                             }
 
@@ -436,15 +361,7 @@ exports.createMatch = function (db, req, res) {
         if (req.body.match_date === undefined || req.body.match_date === null) {
             fields.push("match_date");
         }
-        if (req.body.match_result === undefined || req.body.match_result === null) {
-            fields.push("match_result");
-        }
-        if (req.body.league_id === undefined || req.body.league_id === null) {
-            fields.push("league_id");
-        }
-        if (req.body.tournament_id === undefined || req.body.tournament_id === null) {
-            fields.push("tournament_id");
-        }
+
         if (req.body.user1_id === undefined || req.body.user1_id === null) {
             fields.push("user1_id");
         }
@@ -523,8 +440,7 @@ exports.createTournament = function (db, req, res) {
     }
 };
 
-// not done yet
-// api/v1/leagues/:id/user
+// api/v1/leagues/:id/users
 exports.createUserLeague = function (db, req, res) {
     if (req.body.user_rank !== undefined &&
         req.body.user_rank !== null &&
@@ -533,7 +449,7 @@ exports.createUserLeague = function (db, req, res) {
         req.body.user_id !== undefined &&
         req.body.user_id !== null) {
         db.query(
-            "INSERT INTO users (user_rank, user_role, user_id, league_id) VALUES (?, ?, ?, "+req.params.id+")",
+            "INSERT INTO CubeRank.league_user (user_rank, user_role, user_id, league_id) VALUES (?, ?, ?, "+req.params.id+")",
             [
                 req.body.user_rank,
                 req.body.user_role,
@@ -546,7 +462,7 @@ exports.createUserLeague = function (db, req, res) {
                                 res.status(409);
                                 res.json({
                                     statusCode: 409,
-                                    message: "User already exists"
+                                    message: "User in league already exists"
                                 });
                             }
 
@@ -554,7 +470,7 @@ exports.createUserLeague = function (db, req, res) {
                                 res.status(500);
                                 res.json({
                                     statusCode: 500,
-                                    message: "Failed to create new user"
+                                    message: "Failed to create new user in league"
                                 });
                             }
                         });
@@ -607,14 +523,14 @@ exports.deleteLeagueUser = function (db, req, res) {
                     res.status(500);
                     res.json({
                         statusCode: 500,
-                        message: "Failed to delete league"
+                        message: "Failed to delete league user"
                     });
                 }
                 else {
                     res.status(200);
                     res.json({
                         statusCode: 200,
-                        message: "league was deleted"
+                        message: "league user was deleted"
                     });
                 }
             });
