@@ -18,7 +18,7 @@ exports.retrieveLeagues = function (db, req, res) {
 // api/v1/leagues/:id
 exports.retrieveLeagueId = function (db, req, res) {
     db.query(
-        "SELECT title FROM CubeRank.leagues WHERE id = ?", [req.params.id], function (err, leagueInfo) {
+        "SELECT id, title, description FROM CubeRank.leagues WHERE id = ?", [req.params.id], function (err, leagueInfo) {
             if (err) {
                 res.json({
                     statusCode: 500,
@@ -44,34 +44,6 @@ exports.retrieveLeagueId = function (db, req, res) {
         });
 };
 
-// /api/v1/leagues/description/:id
-exports.retrieveLeagueDescriptionId = function (db, req, res) {
-    db.query(
-        "SELECT title, description FROM CubeRank.leagues WHERE id = ?", [req.params.id], function (err, leagueInfo) {
-            if (err) {
-                res.json({
-                    statusCode: 500,
-                    message: "Failed to find leagues"
-                });
-            }
-
-            else {
-                if (leagueInfo.length === 0) {
-                    res.json({
-                        statusCode: 404,
-                        data: "league not found"
-                    });
-                }
-
-                else {
-                    res.json({
-                        statusCode: 200,
-                        data: leagueInfo
-                    });
-                }
-            }
-        });
-};
 
 // api/v1/leagues/:id/matches
 exports.retrieveLeagueMatchId = function (db, req, res) {
