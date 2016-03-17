@@ -246,11 +246,12 @@ exports.retrieveUserLeagues = function(db, req, res) {
 // api/v1/users/:id/matches
 // api/v1/users/:id/matches?recent
 exports.retrieveUserMatches = function(db, req, res) {
-
+    var error404 = "User not found in any matches";
     var queryStr = "SELECT l.id AS league_id, l.title AS league_name, l.description AS league_description, m.tournament_id AS tournament_id,  u1.id AS player1_id, CONCAT(u1.fname, ' ', u1.lname) AS player1_name, u2.id AS player2_id, CONCAT(u2.fname, ' ', u2.lname) AS player2_name, m.id AS match_id, DATE_FORMAT(m.match_date, '%M %d, %Y') AS match_date, DATE_FORMAT(m.match_date, '%H:%i HRS') AS match_time, CASE match_result WHEN 0 THEN 'draw' WHEN 1 THEN CONCAT(u1.fname, ' ', u1.lname) WHEN 2 THEN CONCAT(u2.fname, ' ', u2.lname) ELSE 'incomplete' END AS match_winner FROM matches AS m INNER JOIN users AS u1 ON m.user1_id = u1.id INNER JOIN users AS u2 ON m.user2_id = u2.id INNER JOIN leagues AS l ON m.league_id = l.id WHERE user1_id = ? or user2_id = ?";
 
-    if (req.query.hasOwnProperty('recent')) {
-        queryStr = "SELECT l.id AS league_id, l.title AS league_name, l.description AS league_description, m.tournament_id AS tournament_id,  u1.id AS player1_id, CONCAT(u1.fname, ' ', u1.lname) AS player1_name, u2.id AS player2_id, CONCAT(u2.fname, ' ', u2.lname) AS player2_name, m.id AS match_id, DATE_FORMAT(m.match_date, '%M %d, %Y') AS match_date, DATE_FORMAT(m.match_date, '%H:%i HRS') AS match_time, CASE match_result WHEN 0 THEN 'draw' WHEN 1 THEN CONCAT(u1.fname, ' ', u1.lname) WHEN 2 THEN CONCAT(u2.fname, ' ', u2.lname) ELSE 'incomplete' END AS match_winner FROM matches AS m INNER JOIN users AS u1 ON m.user1_id = u1.id INNER JOIN users AS u2 ON m.user2_id = u2.id INNER JOIN leagues AS l ON m.league_id = l.id WHERE (user1_id = ? OR user2_id = ?) AND (DATEDIFF(CURDATE(), DATE(m.match_date)) BETWEEN 0 AND 7)";
+    if (req.query.hasOwnProperty('recent') && req.query['recent'] !== '0') {
+        error404 = "User not found in any recent matches"
+        queryStr = "SELECT l.id AS league_id, l.title AS league_name, l.description AS league_description, m.tournament_id AS tournament_id,  u1.id AS player1_id, CONCAT(u1.fname, ' ', u1.lname) AS player1_name, u2.id AS player2_id, CONCAT(u2.fname, ' ', u2.lname) AS player2_name, m.id AS match_id, DATE_FORMAT(m.match_date, '%M %d, %Y') AS match_date, DATE_FORMAT(m.match_date, '%H:%i HRS') AS match_time, CASE match_result WHEN 0 THEN 'draw' WHEN 1 THEN CONCAT(u1.fname, ' ', u1.lname) WHEN 2 THEN CONCAT(u2.fname, ' ', u2.lname) ELSE 'incomplete' END AS match_winner FROM matches AS m INNER JOIN users AS u1 ON m.user1_id = u1.id INNER JOIN users AS u2 ON m.user2_id = u2.id INNER JOIN leagues AS l ON m.league_id = l.id WHERE (user1_id = ? OR user2_id = ?) AND (DATEDIFF(CURDATE(), DATE(m.match_date)) BETWEEN 0 AND " + req.query['recent'] + ")";
     }
 
     db.query(
@@ -259,16 +260,17 @@ exports.retrieveUserMatches = function(db, req, res) {
                 res.status(500);
                 res.json({
                     statusCode: 500,
-                    message: "Failed to find user matches"
+                    message: "Failed to find users matches"
                 });
             }
 
             else {
                 if (userMatches.length === 0) {
                     res.status(404);
+
                     res.json({
                         statusCode: 404,
-                        data: "User not found in any matches"
+                        data: error404
                     });
                 }
 
