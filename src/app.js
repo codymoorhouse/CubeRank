@@ -135,10 +135,6 @@ app.get('/api/v1/leagues/:id', function (req, res) {
     leagueModel.retrieveLeagueId(db, req, res);
 });
 
-app.get('/api/v1/leagues/description/:id', function (req, res) {
-    leagueModel.retrieveLeagueDescriptionId(db, req, res);
-});
-
 app.get('/api/v1/leagues/:id/matches', function (req, res) {
     leagueModel.retrieveLeagueMatchId(db, req, res);
 });
