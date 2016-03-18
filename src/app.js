@@ -24,6 +24,7 @@ var users = require('./routes/users');
 
 var userModel = require('./models/users.js');
 var leagueModel = require('./models/leagues.js');
+var orgModel = require('./models/orgs.js');
 
 
 
@@ -151,6 +152,26 @@ app.get('/api/v1/leagues/:id/userRanks', function (req, res) {
     leagueModel.retrieveUserRanks(db, req, res);
 });
 
+app.get('/api/v1/orgs', function (req, res) {
+    orgModel.retrieveOrgs(db, req, res);
+});
+
+app.get('/api/v1/orgs/:id', function (req, res) {
+    orgModel.retrieveOrg(db, req, res);
+});
+
+app.get('/api/v1/orgs/:id/leagues', function (req, res) {
+    orgModel.retrieveOrgLeagues(db, req, res);
+});
+
+app.get('/api/v1/orgs/:id/tournaments', function (req, res) {
+    orgModel.retrieveOrgTournaments(db, req, res);
+});
+
+app.get('/api/v1/orgs/:id/users', function (req, res) {
+    orgModel.retrieveOrgUsers(db, req, res);
+});
+
 // ----------------------------  Post Requests ---------------------------- //
 app.post('/api/v1/users', function (req, res) {
     userModel.createUser(db, req, res);
@@ -168,6 +189,14 @@ app.post('/api/v1/leagues/:id/users', function (req, res) {
     leagueModel.createUserLeague(db, req, res);
 });
 
+app.post('/api/v1/orgs', function (req, res) {
+    orgModel.createOrg(db, req, res);
+});
+
+app.post('/api/v1/orgs/:id/leagues', function (req, res) {
+    orgModel.createLeague(db, req, res);
+});
+
 // ----------------------------  Put Requests  ---------------------------- //
 app.put('/api/v1/users/:id', function (req, res) {
     userModel.updateUser(db, req, res);
@@ -175,6 +204,10 @@ app.put('/api/v1/users/:id', function (req, res) {
 
 app.put('/api/v1/leagues/:id', function (req, res) {
     leagueModel.updateLeague(db, req, res);
+});
+
+app.put('/api/v1/orgs/:id', function (req, res) {
+    orgModel.updateOrg(db, req, res);
 });
 
 // ----------------------------  Delete Requests  ------------------------- //
@@ -188,6 +221,10 @@ app.delete('/api/v1/leagues/:id', function (req, res) {
 
 app.delete('/api/v1/leagues/:id/users', function (req, res) {
     leagueModel.deleteLeagueUser(db, req, res);
+});
+
+app.delete('/api/v1/orgs/:id', function (req, res) {
+    orgModel.deleteOrg(db, req, res);
 });
 // -------------------------- End Users Resource -------------------------- //
 
