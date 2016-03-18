@@ -170,7 +170,7 @@ exports.retrieveUserRanks = function (db, req, res) {
             });
     }
 
-    function errMessage(err, userRanks){
+    function errMessage(err, userRanks) {
         if (err) {
             res.status(500);
             res.json({
@@ -259,20 +259,43 @@ exports.updateLeague = function (db, req, res) {
 // api/v1/league/:id
 exports.deleteLeague = function (db, req, res) {
     db.query(
-        "DELETE FROM CubeRank.leagues WHERE id = ?", [req.params.id], function (err) {
+        "SELECT * FROM CubeRank.leagues WHERE id = ?", [req.params.id], function (err, userInfo) {
             if (err) {
                 res.status(500);
                 res.json({
                     statusCode: 500,
-                    message: "Failed to delete league"
+                    message: "Failed to find leagues"
                 });
             }
+
             else {
-                res.status(200);
-                res.json({
-                    statusCode: 200,
-                    message: "league was deleted"
-                });
+                if (userInfo.length === 0) {
+                    res.status(404);
+                    res.json({
+                        statusCode: 404,
+                        data: "League not found"
+                    });
+                }
+
+                else {
+                    db.query(
+                        "DELETE FROM CubeRank.leagues WHERE id = ?", [req.params.id], function (err) {
+                            if (err) {
+                                res.status(500);
+                                res.json({
+                                    statusCode: 500,
+                                    message: "Failed to delete league"
+                                });
+                            }
+                            else {
+                                res.status(200);
+                                res.json({
+                                    statusCode: 200,
+                                    message: "League was deleted"
+                                });
+                            }
+                        });
+                }
             }
         });
 };
@@ -286,7 +309,7 @@ exports.createMatch = function (db, req, res) {
         req.body.user2_id !== undefined &&
         req.body.user2_id !== null) {
         db.query(
-            "INSERT INTO CubeRank.matches(match_date, match_result, league_id, tournament_id, user1_id, user2_id) VALUES (?, ?, "+req.params.id+", ?, ?, ?)",
+            "INSERT INTO CubeRank.matches(match_date, match_result, league_id, tournament_id, user1_id, user2_id) VALUES (?, ?, " + req.params.id + ", ?, ?, ?)",
             [
                 req.body.match_date,
                 req.body.match_result,
@@ -356,7 +379,7 @@ exports.createTournament = function (db, req, res) {
     if (req.body.title !== undefined &&
         req.body.title !== null) {
         db.query(
-            "INSERT INTO CubeRank.tournaments (league_id, title) VALUES ("+req.params.id+", ?)",
+            "INSERT INTO CubeRank.tournaments (league_id, title) VALUES (" + req.params.id + ", ?)",
             [
                 req.body.title
             ], function (err) {
@@ -421,7 +444,7 @@ exports.createUserLeague = function (db, req, res) {
         req.body.user_id !== undefined &&
         req.body.user_id !== null) {
         db.query(
-            "INSERT INTO CubeRank.league_user (user_rank, user_role, user_id, league_id) VALUES (?, ?, ?, "+req.params.id+")",
+            "INSERT INTO CubeRank.league_user (user_rank, user_role, user_id, league_id) VALUES (?, ?, ?, " + req.params.id + ")",
             [
                 req.body.user_rank,
                 req.body.user_role,
@@ -483,14 +506,15 @@ exports.createUserLeague = function (db, req, res) {
     }
 };
 
-// api/v1/leagues/:id/user?user_id=79
+// api/v1/leagues/:id/users?user_id=79
 exports.deleteLeagueUser = function (db, req, res) {
     var queryStr = "";
+    var queryStr1 = "";
 
     if (req.query.hasOwnProperty('user_id')) {
-        queryStr = "DELETE FROM CubeRank.league_user WHERE user_id = ? AND league_id = ?;";
+        queryStr1 = "SELECT * FROM CubeRank.league_user WHERE user_id = ? AND league_id = ?;";
         db.query(
-            queryStr, [req.query.user_id, req.params.id], function (err) {
+            queryStr1, [req.query.user_id, req.params.id], function (err, userInfo) {
                 if (err) {
                     res.status(500);
                     res.json({
@@ -499,12 +523,36 @@ exports.deleteLeagueUser = function (db, req, res) {
                     });
                 }
                 else {
-                    res.status(200);
-                    res.json({
-                        statusCode: 200,
-                        message: "league user was deleted"
-                    });
+                    if (userInfo.length === 0) {
+                        res.status(404);
+                        res.json({
+                            statusCode: 404,
+                            data: "League User not found"
+                        });
+                    }
+
+                    else {
+                        queryStr = "DELETE FROM CubeRank.league_user WHERE user_id = ? AND league_id = ?;";
+                        db.query(
+                            queryStr, [req.query.user_id, req.params.id], function (err) {
+                                if (err) {
+                                    res.status(500);
+                                    res.json({
+                                        statusCode: 500,
+                                        message: "Failed to delete league user"
+                                    });
+                                }
+                                else {
+                                    res.status(200);
+                                    res.json({
+                                        statusCode: 200,
+                                        message: "league user was deleted"
+                                    });
+                                }
+                            });
+                    }
                 }
             });
+
     }
 };
