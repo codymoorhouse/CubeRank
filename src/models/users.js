@@ -75,8 +75,12 @@ exports.createUser = function(db, req, res) {
 
 // api/v1/users
 exports.retrieveUsers = function(db, req, res) {
+    var selectClause = "SELECT u.id AS id, CONCAT(u.fname, ' ', u.lname) AS name ";
+    var fromClause = "FROM users AS u";
+    var whereClause = "";
+
     db.query(
-        "SELECT u.id AS id, CONCAT(u.fname, ' ', u.lname) AS name FROM users AS u", function(err, users) {
+        selectClause + fromClause + whereClause, function(err, users) {
             if (err)  {
                 res.status(500);
                 res.json({
@@ -97,8 +101,12 @@ exports.retrieveUsers = function(db, req, res) {
 
 // api/v1/users/:id
 exports.retrieveUser = function(db, req, res) {
+    var selectClause = "SELECT u.id AS id, CONCAT(u.fname, ' ', u.lname) AS name ";
+    var fromClause = "FROM users AS u ";
+    var whereClause = "WHERE id = ?";
+
     db.query(
-        "SELECT u.id AS id, CONCAT(u.fname, ' ', u.lname) AS name FROM users AS u WHERE id = ?", [req.params.id], function(err, userInfo) {
+        selectClause + fromClause + whereClause, [req.params.id], function(err, userInfo) {
             if (err)  {
                 res.status(500);
                 res.json({
@@ -235,8 +243,12 @@ exports.deleteUser = function(db, req, res) {
 
 // api/v1/users/:id/leagues
 exports.retrieveUserLeagues = function(db, req, res) {
+    var selectClause = "SELECT u.id AS user_id, CONCAT(u.fname, ' ', u.lname) AS user_name, o.id AS org_id, o.oname AS org_name, o.description AS org_description, l.id AS league_id, l.title AS league_name, l.description AS league_description, lu.user_rank AS ranking ";
+    var fromClause = "FROM league_user as lu INNER JOIN users AS u ON lu.user_id = u.id INNER JOIN leagues AS l ON lu.league_id = l.id INNER JOIN organizations AS o ON l.organization_id = o.id ";
+    var whereClause = "WHERE user_id = ?";
+
     db.query(
-        "SELECT u.id AS user_id, CONCAT(u.fname, ' ', u.lname) AS user_name, o.id AS org_id, o.oname AS org_name, o.description AS org_description, l.id AS league_id, l.title AS league_name, l.description AS league_description, lu.user_rank AS ranking FROM league_user as lu INNER JOIN users AS u ON lu.user_id = u.id INNER JOIN leagues AS l ON lu.league_id = l.id INNER JOIN organizations AS o ON l.organization_id = o.id WHERE user_id = ?", [req.params.id], function(err, userLeagues) {
+        selectClause + fromClause + whereClause, [req.params.id], function(err, userLeagues) {
             if (err)  {
                 res.status(500);
                 res.json({
@@ -270,15 +282,17 @@ exports.retrieveUserLeagues = function(db, req, res) {
 // api/v1/users/:id/matches?recent
 exports.retrieveUserMatches = function(db, req, res) {
     var error404 = "User not found in any matches";
-    var queryStr = "SELECT l.id AS league_id, l.title AS league_name, l.description AS league_description, m.tournament_id AS tournament_id,  u1.id AS player1_id, CONCAT(u1.fname, ' ', u1.lname) AS player1_name, u2.id AS player2_id, CONCAT(u2.fname, ' ', u2.lname) AS player2_name, m.id AS match_id, DATE_FORMAT(m.match_date, '%M %d, %Y') AS match_date, DATE_FORMAT(m.match_date, '%H:%i HRS') AS match_time, CASE match_result WHEN 0 THEN 'draw' WHEN 1 THEN CONCAT(u1.fname, ' ', u1.lname) WHEN 2 THEN CONCAT(u2.fname, ' ', u2.lname) ELSE 'incomplete' END AS match_winner FROM matches AS m INNER JOIN users AS u1 ON m.user1_id = u1.id INNER JOIN users AS u2 ON m.user2_id = u2.id INNER JOIN leagues AS l ON m.league_id = l.id WHERE user1_id = ? or user2_id = ?";
+    var selectClause = "SELECT l.id AS league_id, l.title AS league_name, l.description AS league_description, m.tournament_id AS tournament_id,  u1.id AS player1_id, CONCAT(u1.fname, ' ', u1.lname) AS player1_name, u2.id AS player2_id, CONCAT(u2.fname, ' ', u2.lname) AS player2_name, m.id AS match_id, DATE_FORMAT(m.match_date, '%M %d, %Y') AS match_date, DATE_FORMAT(m.match_date, '%H:%i HRS') AS match_time, CASE match_result WHEN 0 THEN 'draw' WHEN 1 THEN CONCAT(u1.fname, ' ', u1.lname) WHEN 2 THEN CONCAT(u2.fname, ' ', u2.lname) ELSE 'incomplete' END AS match_winner ";
+    var fromClause = "FROM matches AS m INNER JOIN users AS u1 ON m.user1_id = u1.id INNER JOIN users AS u2 ON m.user2_id = u2.id INNER JOIN leagues AS l ON m.league_id = l.id ";
+    var whereClause = "WHERE user1_id = ? or user2_id = ?";
 
     if (req.query.hasOwnProperty('recent') && req.query['recent'] !== '0') {
         error404 = "User not found in any recent matches"
-        queryStr = "SELECT l.id AS league_id, l.title AS league_name, l.description AS league_description, m.tournament_id AS tournament_id,  u1.id AS player1_id, CONCAT(u1.fname, ' ', u1.lname) AS player1_name, u2.id AS player2_id, CONCAT(u2.fname, ' ', u2.lname) AS player2_name, m.id AS match_id, DATE_FORMAT(m.match_date, '%M %d, %Y') AS match_date, DATE_FORMAT(m.match_date, '%H:%i HRS') AS match_time, CASE match_result WHEN 0 THEN 'draw' WHEN 1 THEN CONCAT(u1.fname, ' ', u1.lname) WHEN 2 THEN CONCAT(u2.fname, ' ', u2.lname) ELSE 'incomplete' END AS match_winner FROM matches AS m INNER JOIN users AS u1 ON m.user1_id = u1.id INNER JOIN users AS u2 ON m.user2_id = u2.id INNER JOIN leagues AS l ON m.league_id = l.id WHERE (user1_id = ? OR user2_id = ?) AND (DATEDIFF(CURDATE(), DATE(m.match_date)) BETWEEN 0 AND " + req.query['recent'] + ")";
+        whereClause = "WHERE (user1_id = ? OR user2_id = ?) AND (DATEDIFF(CURDATE(), DATE(m.match_date)) BETWEEN 0 AND " + req.query['recent'] + ")";
     }
 
     db.query(
-        queryStr, [req.params.id, req.params.id], function(err, userMatches) {
+        selectClause + fromClause + whereClause, [req.params.id, req.params.id], function(err, userMatches) {
             if (err)  {
                 res.status(500);
                 res.json({
@@ -310,8 +324,12 @@ exports.retrieveUserMatches = function(db, req, res) {
 
 // api/v1/users/:id/orgs
 exports.retrieveUserOrgs = function(db, req, res) {
+    var selectClause = "SELECT u.id AS user_id, CONCAT(u.fname, ' ', u.lname) AS user_name, o.id AS org_id, o.oname AS org_name, o.description AS org_description ";
+    var fromClause = "FROM organization_user as ou INNER JOIN users AS u ON ou.user_id = u.id INNER JOIN organizations AS o ON ou.organization_id = o.id ";
+    var whereClause = "WHERE user_id = ?";
+
     db.query(
-        "SELECT u.id AS user_id, CONCAT(u.fname, ' ', u.lname) AS user_name, o.id AS org_id, o.oname AS org_name, o.description AS org_description FROM organization_user as ou INNER JOIN users AS u ON ou.user_id = u.id INNER JOIN organizations AS o ON ou.organization_id = o.id WHERE user_id = ?", [req.params.id], function(err, userOrgs) {
+        selectClause + fromClause + whereClause, [req.params.id], function(err, userOrgs) {
             if (err)  {
                 res.status(500);
                 res.json({
@@ -342,8 +360,12 @@ exports.retrieveUserOrgs = function(db, req, res) {
 
 // api/v1/users/:id/teams
 exports.retrieveUserTeams = function(db, req, res) {
+    var selectClause = "SELECT * from ";
+    var fromClause = "FROM team_user as tu ";
+    var whereClause = "WHERE user_id = ?"
+
     db.query(
-        "SELECT * from team_user WHERE user_id = ?", [req.params.id], function(err, userTeams) {
+        selectClause + fromClause + whereClause, [req.params.id], function(err, userTeams) {
             if (err)  {
                 res.status(500);
                 res.json({
@@ -374,8 +396,12 @@ exports.retrieveUserTeams = function(db, req, res) {
 
 // api/v1/users/:id/tournaments
 exports.retrieveUserTournaments = function(db, req, res) {
+    var selectClause = "SELECT u.id AS user_id, CONCAT(u.fname, ' ', u.lname) AS user_name, o.id AS org_id, o.oname AS org_name, o.description AS org_description, l.id AS league_id, l.title AS league_name, l.description AS league_description, t.id AS tournament_id, t.title AS tournament_name, tu.user_rank AS ranking ";
+    var fromClause = "FROM tournament_user as tu INNER JOIN users AS u ON tu.user_id = u.id INNER JOIN tournaments AS t ON tu.tournament_id = t.id INNER JOIN leagues AS l ON t.league_id = l.id INNER JOIN organizations AS o ON l.organization_id = o.id ";
+    var whereClause = "WHERE user_id = ?";
+
     db.query(
-        "SELECT u.id AS user_id, CONCAT(u.fname, ' ', u.lname) AS user_name, o.id AS org_id, o.oname AS org_name, o.description AS org_description, l.id AS league_id, l.title AS league_name, l.description AS league_description, t.id AS tournament_id, t.title AS tournament_name, tu.user_rank AS ranking FROM tournament_user as tu INNER JOIN users AS u ON tu.user_id = u.id INNER JOIN tournaments AS t ON tu.tournament_id = t.id INNER JOIN leagues AS l ON t.league_id = l.id INNER JOIN organizations AS o ON l.organization_id = o.id WHERE user_id = ?", [req.params.id], function(err, userTournaments) {
+        selectClause + fromClause + whereClause, [req.params.id], function(err, userTournaments) {
             if (err)  {
                 res.status(500);
                 res.json({
