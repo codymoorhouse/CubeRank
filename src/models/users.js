@@ -192,23 +192,46 @@ exports.updateUser = function(db, req, res) {
 // api/v1/users/:id
 exports.deleteUser = function(db, req, res) {
     db.query(
-        "DELETE FROM users WHERE id = ?", [req.params.id], function(err) {
-            if (err)  {
+        "SELECT * FROM users WHERE id = ?", [req.params.id], function (err, userInfo) {
+            if (err) {
                 res.status(500);
                 res.json({
                     statusCode: 500,
-                    message: "Failed to delete user"
+                    message: "Failed to find users"
                 });
             }
+
             else {
-                res.status(200);
-                res.json({
-                    statusCode: 200,
-                    message: "User was deleted"
-                });
+                if (userInfo.length === 0) {
+                    res.status(404);
+                    res.json({
+                        statusCode: 404,
+                        data: "User not found"
+                    });
+                }
+
+                else {
+                    db.query(
+                        "DELETE FROM users WHERE id = ?", [req.params.id], function (err) {
+                            if (err) {
+                                res.status(500);
+                                res.json({
+                                    statusCode: 500,
+                                    message: "Failed to delete user"
+                                });
+                            }
+                            else {
+                                res.status(200);
+                                res.json({
+                                    statusCode: 200,
+                                    message: "User was deleted"
+                                });
+                            }
+                        });
+                }
             }
         });
-};
+}
 
 // api/v1/users/:id/leagues
 exports.retrieveUserLeagues = function(db, req, res) {
