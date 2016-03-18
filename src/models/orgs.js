@@ -253,7 +253,7 @@ exports.retrieveOrgUsers = function(db, req, res) {
                 res.status(500);
                 res.json({
                     statusCode: 500,
-                    message: "Failed to find tournaments"
+                    message: "Failed to find users"
                 });
             }
 
