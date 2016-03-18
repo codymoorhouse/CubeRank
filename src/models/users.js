@@ -360,9 +360,9 @@ exports.retrieveUserOrgs = function(db, req, res) {
 
 // api/v1/users/:id/teams
 exports.retrieveUserTeams = function(db, req, res) {
-    var selectClause = "SELECT * from ";
-    var fromClause = "FROM team_user as tu ";
-    var whereClause = "WHERE user_id = ?"
+    var selectClause = "SELECT * ";
+    var fromClause = "FROM team_user AS tu ";
+    var whereClause = "WHERE user_id = ?";
 
     db.query(
         selectClause + fromClause + whereClause, [req.params.id], function(err, userTeams) {
