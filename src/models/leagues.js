@@ -512,7 +512,6 @@ exports.deleteLeagueUser = function (db, req, res) {
     var queryStr1 = "";
 
     if (req.query.hasOwnProperty('user_id')) {
-
         queryStr1 = "SELECT * FROM CubeRank.league_user WHERE user_id = ? AND league_id = ?;";
         db.query(
             queryStr1, [req.query.user_id, req.params.id], function (err, userInfo) {
@@ -554,26 +553,6 @@ exports.deleteLeagueUser = function (db, req, res) {
                     }
                 }
             });
-        queryStr = "DELETE FROM CubeRank.league_user WHERE user_id = ? AND league_id = ?;";
-
-    db.query(
-        queryStr, [req.query.user_id, req.params.id], function (err) {
-            if (err) {
-                res.status(500);
-                res.json({
-                    statusCode: 500,
-                    message: "Failed to delete league user"
-                });
-            }
-            else {
-                res.status(200);
-                res.json({
-                    statusCode: 200,
-                    message: "league user was deleted"
-                });
-            }
-        });
-
 
     }
 };
