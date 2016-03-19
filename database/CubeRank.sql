@@ -79,7 +79,9 @@ CREATE TABLE tournaments(
 CREATE TABLE matches(
        id INT UNSIGNED AUTO_INCREMENT NOT NULL,
        match_date DATETIME NOT NULL,	
-	
+	   username1 VARCHAR(100),
+	   username2 VARCHAR(100),
+
        /* 0 - Tie, 1 - User 1 wins, 2 User 2 wins, NULL - incomplete match */
        match_result SMALLINT UNSIGNED NULL,
        
@@ -185,11 +187,11 @@ INSERT INTO `CubeRank`.`organizations` (`id`, `oname`, `description`) VALUES ('3
 INSERT INTO `CubeRank`.`organizations` (`id`, `oname`, `description`) VALUES ('4', 'NFL', 'National Football League');
 INSERT INTO `CubeRank`.`organizations` (`id`, `oname`, `description`) VALUES ('5', 'CFL', 'Canadian Football League');
 
-INSERT INTO `CubeRank`.`users` (`id`, `fName`, `lName`, `email`, `username`, `password`) VALUES ('1', 'Adam', 'Epp', 'eppa5@mymacewan.ca', 'eppa', 'password');
+INSERT INTO `CubeRank`.`users` (`id`, `fName`, `lName`, `email`, `username`, `password`) VALUES ('1', 'Guest', 'Guest', 'guest@email', 'GUEST', 'password');
 INSERT INTO `CubeRank`.`users` (`id`, `fName`, `lName`, `email`, `username`, `password`) VALUES ('2', 'Alan', 'Yong', 'yonga@mymacewan.ca', 'yonga', 'password');
 INSERT INTO `CubeRank`.`users` (`id`, `fName`, `lName`, `email`, `username`, `password`) VALUES ('3', 'Cody', 'Moorhouse', 'moorhousec2@mymacewan.ca', 'moorhousec2', 'password');
 INSERT INTO `CubeRank`.`users` (`id`, `fName`, `lName`, `email`, `username`, `password`) VALUES ('4', 'John', 'Mulvany-Robbins', 'mulvanyrobbinsj@mymacewan.ca', 'mulvanyrobbinsj', 'password');
-INSERT INTO `CubeRank`.`users` (`id`, `fName`, `lName`, `email`, `username`, `password`) VALUES ('5', 'NHL', 'Owner', 'iownnhl@nhl.ca', 'nhl_owner', 'password');
+INSERT INTO `CubeRank`.`users` (`id`, `fName`, `lName`, `email`, `username`, `password`) VALUES ('5', 'Adam', 'Epp', 'eppa5@mymacewan.ca', 'eppa', 'password');
 INSERT INTO `CubeRank`.`users` (`id`, `fName`, `lName`, `email`, `username`, `password`) VALUES ('6', 'WHL', 'Owner', 'iownwhl@whl.ca', 'whl_owner', 'password');
 INSERT INTO `CubeRank`.`users` (`id`, `fName`, `lName`, `email`, `username`, `password`) VALUES ('7', 'FIFA', 'Owner', 'iownfifa@fifa.ca', 'fifa_owner', 'password');
 INSERT INTO `CubeRank`.`users` (`id`, `fName`, `lName`, `email`, `username`, `password`) VALUES ('8', 'NFL', 'Owner', 'iownnfl@nfl.ca', 'nfl_owner', 'password');
@@ -362,7 +364,7 @@ INSERT INTO `CubeRank`.`organization_user` (`user_role`, `user_id`, `organizatio
 INSERT INTO `CubeRank`.`organization_user` (`user_role`, `user_id`, `organization_id`) VALUES ('M', '79', '5');
 
 
-INSERT INTO `CubeRank`.`leagues` (`id`, `title`, `description`, `organization_id`) VALUES ('1', 'NHL1', 'NHL League 1', '1');
+INSERT INTO `CubeRank`.`leagues` (`id`, `title`, `description`, `organization_id`) VALUES ('1', 'guestLeague', 'for guests', '1');
 INSERT INTO `CubeRank`.`leagues` (`id`, `title`, `description`, `organization_id`) VALUES ('2', 'NHL2', 'NHL League 2', '1');
 INSERT INTO `CubeRank`.`leagues` (`id`, `title`, `description`, `organization_id`) VALUES ('3', 'NHL3', 'NHL League 3', '1');
 INSERT INTO `CubeRank`.`leagues` (`id`, `title`, `description`, `organization_id`) VALUES ('4', 'WHL1', 'WHL League 1', '2');

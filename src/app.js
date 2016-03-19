@@ -25,13 +25,15 @@ var users = require('./routes/users');
 var userModel = require('./models/users.js');
 var leagueModel = require('./models/leagues.js');
 var orgModel = require('./models/orgs.js');
+var tournamentModel = require('./models/tournaments.js');
+
 
 
 
 var db = mysql.createConnection({
     host: '127.0.0.1',
-    user: 'CubeRank_admin',
-    password: 'password',
+    user: 'password',
+    password: 'CubeRank_admin',
     database: 'CubeRank'
 });
 
@@ -100,6 +102,27 @@ passport.deserializeUser(function(id, done){
 
 // ---------------------------- Users Resource ---------------------------- //
 // ----------------------------  Get Requests  ---------------------------- //
+
+app.get('/api/v1/tournaments', function(req, res){
+  tournamentModel.getTournaments(db, req, res);
+});
+
+app.get('/api/v1/matches', function(req, res){
+  tournamentModel.getMatches(db, req, res);
+});
+
+app.get('/api/v1/tournaments/:id/matches', function(req, res){
+    tournamentModel.getTournamentMatches(db, req, res);
+});
+
+app.get('/api/v1/tournaments/:id', function(req, res){
+    tournamentModel.getOneTournament(db, req, res);
+});
+
+app.get('/api/v1/matches/:id', function(req, res){
+    tournamentModel.getOneMatch(db, req, res);
+});
+
 app.get('/api/v1/users', function (req, res) {
     userModel.retrieveUsers(db, req, res);
 });
@@ -173,6 +196,15 @@ app.get('/api/v1/orgs/:id/users', function (req, res) {
 });
 
 // ----------------------------  Post Requests ---------------------------- //
+
+app.post('/api/v1/tournaments/', function(req, res){
+  tournamentModel.createTournament(db, req, res);
+});
+
+app.post('/api/v1/tournaments/:id/matches/', function(req, res){
+  tournamentModel.createMatch(db, req, res);
+});
+
 app.post('/api/v1/users', function (req, res) {
     userModel.createUser(db, req, res);
 });
@@ -198,6 +230,15 @@ app.post('/api/v1/orgs/:id/leagues', function (req, res) {
 });
 
 // ----------------------------  Put Requests  ---------------------------- //
+
+app.put('/api/v1/tournaments/:id', function(req, res){
+  tournamentModel.updateTournament(db, req, res);
+});
+
+app.put('/api/v1/matches/:id', function(req, res){
+  tournamentModel.updateMatches(db, req, res);
+});
+
 app.put('/api/v1/users/:id', function (req, res) {
     userModel.updateUser(db, req, res);
 });
@@ -211,6 +252,16 @@ app.put('/api/v1/orgs/:id', function (req, res) {
 });
 
 // ----------------------------  Delete Requests  ------------------------- //
+
+
+app.delete('/api/v1/tournaments/:id', function(req, res){
+  tournamentModel.deleteTournament(db, req, res);
+});
+
+app.delete('/api/v1/matches/:id', function(req, res){
+  tournamentModel.deleteMatch(db, req, res);
+});
+
 app.delete('/api/v1/users/:id', function (req, res) {
     userModel.deleteUser(db, req, res);
 });
