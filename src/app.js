@@ -32,9 +32,9 @@ var tournamentModel = require('./models/tournaments.js');
 
 var db = mysql.createConnection({
     host: '127.0.0.1',
-    user: 'root',
-    password: 'toor',
-    database: 'cuberank'
+    user: 'password',
+    password: 'CubeRank_admin',
+    database: 'CubeRank'
 });
 
 var app = express();
