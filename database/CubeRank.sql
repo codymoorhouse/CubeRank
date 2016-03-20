@@ -79,7 +79,9 @@ CREATE TABLE tournaments(
 CREATE TABLE matches(
        id INT UNSIGNED AUTO_INCREMENT NOT NULL,
        match_date DATETIME NOT NULL,	
-	
+	   username1 VARCHAR(100),
+	   username2 VARCHAR(100),
+
        /* 0 - Tie, 1 - User 1 wins, 2 User 2 wins, NULL - incomplete match */
        match_result SMALLINT UNSIGNED NULL,
        
