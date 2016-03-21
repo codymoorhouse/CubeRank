@@ -39,19 +39,7 @@ var db = mysql.createConnection({
 
 var app = express();
 
-var smtpTransport = nodemailer.createTransport("SMTP", {
-    service: "Gmail",
-    auth: {
-        /* We need to make an email for this I tested it with my own email
-         * and it worked. Will our hosting site provide email? */
-        user: "******@gmail.com",
-        pass: "*********"
-    }
-});
-
-// app.get('/contact', function (req, res) {
-//   res.sendFile('public/contact', {"root": __dirname});
-// });
+var transporter = nodemailer.createTransport('smtps://adamepp123@gmail.com:password@smtp.gmail.com');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -287,16 +275,14 @@ app.get('/send', function (req, res) {
         from: req.query.from,
         subject: req.query.subject,
         text: req.query.text
-    }
+    };
     console.log(mailOptions);
-    smtpTransport.sendMail(mailOptions, function (error, response) {
+    transporter.sendMail(mailOptions, function(error, info) {
         if (error) {
             console.log(error);
-            res.end("error");
-        } else {
-            console.log("Message sent: " + response.message);
-            res.end("sent");
         }
+        console.log("Message sent: " + info.response);
+
     });
 });
 
