@@ -1,17 +1,15 @@
 footer
 
-    div#site-map
-      p#site-map-title Site Map
 
-      ul#site-map-unsorted-list
-        li.site-map-list-item
-          a(href="/contact")= "Contact us"
-        li.site-map-item
-          a(href="/about")= "About us"
 
-    p.footer-trademark
+    //p#footer-copyright.
+    //    &copy; 2016, CubeRank.com
+    br
+    a(href="/contact" style="margin-right: 50px; float: right")= "contact us"
+
+    a(href="/about" style="margin-left: 50px; float: left")= "about us"
+    p#footer-trademark.
         &copy; 2016, CubeRank.com
-        
-    p.footer-trademark.
+        <br>
         All trademarks and registered trademarks appearing on
         this site are the property of their respective owners.
