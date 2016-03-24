@@ -41,9 +41,10 @@ var app = express();
 
 var transporter = nodemailer.createTransport('smtps://adamepp123@gmail.com:password@smtp.gmail.com');
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+var handlebars = require('express-handlebars')
+    .create({ defaultLayout: 'main'});
+app.engine('handlebars', handlebars.engine);
+app.set('view engine', 'handlebars');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));

@@ -43,7 +43,7 @@ body {
     transform: scale(1.02);
 }
 
-#content-container{
+.content-container{
     margin: 0px auto 20px auto;
     padding: 10px;
     text-align: left;
@@ -116,6 +116,7 @@ body {
 
 .index-content-p {
     margin: 0px 75px;
+    padding-bottom: 15px;
 }
 
 .header-content-area {
