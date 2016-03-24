@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lan="en">
+
+  <head>
+    <title>{{title}}</title>
+    
+    <link rel="stylesheet" href="/css/index.css">
+    <script src='/js/angular.min.js'></script>
+    
+    {{{head}}}
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  </head>
+  
+  <body>
+    
+    <header class="header-content-area">
+      
+      <a href="/"><img id="headerLogo", src="img/logosmall.png", alt="CubeRank Logo")></a>
+      
+      <div id="nav-list">
+	<ul>
+	  <li><a href="/">Home</a></li> 
+	  
+	  <ul id="right-menu">
+	    <li><a href="/login">Login</a></li> 
+	    <li><a href="/signup">Sign Up</a></li> 
+	  </ul>
+      </div>
+    </header>
+    
+    <div id="content-area">
+	{{{body}}}
+    </div>
+    
+    <div class="push"></div>
+
+    <footer>
+      <div id="site-map">
+	<p id="site-map-title">
+	  Site Map
+	</p>
+	
+	<ul id="site-map-unsorted-list">
+	  <li class="site-map-item"><a href="/contact">Contact us</a></li>
+	  <li class="site-map-item"><a href="/about">About us</a><li>
+	</ul>
+	
+	<p class="footer-trademark">
+	  &copy; 2016, CubeRank.com
+	</p>
+	
+	<p class="footer-trademark">
+	  All trademarks and registered trademarks appearing on
+	  this site are the property of their respective owners.
+	</p>
+      </div>
+    </footer>
+
+  </body>
+</html>
