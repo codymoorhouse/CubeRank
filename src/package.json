@@ -14,7 +14,6 @@
     "express": "latest",
     "express-handlebars": "^3.0.0",
     "express-session": "^1.13.0",
-    "jade": "~1.11.0",
     "morgan": "~1.6.1",
     "mysql": "^2.10.2",
     "nodemailer": "latest",
