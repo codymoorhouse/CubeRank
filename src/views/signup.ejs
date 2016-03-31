@@ -8,7 +8,7 @@
     <body>
         <% include ../partials/header %>
 
-        <div class="content-area">
+        <div class="content-area" ng-app="signup" ng-controller="signupCtrl">
             <div id="signup-container">
                 <h1>Sign Up</h1>
 
@@ -52,10 +52,28 @@
                         <input type="submit" id="signup-submit-button" class="glossys"
                         name="submit" value="signup">
                     </div>
+
+                    <li ng-repeat="user in signup" style="list-style-type: none; color: white;">
+                        {{ user.name }}
+                    </li>
                 </form>
+
+
             </div>
         </div>
 
         <% include ../partials/footer %>
+
+        <script>
+            (function() {
+                var app = angular.module('signup', []);
+
+                app.controller('signupCtrl', function($scope, $http) {
+                    $http.get("api/v1/users").then(function(response) {
+                       $scope.signup = response.data.data;
+                    });
+                });
+            })();
+        </script>
     </body>
 </html>
