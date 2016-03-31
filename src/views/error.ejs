@@ -1,16 +1,19 @@
 <!DOCTYPE html>
 <html lan="en">
 
-<head>
-    <% include ../partials/head %>
-</head>
+    <head>
+        <% include ../partials/head %>
+    </head>
 
-<body>
-<% include ../partials/header %>
-<h1>{{{message}}}</h1>
-<h2>{{{error.status}}}</h2>
-<pre id={{{error.stack}}}></pre>b
+    <body>
+        <% include ../partials/header %>
 
-<% include ../partials/footer %>
-</body>
+        <div class="content-area">
+            <h1><%= message %></h1>
+            <h2><%= error.status %></h2>
+            <pre id=<%= error.stack %>></pre>
+        </div>
+
+        <% include ../partials/footer %>
+    </body>
 </html>

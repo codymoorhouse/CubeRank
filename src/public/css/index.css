@@ -102,10 +102,10 @@ body {
     padding-top: 14px;
 }
 
-#content-area {
+.content-area {
     padding: 10px;
     color: white;
-    background-color: #555
+    background-color: #555;
     width: 1200px;
     margin: 20px auto;
 }
