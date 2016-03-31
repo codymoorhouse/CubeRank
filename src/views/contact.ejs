@@ -1,39 +1,41 @@
 <!DOCTYPE html>
 <html lan="en">
 
-<head>
-  <% include ../partials/head %>
-  <script src='/js/jquery-1.12.2.min.js'></script>
-  <script src='/js/contact-email.js'></script>
-</head>
+    <head>
+        <% include ../partials/head %>
+        <script src='/js/jquery-1.12.2.min.js'></script>
+        <script src='/js/contact-email.js'></script>
+    </head>
 
-<body>
-<% include ../partials/header %>
+    <body>
+    <% include ../partials/header %>
 
-<div class="content-container">
-  <h1>Contact Us</h1>
-  
-  <form>
-    <p class="contact-content-p">
-    <input id="from" type="text" placeholder="E-mail">
-    </p>
-    
-    <p class="contact-content-p">
-      <input id="subject" type="text" placeholder="Subject">
-    </p>
-    
-    <p class="contact-content-p">
-      <textarea id="content" cols="40" rows="5" placeholder="Message"></textarea>
-    </p>
-    
-    <p class="contact-content-p">
-      <input type="submit" id="send_email" value="Send Email">
-    </p>
-  </form>
-  
-  <p id="message"></p>
-</div>
+    <div class="content-area">
+        <div class="content-container">
+            <h1>Contact Us</h1>
 
-<% include ../partials/footer %>
-</body>
+            <form>
+                <p class="contact-content-p">
+                    <input id="from" type="text" placeholder="E-mail">
+                </p>
+
+                <p class="contact-content-p">
+                    <input id="subject" type="text" placeholder="Subject">
+                </p>
+
+                <p class="contact-content-p">
+                    <textarea id="content" cols="40" rows="5" placeholder="Message"></textarea>
+                </p>
+
+                <p class="contact-content-p">
+                    <input type="submit" id="send_email" value="Send Email">
+                </p>
+            </form>
+
+            <p id="message"></p>
+        </div>
+    </div>
+
+    <% include ../partials/footer %>
+    </body>
 </html>

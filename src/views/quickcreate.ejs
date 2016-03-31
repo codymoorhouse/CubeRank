@@ -1,61 +1,64 @@
 <!DOCTYPE html>
 <html lan="en">
 
-<head>
-    <% include ../partials/head %>
-</head>
+    <head>
+        <% include ../partials/head %>
+    </head>
 
-<body>
-<% include ../partials/header %>
+    <body>
+        <% include ../partials/header %>
 
-<div class="content-container">
-  
-  <h1>Tournament Generator</h1>
-  <form name="quick-create" method="post">
-    <div class="input bold">
-      <span class="label">Tournament Name:</span>
-      <input type="text" name="tournamentName">
-    </div>
-    
-    <div class="input bold">
-      <span class="label">Tournament Type:</span>
-      
-      <select>
-	<option value='single'>Single Elimination</option>
-	<option value='double'>Double Elimination</option>
-      </select>
-    </div>
-    <div class="input">
-      <input type="checkbox" name="third_place">
-      <span class="label">Include a match for third place amongst semifinal losers?</span>
-    </div>
-    
-      <div class="float-left">
-        <p>
-	  Participants / Teams:
-	</p>
-        
-	<ul>
-          <li> one participant per line</li>
-          <li> order by best to worst</li>
-	</ul>
-        
-	<div class="input">
-	  <input type="checkbox" name="randomizer">
-          <span class="label">randomize seeds?</span>
-	</div>
-      </div>
-      
-    <p class="contact-content-p">
-      <textarea rows="16" cols="30" name="participants"></textarea>
-    </p>
-    
-    <div class="actions">
-      <input type="submit" name="generate" value="Generate!" class="glossys">
-    </div>
-  </form>
-</div>
+        <div class="content-area">
+            <div class="content-container">
 
-<% include ../partials/footer %>
-</body>
+                <h1>Tournament Generator</h1>
+                <form name="quick-create" method="post">
+                    <div class="input bold">
+                        <span class="label">Tournament Name:</span>
+                        <input type="text" name="tournamentName">
+                    </div>
+
+                    <div class="input bold">
+                        <span class="label">Tournament Type:</span>
+
+                        <select>
+                            <option value='single'>Single Elimination</option>
+                            <option value='double'>Double Elimination</option>
+                        </select>
+                    </div>
+
+                    <div class="input">
+                        <input type="checkbox" name="third_place">
+                        <span class="label">Include a match for third place amongst semifinal losers?</span>
+                    </div>
+
+                    <div class="float-left">
+                        <p>
+                            Participants / Teams:
+                        </p>
+
+                        <ul>
+                            <li> one participant per line</li>
+                            <li> order by best to worst</li>
+                        </ul>
+
+                        <div class="input">
+                            <input type="checkbox" name="randomizer">
+                            <span class="label">randomize seeds?</span>
+                        </div>
+                    </div>
+
+                    <p class="contact-content-p">
+                        <textarea rows="16" cols="30" name="participants"></textarea>
+                    </p>
+
+                    <div class="actions">
+                        <input type="submit" name="generate" value="Generate!" class="glossys">
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <% include ../partials/footer %>
+    </body>
 </html>
