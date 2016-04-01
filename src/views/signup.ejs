@@ -57,10 +57,6 @@
                             <hr>
                             <p></p>Already have an account? <a href="/login">Sign in</a></p>
                         </form>
-
-                        <!-- Remove for production -->
-                        <pre>user = {{user | json}}</pre>
-
                     </div>
                 </div>
             </div>
@@ -73,7 +69,7 @@
                 'use strict';
                 var app = angular.module('signup', []);
 
-                app.controller('signupCtrl', ['$scope', '$http', function ($scope, $http) {
+                app.controller('signupCtrl', ['$window', '$scope', '$http', function ($window, $scope, $http) {
                     $scope.master = {};
 
                     $http.get("api/v1/users").then(function(response) {
@@ -85,7 +81,10 @@
                         }
 
                         $scope.create = function(user) {
-                            $http.post("api/v1/users", user);
+                            $http.post("api/v1/users", user).then(function(response) {
+                                /* Redirect after user is created */
+                                $window.location.href = '/';
+                            });
                         }
                     });
 
