@@ -9,66 +9,120 @@
     <body>
         <% include ../partials/header %>
 
-
-        <div class="container">
+        <div ng-app="signup" ng-controller="signupCtrl" class="container">
             <div class="row">
                 <div class="panel panel-primary">
                     <div class="panel-body">
-                        <form method="POST" action="#" role="form">
+                        <form name="signupform" role="form" novalidate class="signup-form">
                             <div class="form-group">
                                 <h2>Create account</h2>
                             </div>
                             <div class="form-group">
-                                <label class="control-label" for="signupName">First Name</label>
-                                <input id="signupName" type="text" maxlength="50" class="form-control">
+                                <label class="control-label" for="fname">First Name</label>
+                                <div ng-show="!signupform.$submitted">
+                                    <input type="text" maxlength="50" class="form-control" name="fname" ng-model="user.fname" required>
+                                </div>
+                                <div ng-show="signupform.$submitted || signupform.fname.$touched">
+                                    <div ng-show="signupform.fname.$error.required">
+                                        <input type="text" maxlength="50" class="form-control" name="fname" ng-model="user.fname" required>
+                                    </div>
+                                </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label" for="signupName">Last Name</label>
-                                <input id="signupName" type="text" maxlength="50" class="form-control">
+                                <label class="control-label" for="lname">Last Name</label>
+                                <input id="lname" type="text" maxlength="50" class="form-control" ng-model="user.lname" required>
                             </div>
                             <div class="form-group">
-                                <label class="control-label" for="signupEmail">Email</label>
-                                <input id="signupEmail" type="email" maxlength="50" class="form-control">
+                                <label class="control-label" for="email">Email</label>
+                                <input id="email" type="email" maxlength="50" class="form-control" ng-model="user.email" required>
                             </div>
                             <div class="form-group">
-                                <label class="control-label" for="signupPassword">Password</label>
-                                <input id="signupPassword" type="password" maxlength="25" class="form-control" placeholder="at least 6 characters" length="40">
+                                <label class="control-label" for="username">Username</label>
+                                <input type="text" maxlength="50" class="form-control" ng-model="user.username" name="username" username-dir required><br>
+                                <span ng-show="signupform.username.$pending.usernameAuth">Checking if this name is available...</span>
+                                <span ng-show="signupform.username.$error.usernameAuth">This username is already taken!</span>
                             </div>
                             <div class="form-group">
-                                <label class="control-label" for="signupPasswordagain">Retype Password</label>
-                                <input id="signupPassword" type="password" maxlength="25" class="form-control" placeholder="at least 6 characters" length="40">
+                                <label class="control-label" for="password">Password</label>
+                                <input type="password" maxlength="25" class="form-control" placeholder="at least 6 characters" length="40" ng-model="user.password" required>
                             </div>
                             <div class="form-group">
-                                <button id="signupSubmit" type="submit" class="btn btn-info btn-block">Create your account</button>
+                                <label class="control-label" for="passwordRetype">Retype Password</label>
+                                <input type="passwordRetype" maxlength="25" class="form-control" placeholder="at least 6 characters" length="40" ng-model="user.passwordRetype" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" class="btn btn-info btn-block" ng-click="create(user)">Create your account</input>
                             </div>
                             <p class="form-group">By creating an account, you agree to our <a href="#">Terms of Use</a> and our <a href="#">Privacy Policy</a>.</p>
                             <hr>
-                            <p></p>Already have an account? <a href="#">Sign in</a></p>
+                            <p></p>Already have an account? <a href="/login">Sign in</a></p>
                         </form>
+
+                        <!-- Remove for production -->
+                        <pre>user = {{user | json}}</pre>
+
                     </div>
                 </div>
             </div>
         </div>
 
-
-                <!-- <li ng-repeat="user in signup" style="list-style-type: none; color: white;"> -->
-                <!--     {{ user.name }} -->
-                <!-- </li> -->
-            </form>
-        </div>
-        </div>
         <% include ../partials/footer %>
 
         <script>
-            (function() {
+            (function(angular) {
+                'use strict';
                 var app = angular.module('signup', []);
 
-                app.controller('signupCtrl', function($scope, $http) {
+                app.controller('signupCtrl', ['$scope', '$http', function ($scope, $http) {
+                    $scope.master = {};
+
                     $http.get("api/v1/users").then(function(response) {
-                       $scope.signup = response.data.data;
+                        $scope.signup = response.data.data;
+
+                        $scope.usernames = [];
+                        for (var i = 0; i < response.data.data.length; i++) {
+                            $scope.usernames.push(response.data.data[i].username);
+                        }
+                        console.log($scope.usernames);
                     });
+
+                    $scope.create = function (user) {
+                        $scope.master = angular.copy(user);
+                    };
+                }]);
+
+                app.directive('usernameDir', function ($q, $timeout) {
+                    return {
+                        require: 'ngModel',
+                        link: function (scope, elm, attrs, ctrl) {
+                            ctrl.$asyncValidators.usernameAuth = function (modelValue, viewValue) {
+
+                                if (ctrl.$isEmpty(modelValue)) {
+                                    // consider empty model valid
+                                    return $q.when();
+                                }
+
+                                var def = $q.defer();
+
+                                $timeout(function () {
+                                    // Mock a delayed response
+                                    if (scope.usernames.indexOf(modelValue) === -1) {
+                                        // The username is available
+                                        def.resolve();
+                                    } else {
+                                        def.reject();
+                                    }
+
+                                }, 2000);
+
+                                return def.promise;
+                            };
+                        }
+                    };
                 });
-            })();
+
+            })(window.angular);
+
         </script>
     </body>
 </html>
