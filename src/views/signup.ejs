@@ -8,60 +8,80 @@
     <body>
         <% include ../partials/header %>
 
-        <div class="content-area" ng-app="signup" ng-controller="signupCtrl">
-            <div id="signup-container">
-                <h1>Sign Up</h1>
+        <div>
+        <div id="signup-container" ng-app="signup" ng-controller="signupCtrl">
+            <h1>Sign Up</h1>
 
-                <form action="post" name="signup-user">
-                    <div id="signup-left" class="float-left" style="margin-left: 90px">
-                        <div class="input bold">
-                            <span class="label">First Name:</span>
-                            <br>
-                            <input type="text" name="fname">
+            <form action="post" name="signup-user" id="signup-form">
+
+                <div class="item">
+
+                    <div class="input bold">
+                        <div class="signup-label">
+                            <label>First Name:</label>
                         </div>
-                        <div class="input bold">
-                            <span class="label">Last Name:</span>
-                            <br>
-                            <input type="text" name="fname">
-                        </div>
-                        <div class="input bold">
-                            <span class="label">Email:</span>
-                            <br>
-                            <input type="text" name="email">
-                        </div>
-                    </div>
-                    <div id="signup-right" class="float-right">
-                        <div class="input bold">
-                        <span class="label">Username:</span>
-                            <br>
-                            <input type="text" name="username">
-                        </div>
-                        <div class="input bold">
-                            <span class="label">Password:</span>
-                            <br>
-                            <input type="password" name="password">
-                        </div>
-                        <div class="input bold">
-                            <span class="label">Retype password:</span>
-                            <br>
-                            <input type="password" name="password">
+                        <div class="signup-input">
+                            <input class="signup-input" type="text" name="fname">
                         </div>
                     </div>
 
-                    <div class="actions">
-                        <input type="submit" id="signup-submit-button" class="glossys"
-                        name="submit" value="signup">
+                    <div class="input bold">
+                        <div class="signup-label">
+                            <label>Last Name:</label>
+                        </div>
+                        <div class="signup-input">
+                            <input class="signup-input" class="signup-input" type="text" name="fname">
+                        </div>
                     </div>
 
-                    <li ng-repeat="user in signup" style="list-style-type: none; color: white;">
-                        {{ user.name }}
-                    </li>
-                </form>
+                </div>
 
 
-            </div>
+                <div class="input bold">
+                    <div class="signup-label">
+                        <label>Email:</label>
+                    </div>
+                    <div class="signup-input">
+                        <input class="signup-input" type="text" name="email">
+                    </div>
+                </div>
+
+                <div class="input bold">
+                    <div class="signup-label">
+                        <label>Username:</label>
+                    </div>
+                    <div class="signup-input">
+                        <input class="signup-input" type="text" name="username">
+                    </div>
+                </div>
+                <div class="input bold">
+                    <div class="signup-label">
+                        <label>Password:</label>
+                    </div>
+                    <div class="signup-input">
+                        <input class="signup-input" type="password" name="password">
+                    </div>
+                </div>
+
+                <div class="input bold">
+                    <div class="signup-label">
+                        <label>Retype password:</label>
+                    </div>
+                    <div class="signup-input">
+                        <input class="signup-input" type="password" name="password">
+                    </div>
+                </div>
+
+                <div id="signup-button">
+                    <input type="submit" class="glossys" name="submit" value="signup">
+                </div>
+
+                <!-- <li ng-repeat="user in signup" style="list-style-type: none; color: white;"> -->
+                <!--     {{ user.name }} -->
+                <!-- </li> -->
+            </form>
         </div>
-
+        </div>
         <% include ../partials/footer %>
 
         <script>
