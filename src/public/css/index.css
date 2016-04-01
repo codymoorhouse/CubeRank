@@ -13,14 +13,14 @@ body {
 
 #home-containers{
     display: inline-block;
-    margin: 20px auto;
+    margin: auto;
 }
 
 .home-container{
     border-radius: 30px;
-    float: left;
     overflow: hidden;
-    margin: 0px 50px;
+    margin: 10px auto;
+    width: 360px;
     background: #17bc9e;
     color: white;
     background: -moz-linear-gradient(top, #1c7997 0%, #17bc9e 100%);
@@ -60,7 +60,7 @@ body {
 
 /* Styling for the main menu bar */
 #nav-list {
-    padding-top: 50px;
+    padding-top: 5px;
 }
 
 #nav-list ul {
@@ -86,8 +86,6 @@ body {
     padding: 14px 16px;
     text-decoration: none;
 }
-
-
 
 #nav-list li a:hover:not(.active) {
     border-bottom: 2px solid #0889c6;
@@ -127,14 +125,16 @@ body {
     background: -moz-linear-gradient(45deg, black , #111, #222, #333, #444, #555, #333, black, black); /* For Firefox 3.6 to 15 */
     background: linear-gradient(45deg, black , #111, #222, #333, #444, #555, #333, black, black); /* Standard syntax (must be last) */
     color: #E5FFFD;
-    height: 108px;
+    height: 60px;
     width: 100%
 }
 
 .header-content-area img#headerLogo {
     float: left;
-    padding-left: 6%;
     padding-top: 5px;
+    margin-left: 5px;
+    width: 50px;
+    height: 55px;
 }
 
 .push {
@@ -144,11 +144,6 @@ body {
 footer {
 
     margin: 0px auto;
-    background: black; /* For browsers that do not support gradients */
-    background: -webkit-linear-gradient(45deg, black , #111, #222, #333, #444, #555, #333, black, black); /* For Safari 5.1 to 6.0 */
-    background: -o-linear-gradient(45deg, black , #111, #222, #333, #444, #555, #333, black, black); /* For Opera 11.1 to 12.0 */
-    background: -moz-linear-gradient(45deg, black , #111, #222, #333, #444, #555, #333, black, black); /* For Firefox 3.6 to 15 */
-    background: linear-gradient(45deg, black , #111, #222, #333, #444, #555, #333, black, black); /* Standard syntax (must be last) */
     color: #E5FFFD;
     height: 125px;
     width: 100%
@@ -208,10 +203,6 @@ footer a:hover:not(.active) {
     padding-right: 10px;
 }
 
-#signup-submit-button {
-    margin-left: 400px;
-}
-
 .float-left {
     float:  left;
 }
@@ -248,4 +239,34 @@ footer a:hover:not(.active) {
     list-style:  none;
     display:     block;
     padding:     0;
+}
+
+#signup-container {
+    color: white;
+    width: 340px;
+    margin: 20px auto 0px auto;
+    padding: 2px 0px 10px 0px;
+}
+
+.signup-label {
+    display: inline-block;
+    text-align: left;
+    width: 138px;
+}
+
+.signup-input {
+    float: right;
+}
+
+#signup-button {
+
+}
+
+#signup-form {
+    width: 300px;
+}
+
+.home-img {
+    width:  360px;
+    height: 292px;
 }
