@@ -2,6 +2,7 @@
 
 // api/v1/users
 exports.createUser = function(db, req, res) {
+    console.log(req.body);
     if (req.body.fname !== undefined &&
         req.body.fname !== null &&
         req.body.lname !== undefined &&
@@ -75,7 +76,7 @@ exports.createUser = function(db, req, res) {
 
 // api/v1/users
 exports.retrieveUsers = function(db, req, res) {
-    var selectClause = "SELECT u.id AS id, CONCAT(u.fname, ' ', u.lname) AS name ";
+    var selectClause = "SELECT u.id AS id, CONCAT(u.fname, ' ', u.lname) AS name, username ";
     var fromClause = "FROM users AS u";
     var whereClause = "";
 

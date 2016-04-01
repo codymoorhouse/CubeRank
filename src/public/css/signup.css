@@ -44,3 +44,15 @@ a {
 .right {
     float: right;
 }
+
+.signup-form input.ng-invalid.ng-touched {
+    background-color: #FA787E;
+}
+
+.signup-form input.ng-valid.ng-touched {
+    background-color: #78FA89;
+}
+
+form.submitted .ng-invalid {
+    border:1px solid #f00;
+}

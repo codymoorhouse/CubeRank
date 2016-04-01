@@ -21,6 +21,9 @@ var routes = require('./routes/index');
 var login = require('./routes/login');
 var users = require('./routes/users');
 
+var terms = require('./routes/terms');
+var privacy = require('./routes/privacy');
+
 
 var db = mysql.createConnection({
     host: '127.0.0.1',
@@ -52,7 +55,8 @@ app.use('/userprofile', userprofile);
 app.use('/signup', signup);
 app.use('/quickcreate', quickcreate);
 app.use('/about', about);
-
+app.use('/terms', terms);
+app.use('/privacy', privacy);
 
 //======================
 //=====AUTH=============
