@@ -23,6 +23,8 @@ var users = require('./routes/users');
 
 var terms = require('./routes/terms');
 var privacy = require('./routes/privacy');
+var match = require('./routes/match');
+var ranking = require('./routes/ranking');
 
 
 var db = mysql.createConnection({
@@ -40,7 +42,8 @@ var transporter = nodemailer.createTransport('smtps://adamepp123@gmail.com:passw
 app.set('view engine', 'ejs');
 
 // uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+app.use(favicon(path.join(__dirname, '/public/img', 'favicon.ico')));
+
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
@@ -57,6 +60,8 @@ app.use('/quickcreate', quickcreate);
 app.use('/about', about);
 app.use('/terms', terms);
 app.use('/privacy', privacy);
+app.use('/match', match);
+app.use('/leaderboard', ranking);
 
 //======================
 //=====AUTH=============
