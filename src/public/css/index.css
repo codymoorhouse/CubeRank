@@ -241,32 +241,8 @@ footer a:hover:not(.active) {
     padding:     0;
 }
 
-#signup-container {
-    color: white;
-    width: 340px;
-    margin: 20px auto 0px auto;
-    padding: 2px 0px 10px 0px;
-}
-
-.signup-label {
-    display: inline-block;
-    text-align: left;
-    width: 138px;
-}
-
-.signup-input {
-    float: right;
-}
-
-#signup-button {
-
-}
-
-#signup-form {
-    width: 300px;
-}
-
 .home-img {
     width:  360px;
     height: 292px;
 }
+
