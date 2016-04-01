@@ -13,7 +13,7 @@
             <div class="row">
                 <div class="panel panel-primary">
                     <div class="panel-body">
-                        <form name="signupform" role="form" novalidate class="signup-form">
+                        <form name="signupform" role="form" novalidate class="signup-form" ng-submit="create(user)">
                             <div class="form-group">
                                 <h2>Create account</h2>
                             </div>
@@ -51,7 +51,7 @@
                                 <input type="passwordRetype" maxlength="25" class="form-control" placeholder="at least 6 characters" length="40" ng-model="user.passwordRetype" required>
                             </div>
                             <div class="form-group">
-                                <input type="submit" class="btn btn-info btn-block" ng-click="create(user)">Create your account</input>
+                                <input type="submit" class="btn btn-info btn-block">Create your account</input>
                             </div>
                             <p class="form-group">By creating an account, you agree to our <a href="#">Terms of Use</a> and our <a href="#">Privacy Policy</a>.</p>
                             <hr>
@@ -83,7 +83,10 @@
                         for (var i = 0; i < response.data.data.length; i++) {
                             $scope.usernames.push(response.data.data[i].username);
                         }
-                        console.log($scope.usernames);
+
+                        $scope.create = function(user) {
+                            $http.post("api/v1/users", user);
+                        }
                     });
 
                     $scope.create = function (user) {
