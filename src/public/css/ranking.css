@@ -1,0 +1,36 @@
+body {
+    background-color: #5a5a5a;
+}
+
+form {
+    margin: 0px 10px;
+}
+
+h2 {
+    margin-top: 2px;
+    margin-bottom: 2px;
+}
+
+.container {
+    margin: 20px auto;
+    max-width: 270px;
+}
+
+.panel {
+    background-color: #444;
+    color: white;
+    border-color: black;
+}
+
+table, th , td  {
+    border: 1px solid #41B2C6;
+    border-collapse: collapse;
+    padding: 5px;
+    margin: 0 auto;
+}
+table tr:nth-child(odd)	{
+    background-color: #444;
+}
+table tr:nth-child(even) {
+    background-color: #5a5a5a;
+}

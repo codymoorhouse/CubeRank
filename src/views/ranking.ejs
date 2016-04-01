@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lan="en">
+
+<head>
+    <% include ../partials/head %>
+    <link rel="stylesheet" href="/css/ranking.css">
+</head>
+
+<body>
+<% include ../partials/header %>
+
+<div class="content-area" ng-app="rank">
+
+    <div ng-controller="leagueCtrl">
+        <h1 ng-repeat="l in rank">Leaderboard For: {{ l.title }}</h1>
+    </div>
+    <div class="container">
+        <div class="panel panel-primary">
+            <div class="panel-body">
+                <table ng-controller="rankCtrl">
+                    <tr ng-repeat="r in rank">
+                        <td>{{ r.username }}</td>
+                        <td>{{ r.user_rank }}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+
+<% include ../partials/footer %>
+
+<script>
+    (function () {
+
+        var app = angular.module('rank', []);
+
+        app.controller('rankCtrl', function ($scope, $http) {
+            $http.get("api/v1/leagues/1/userRanks").then(function (response) {
+                $scope.rank = response.data.data;
+            });
+        })
+
+        app.controller('leagueCtrl', function ($scope, $http) {
+            $http.get("api/v1/leagues/1").then(function (response) {
+                $scope.rank = response.data.data;
+            });
+        })
+    })();
+</script>
+
+</body>
+</html>

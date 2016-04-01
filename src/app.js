@@ -23,6 +23,8 @@ var users = require('./routes/users');
 
 var terms = require('./routes/terms');
 var privacy = require('./routes/privacy');
+var match = require('./routes/match');
+var ranking = require('./routes/ranking');
 
 
 var db = mysql.createConnection({
@@ -58,6 +60,8 @@ app.use('/quickcreate', quickcreate);
 app.use('/about', about);
 app.use('/terms', terms);
 app.use('/privacy', privacy);
+app.use('/match', match);
+app.use('/leaderboard', ranking);
 
 //======================
 //=====AUTH=============
