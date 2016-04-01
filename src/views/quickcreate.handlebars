@@ -1,0 +1,43 @@
+<script src="/js/bracket.js"></script>
+
+
+<div class="content-container" ng-controller="BracketController as brackets">
+  
+  <h1>Tournament Generator</h1>
+  <form name="quick-create" method="post" ng-submit="brackets.generate(title, participants)">
+
+    <span class="label">Tournament Name:</span>
+    <input type="text" name="title" required ng-model="title" style="margin-left: 62px"><br><br>
+
+    <div class="input">
+        <input type="checkbox" name="third_place">
+        <span class="label">Include a match for third place amongst semifinal losers?</span>
+    </div>
+
+    <div class="float-left">
+        <p>
+            Participants / Teams:
+        </p>
+
+        <ul>
+            <li> one participant per line</li>
+            <li> order by best to worst</li>
+        </ul>
+
+        <div class="input">
+            <input type="checkbox" name="randomizer">
+            <span class="label">randomize seeds?</span>
+        </div>
+    </div>
+      
+    <p class="contact-content-p">
+        <textarea rows="16" cols="30" name="participants" required ng-model="participants"></textarea>
+    </p>
+    <input type="submit" name="generate" value="Generate!" class="glossys">
+  </form>
+
+
+</div>
+
+
+

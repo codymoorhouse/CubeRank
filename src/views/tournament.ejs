@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lan="en">
+
+<head ng-app="tournament">
+    <% include ../partials/head %>
+    <script src="../controllers/bracket.js"></script>
+    <script src="/js/bracket.js"></script>
+</head>
+
+<body>
+<% include ../partials/header %>
+
+<div id="content-area" ng-controller="BracketController as brackets">
+    {{brackets.names[0]}}
+    <div ng-repeat="i in [] | range:brackets.names.length" ng-if="$even">
+        <svg>
+            <g>
+                <rect x="{[{0}]}" y="{[{i}]}" width="100" height="20" ></rect>
+                <text x="0" y="14" font-family="Verdana" font-size="16" fill="white" > {{ brackets.names[i] | limitTo: 5}}</text>
+            </g>
+            <g>
+                <rect x="{[{0}]}" y="{[{i + 20}]}" width="100" height="20" ></rect>
+                <text x="0" y="14" font-family="Verdana" font-size="16" fill="white" > {{ brackets.names[i] | limitTo: 5}} </text>
+            </g>
+        </svg>
+    </div>
+</div>
+
+<% include ../partials/footer %>
+</body>
+</html>

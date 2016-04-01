@@ -27,6 +27,17 @@ var match = require('./routes/match');
 var ranking = require('./routes/ranking');
 
 
+var userModel = require('./models/users.js');
+var leagueModel = require('./models/leagues.js');
+var orgModel = require('./models/orgs.js');
+var tournamentModel = require('./models/tournaments.js');
+
+
+//-------------------
+//Handlebar hack
+//-------------------
+
+
 var db = mysql.createConnection({
     host: '127.0.0.1',
     user: 'CubeRank_admin',
@@ -92,11 +103,9 @@ passport.deserializeUser(function(id, done){
 
 
 
-app.post('/quickcreate', function(req, res){
-    req.body.names = req.body.participants.split('\r\n');
-    //console.log(req.body);
-    tournamentModel.createTournament(db, req, res);
 
+app.get('/tournament', function(req, res){
+    res.render('tournament');
 });
 
 // Not sure if this is the right place for this...

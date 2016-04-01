@@ -6,4 +6,6 @@ router.get('/', function(req, res, next) {
     res.render('quickcreate')
 });
 
+
+
 module.exports = router;

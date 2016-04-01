@@ -25,6 +25,7 @@ exports.createTournament = function(db, req, res){
                 else {
                     tid = tid[0]['LAST_INSERT_ID()'];
                     var participants = req.body.names;
+                    console.log(participants);
                     var queryString = "INSERT INTO matches (match_date, league_id, tournament_id," +
                         "username1, username2, user1_id, user2_id) VALUES " +
                         "(CURDATE(), 1, " + tid + ", '" + participants[0] + "', '"
@@ -34,7 +35,7 @@ exports.createTournament = function(db, req, res){
                         queryString += ", (CURDATE(), 1, " + tid + ", '" + participants[i] + "', '"
                             + participants[i + 1] + "', 1, 1)"
                     }
-                    console.log(queryString);
+                    //console.log(queryString);
                     db.query(queryString, function (err) {
                         if (err && !done) {
                             console.log(err);
@@ -66,7 +67,7 @@ exports.createTournament = function(db, req, res){
 // /tournaments/{id}/matches
 exports.createMatch = function(db, req, res){
 
-    console.log(req.body);
+
     db.query("INSERT INTO matches (match_date, league_id, tournament_id, user1_id, user2_id, username1, username2)" +
         " VALUES (CURDATE(), 1, ?, ?, ?, (SELECT fName FROM users WHERE id = ?), (SELECT fName FROM users WHERE id = ?))",
         [1, req.params.id, req.body.user1_id, req.body.user2_id, req.body.user1_id, req.body.user2_id], function(err){
