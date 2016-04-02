@@ -1,9 +1,16 @@
-DROP DATABASE IF EXISTS CubeRank;
-DROP DATABASE IF EXISTS cube_rank;
-DROP DATABASE IF EXISTS open_rank;
-CREATE DATABASE CubeRank;
 USE CubeRank;
 
+DROP TABLE IF EXISTS `CubeRank`.`tournament_user`;
+DROP TABLE IF EXISTS `CubeRank`.`league_user`;
+DROP TABLE IF EXISTS `CubeRank`.`organization_user`; 
+DROP TABLE IF EXISTS `CubeRank`.`team_user`;
+DROP TABLE IF EXISTS `CubeRank`.`matches`;
+DROP TABLE IF EXISTS `CubeRank`.`tournaments`; 
+DROP TABLE IF EXISTS `CubeRank`.`teams`;
+DROP TABLE IF EXISTS `CubeRank`.`leagues`;
+DROP TABLE IF EXISTS `CubeRank`.`organizations`;
+DROP TABLE IF EXISTS `CubeRank`.`users`;
+           
 CREATE TABLE organizations(
        id INT UNSIGNED AUTO_INCREMENT NOT NULL,
        oname VARCHAR (30),
