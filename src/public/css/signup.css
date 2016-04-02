@@ -46,13 +46,13 @@ a {
 }
 
 .signup-form input.ng-invalid.ng-touched {
-    background-color: #FA787E;
+    border: medium solid #FA787E;
 }
 
 .signup-form input.ng-valid.ng-touched {
-    background-color: #78FA89;
+    border: medium solid #78FA89;
 }
 
-form.submitted .ng-invalid {
-    border:1px solid #f00;
+form.ng-submitted input.ng-invalid {
+    border: medium solid #FA787E;
 }
