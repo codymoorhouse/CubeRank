@@ -75,14 +75,13 @@
                         $scope.create = function(user) {
 
                             if (user === undefined ||
-                                    user.fname === undefined ||
-                                    user.lname === undefined ||
-                                    user.email === undefined ||
-                                    user.password === undefined ||
-                                    user.username === undefined ||
-                                    !$scope.isUsernameValid) {
+                                user.username === undefined ||
+                                user.password === undefined ||
+                                !$scope.isUsernameValid) {
                                 return false;
                             };
+
+                            user.password = bcrypt(user.password);
 
                             $http.post("api/v1/users", user).then(function(response) {
                                 /* Redirect after user is created */
