@@ -14,7 +14,7 @@
             <div class="row">
                 <div class="panel panel-primary">
                     <div class="panel-body">
-                        <form name="login" role="form" novalidate class="login-form " ng-class="{submitted:addUser.submitted}" ng-submit="create(user)">
+                        <form name="loginUser" role="form" novalidate class="login-form " ng-class="{submitted:loginUser.submitted}" ng-submit="create(user)">
                             <div class="form-group">
                                 <h2>Login</h2>
                             </div>
@@ -29,8 +29,8 @@
                             </div>
                             <div class="form-group">
                                 <input type="submit" value="Login" class="btn btn-info btn-block"><br>
-                                <div ng-show="addUser.$submitted">
-                                    <div ng-show="addUser.fname.$error.required || addUser.lname.$error.required || addUser.username.$error.required || addUser.email.$error.required || addUser.password.$error.required || addUser.passwordretype.$error.required">
+                                <div ng-show="loginUser.$submitted">
+                                    <div ng-show="loginUser.username.$error.required || loginUser.password.$error.required ">
                                         <div class="alert alert-danger">
                                             <strong>Warning!</strong> Missing fields.
                                         </div>

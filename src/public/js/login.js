@@ -10,8 +10,8 @@
                 //form is valid
             }
             else {
-                //if form is not valid set $scope.addUser.submitted to true
-                $scope.addUser.submitted=true;
+                //if form is not valid set $scope.loginUser.submitted to true
+                $scope.loginUser.submitted=true;
             }};
 
         $http.get("api/v1/users").then(function(response) {
