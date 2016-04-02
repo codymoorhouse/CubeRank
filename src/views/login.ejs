@@ -3,38 +3,133 @@
 
     <head>
         <% include ../partials/head %>
+        <link rel="stylesheet" href="/css/signup.css">
     </head>
 
     <body>
         <% include ../partials/header %>
 
-        <div class="content-area">
-            <div class="content-container">
-                <h1>Login</h1>
+        <div ng-app="login" ng-controller="loginCtrl" class="container">
+            <div class="row">
+                <div class="panel panel-primary">
+                    <div class="panel-body">
+                        <form name="addUser" role="form" novalidate class="signup-form " ng-class="{submitted:addUser.submitted}" ng-submit="create(user)">
+                            <div class="form-group">
+                                <h2>Login</h2>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label" for="fname">Username</label>
 
-                <form name="login-user" method="post">
-
-                    <div class="input bold">
-                        <span class="label">Username:</span><br>
-                        <input type="text" name="username" style="width: 200px">
+                                <input type="text" maxlength="50" class="form-control" name="fname" ng-model="user.fname" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label" for="lname">Password</label>
+                                <input type="text" maxlength="50" class="form-control" name="password" ng-model="user.password" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" value="Login" class="btn btn-info btn-block"><br>
+                                <div ng-show="addUser.$submitted">
+                                    <div ng-show="addUser.fname.$error.required || addUser.lname.$error.required || addUser.username.$error.required || addUser.email.$error.required || addUser.password.$error.required || addUser.passwordretype.$error.required">
+                                        <div class="alert alert-danger">
+                                            <strong>Warning!</strong> Missing fields.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                            <p></p>Don't have an account? <a href="/signup">Sign up</a></p>
+                        </form>
                     </div>
-
-                    <div class="input bold">
-                        <span class="label">Password:</span>
-                        <br>
-                        <input type="password" name="password" style="margin-left: 2px; width: 200px">
-                    </div>
-
-                    <div>
-                        <div class="actions">
-                            <input type="submit" name="login" value="Login" class="glossys">
-                        </div>
-                    </div>
-
-                </form>
+                </div>
             </div>
         </div>
 
         <% include ../partials/footer %>
+
+        <script>
+            (function(angular) {
+                'use strict';
+                var app = angular.module('login', []);
+
+                app.controller('loginCtrl', ['$window', '$scope', '$http', function ($window, $scope, $http) {
+                    $scope.master = {};
+
+                    $scope.save= function (model) {
+                        if ($scope.addContact.$valid) {
+                            //form is valid
+                        }
+                        else {
+                            //if form is not valid set $scope.addUser.submitted to true
+                            $scope.addUser.submitted=true;
+                        }};
+
+                    $http.get("api/v1/users").then(function(response) {
+                        $scope.login = response.data.data;
+                        $scope.isUsernameValid = false;
+                        $scope.usernames = [];
+
+                        for (var i = 0; i < response.data.data.length; i++) {
+                            $scope.usernames.push(response.data.data[i].username);
+                        }
+
+                        $scope.create = function(user) {
+
+                            if (user === undefined ||
+                                    user.fname === undefined ||
+                                    user.lname === undefined ||
+                                    user.email === undefined ||
+                                    user.password === undefined ||
+                                    user.username === undefined ||
+                                    !$scope.isUsernameValid) {
+                                return false;
+                            };
+
+                            $http.post("api/v1/users", user).then(function(response) {
+                                /* Redirect after user is created */
+                                $window.location.href = '/';
+                            });
+                        }
+                    });
+
+                    $scope.create = function (user) {
+                        $scope.master = angular.copy(user);
+                    };
+                }]);
+
+                app.directive('usernameDir', function ($q, $timeout) {
+                    return {
+                        require: 'ngModel',
+                        link: function (scope, elm, attrs, ctrl) {
+                            ctrl.$asyncValidators.usernameAuth = function (modelValue, viewValue) {
+
+                                if (ctrl.$isEmpty(modelValue)) {
+                                    // consider empty model valid
+                                    return $q.when();
+                                }
+
+                                var def = $q.defer();
+
+                                $timeout(function () {
+                                    // Mock a delayed response
+                                    if (scope.usernames.indexOf(modelValue) === -1) {
+                                        // The username is available
+                                        def.resolve();
+                                        scope.isUsernameValid = true;
+                                    } else {
+                                        def.reject();
+                                        scope.isUsernameValid = false;
+                                    }
+
+                                }, 700);
+
+                                return def.promise;
+                            };
+                        }
+                    };
+                });
+
+            })(window.angular);
+
+        </script>
     </body>
 </html>
