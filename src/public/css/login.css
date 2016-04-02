@@ -45,7 +45,7 @@ a {
     float: right;
 }
 
-.signup-form input.ng-invalid.ng-touched {
+.login-form input.ng-invalid.ng-touched {
     border: medium solid #FA787E;
 }
 
