@@ -173,7 +173,7 @@ body {
 
 footer {
 
-    margin: 0px auto;
+    margin: 30px auto 0 auto;
     color: #E5FFFD;
     height: 125px;
     width: 100%;
@@ -265,9 +265,18 @@ footer a:hover:not(.active) {
     padding: 0;
 }
 
-#site-map-unsorted-list {
-    margin:      15px 0px 15px 0px;
+#site-map-unsorted-list1{
+    margin:      5px 0px 15px 0px;
     list-style:  none;
+    text-align: left;
+    display:     block;
+    padding:     0;
+}
+
+#site-map-unsorted-list2{
+    margin:      5px 0px 15px 0px;
+    list-style:  none;
+    text-align: right;
     display:     block;
     padding:     0;
 }
