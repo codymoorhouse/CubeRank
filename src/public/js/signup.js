@@ -38,7 +38,9 @@
 
                 $http.post("api/v1/users", user).then(function(response) {
                     /* Redirect after user is created */
-                    $window.location.href = '/';
+                    $http.post("/login", $scope.user).then(function(response) {
+                        $window.location.href = '/dashboard';
+                    });
                 });
             }
         });
