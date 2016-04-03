@@ -53,12 +53,16 @@
                             </div>
                             <div class="form-group">
                                 <label class="control-label" for="password">Password</label>
-                                <input type="password" maxlength="25" class="form-control" name="password" placeholder="at least 6 characters" length="40" ng-model="user.password" required>
-                            </div>
+                                <input type="password" maxlength="25" class="form-control" name="password" placeholder="at least 6 characters" length="40" ng-model="user.password" ng-minlength="6" required>
+                                <div ng-show="addUser.password.$error.minlength">
+                                    <div class="alert alert-danger">
+                                        <strong>Warning!</strong> Password must be greater than 6 characters!
+                                    </div>
+                                </div>
                             <div class="form-group">
                                 <label class="control-label" for="passwordAgain">Retype Password</label>
-                                <input name="passwordAgain" type="password" maxlength="25" class="form-control" placeholder="at least 6 characters" length="40" ng-model="user.passwordAgain" required password-dir="user.password">
-                                <div ng-show="addUser.passwordAgain.$error.passwordDir">
+                                <input name="passwordAgain" type="password" maxlength="25" class="form-control" placeholder="at least 6 characters" length="40" ng-model="user.passwordAgain" ng-minlength="6" required password-dir="user.password">
+                                <div ng-show="addUser.passwordAgain.$error.passwordDir && addUser.passwordAgain.$touched && addUser.password.$valid">
                                     <div class="alert alert-danger">
                                         <strong>Warning!</strong> Passwords do not match!
                                     </div>
