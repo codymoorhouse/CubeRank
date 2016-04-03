@@ -35,7 +35,7 @@
                                             <strong>Warning!</strong> Missing fields.
                                         </div>
                                     </div>
-                                    <div ng-show="!loginUser.username.$error.required || !loginUser.password.$error.required ">
+                                    <div ng-show="loginError">
                                         <div class="alert alert-danger">
                                             <strong>Warning!</strong> Username and/or Password invalid.
                                         </div>
