@@ -26,10 +26,10 @@
                         <div class="dashboard-right-content">
                             <h3>My Places:</h3><hr>
                             <ul class="control-panel">
-                                <li class="control-panel-item"><a href='/api/v1/orgs/<%= user['id'] %>'>View Organizations</a></li>
-                                <li class="control-panel-item"><a href='/api/v1/leagues/<%= user['id'] %>'>View Leagues</a></li>
-                                <li class="control-panel-item"><a href='/api/v1/tournaments/<%= user['id'] %>'>View Tournaments</a></li>
-                                <li class="control-panel-item"><a href="">View Teams (coming soon!)</a></li>
+                                <li class="control-panel-item"><a href='/api/v1/users/<%= user['id'] %>/orgs'>My Organizations</a></li>
+                                <li class="control-panel-item"><a href='/api/v1/users/<%= user['id'] %>/leagues'>My Leagues</a></li>
+                                <li class="control-panel-item"><a href='/api/v1/users/<%= user['id'] %>/tournaments'>My Tournaments</a></li>
+                                <li class="control-panel-item"><a href="">My Teams (coming soon!)</a></li>
                             </ul>
                         </div>
                     </div>

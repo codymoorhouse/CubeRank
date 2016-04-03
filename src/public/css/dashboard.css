@@ -1,3 +1,7 @@
+body {
+    color: white;
+}
+
 .sub-header {
     padding-bottom: 10px;
     border-bottom: 1px solid #eee;
@@ -59,6 +63,7 @@
     float: left;
 }
 
+
 .dashboard-right-content {
     margin-top: 1%;
     padding-left: 20px;
@@ -74,8 +79,9 @@
     margin-left:0;
 }
 
-#recent-matches-table tr th {
+#recent-matches-table tr th, td {
     text-align: center;
+    color: black;
 }
 
 .table-striped>tbody>tr:nth-child(odd)>td,
