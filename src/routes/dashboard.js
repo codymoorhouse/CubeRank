@@ -7,7 +7,7 @@ router.get('/', function(req, res, next) {
         res.render('dashboard', {user: req.user});
     }
     else {
-        res.render('login');
+        res.render('login', {user: req.user});
     }
 });
 
