@@ -13,7 +13,7 @@ h2 {
 
 .container {
     margin: 20px auto;
-    max-width: 360px;
+    max-width: 1100px;
 }
 
 .panel {
@@ -22,27 +22,27 @@ h2 {
     border-color: black;
 }
 
-a {
+table, th , td  {
+    border: 1px solid #41B2C6;
+    border-collapse: collapse;
+    padding: 5px;
+    margin: 0 auto;
+}
+table tr:nth-child(odd)	{
+    background-color: #444;
+}
+table tr:nth-child(even) {
+    background-color: #5a5a5a;
+}
+input[type="text"]:focus {
+    outline: none;
     color: #41B2C6;
 }
 
-.divider {
-    text-align: center;
-    margin-top: 20px;
-    margin-bottom: 5px;
+a,a:visited  {
+    color: #41B2C6;
 }
 
-.divider hr {
-    margin: 7px 0px;
-    width: 35%;
+a:hover, a:hover:not(.active) {
+    color: #fffcef;
 }
-
-.left {
-    float: left;
-}
-
-.right {
-    float: right;
-}
-
-
