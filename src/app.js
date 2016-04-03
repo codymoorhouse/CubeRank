@@ -109,7 +109,7 @@ passport.use(new LocalStrategy({
 ));
 
 app.get('/tournament/:id', function(req, res){
-    res.render('tournament');
+    res.render('tournament', { user: req.user });
 });
 
 app.get('/logout', function(req, res){
