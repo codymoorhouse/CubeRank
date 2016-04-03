@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lan="en">
+<html lan="en" xmlns="http://www.w3.org/1999/html">
 
     <head>
         <% include ../partials/head %>
         <link href="/css/dashboard.css" rel="stylesheet">
+        <script src="/js/dashboard.js"></script>
 
         <title> <%= user['fName'] + ' ' + user['lName'] %> </title>
-
     </head>
 
     <body>
@@ -17,7 +17,8 @@
                     <div class="row">
                         <div class="dashboard-left-content">
                             <div class="img-container img-circle">
-                                <img src="/img/camera.png" class="profile-picture" alt="Generic placeholder thumbnail">
+                                <input type="image" id="upload_icon" src="/img/camera.png" class="profile-picture" al="Submit" value="Upload Photo" name="submit">
+                                <input type="file" id="picture_upload" style="display: none;"/>
                             </div>
                             <h4><%= user['fName'] + ' ' + user['lName'] %></h4>
                             <span class="text-muted"><%= user['username'] %></span>

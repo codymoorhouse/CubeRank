@@ -22,6 +22,7 @@ var routes = require('./routes/index');
 var login = require('./routes/login');
 var users = require('./routes/users');
 var dashboard = require('./routes/dashboard');
+var settings = require('./routes/settings');
 
 var terms = require('./routes/terms');
 var privacy = require('./routes/privacy');
@@ -62,7 +63,6 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 
-
 app.use('/', routes);
 app.use('/login', login);
 app.use('/users', users);
@@ -75,6 +75,7 @@ app.use('/privacy', privacy);
 app.use('/match', match);
 app.use('/leaderboard', ranking);
 app.use('/dashboard', dashboard);
+app.use('/settings', settings);
 
 passport.serializeUser(function(user, done) {
     done(null, user.id);

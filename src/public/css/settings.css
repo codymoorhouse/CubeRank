@@ -1,0 +1,58 @@
+body {
+    background-color: #5a5a5a;
+}
+
+form {
+    margin: 0px 10px;
+}
+
+h2 {
+    margin-top: 2px;
+    margin-bottom: 2px;
+}
+
+.container {
+    margin: 20px auto;
+    max-width: 360px;
+}
+
+.panel {
+    background-color: #444;
+    color: white;
+    border-color: black;
+}
+
+a {
+    color: #41B2C6;
+}
+
+.divider {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 5px;
+}
+
+.divider hr {
+    margin: 7px 0px;
+    width: 35%;
+}
+
+.left {
+    float: left;
+}
+
+.right {
+    float: right;
+}
+
+.signup-form input.ng-invalid.ng-touched {
+    border: medium solid #FA787E;
+}
+
+.signup-form input.ng-valid.ng-touched {
+    border: medium solid #78FA89;
+}
+
+form.ng-submitted input.ng-invalid {
+    border: medium solid #FA787E;
+}
