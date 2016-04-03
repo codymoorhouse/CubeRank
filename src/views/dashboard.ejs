@@ -13,47 +13,49 @@
         <% include ../partials/header %>
 
         <div class="container-fluid">
-            <div class="row">
                 <div class="main">
-                    <h1 class="page-header"><%= user['fName'] + ' ' + user['lName'] %></h1>
-
                     <div class="row">
-                        <div class="placeholders">
-                            <div class=".col-xs-6 ">
-                                <div class="img-container img-circle">
-                                    <img src="/img/camera.png" class="profile-picture" alt="Generic placeholder thumbnail">
-                                </div>
-                                <h4><%= user['fName'] + ' ' + user['lName'] %></h4>
-                                <span class="text-muted"><%= user['username'] %></span>
+                        <div class="dashboard-left-content">
+                            <div class="img-container img-circle">
+                                <img src="/img/camera.png" class="profile-picture" alt="Generic placeholder thumbnail">
                             </div>
-                            <div class=".col-xs-6">
-                                <div class="img-container img-circle">
-                                    <img src="/img/camera.png" class="profile-picture" alt="Generic placeholder thumbnail">
-                                </div>
-                                <h4><%= user['fName'] + ' ' + user['lName'] %></h4>
-                                <span class="text-muted"><%= user['username'] %></span>
-                            </div>
+                            <h4><%= user['fName'] + ' ' + user['lName'] %></h4>
+                            <span class="text-muted"><%= user['username'] %></span>
+                        </div>
+
+                        <div class="dashboard-right-content">
+                            <h3>My Places:</h3><hr>
+                            <ul class="control-panel">
+                                <li class="control-panel-item"><a href='/api/v1/users/<%= user['id'] %>/orgs'>My Organizations</a></li>
+                                <li class="control-panel-item"><a href='/api/v1/users/<%= user['id'] %>/leagues'>My Leagues</a></li>
+                                <li class="control-panel-item"><a href='/api/v1/users/<%= user['id'] %>/tournaments'>My Tournaments</a></li>
+                                <li class="control-panel-item"><a href="">My Teams (coming soon!)</a></li>
+                            </ul>
                         </div>
                     </div>
 
-                    <h2 class="sub-header">Section title</h2>
+
+                    <h2 class="sub-header">Recent Matches</h2>
                     <div class="table-responsive">
-                        <table class="table table-striped">
+                        <table id="recent-matches-table" class="table table-striped">
                             <thead>
                             <tr>
-                                <th>#</th>
-                                <th>Header</th>
-                                <th>Header</th>
-                                <th>Header</th>
-                                <th>Header</th>
+                                <th>League</th>
+                                <th>Player 1</th>
+                                <th>Player 2</th>
+                                <th>Date</th>
+                                <th>Time</th>
+                                <th>Result</th>
                             </tr>
                             </thead>
-                            <tbody>
+                            <tbody ng-repeat="">
+
                             <tr>
                                 <td>1,001</td>
                                 <td>Lorem</td>
                                 <td>ipsum</td>
                                 <td>dolor</td>
+                                <td>sit</td>
                                 <td>sit</td>
                             </tr>
                             <tr>
@@ -62,6 +64,7 @@
                                 <td>consectetur</td>
                                 <td>adipiscing</td>
                                 <td>elit</td>
+                                <td>sit</td>
                             </tr>
                             <tr>
                                 <td>1,003</td>
@@ -69,6 +72,7 @@
                                 <td>nec</td>
                                 <td>odio</td>
                                 <td>Praesent</td>
+                                <td>sit</td>
                             </tr>
                             <tr>
                                 <td>1,003</td>
@@ -76,6 +80,7 @@
                                 <td>Sed</td>
                                 <td>cursus</td>
                                 <td>ante</td>
+                                <td>sit</td>
                             </tr>
                             <tr>
                                 <td>1,004</td>
@@ -83,6 +88,7 @@
                                 <td>diam</td>
                                 <td>Sed</td>
                                 <td>nisi</td>
+                                <td>sit</td>
                             </tr>
                             <tr>
                                 <td>1,005</td>
@@ -90,6 +96,7 @@
                                 <td>quis</td>
                                 <td>sem</td>
                                 <td>at</td>
+                                <td>sit</td>
                             </tr>
                             <tr>
                                 <td>1,006</td>
@@ -97,6 +104,7 @@
                                 <td>elementum</td>
                                 <td>imperdiet</td>
                                 <td>Duis</td>
+                                <td>sit</td>
                             </tr>
                             <tr>
                                 <td>1,007</td>
@@ -104,6 +112,7 @@
                                 <td>ipsum</td>
                                 <td>Praesent</td>
                                 <td>mauris</td>
+                                <td>sit</td>
                             </tr>
                             <tr>
                                 <td>1,008</td>
@@ -111,55 +120,7 @@
                                 <td>nec</td>
                                 <td>tellus</td>
                                 <td>sed</td>
-                            </tr>
-                            <tr>
-                                <td>1,009</td>
-                                <td>augue</td>
-                                <td>semper</td>
-                                <td>porta</td>
-                                <td>Mauris</td>
-                            </tr>
-                            <tr>
-                                <td>1,010</td>
-                                <td>massa</td>
-                                <td>Vestibulum</td>
-                                <td>lacinia</td>
-                                <td>arcu</td>
-                            </tr>
-                            <tr>
-                                <td>1,011</td>
-                                <td>eget</td>
-                                <td>nulla</td>
-                                <td>Class</td>
-                                <td>aptent</td>
-                            </tr>
-                            <tr>
-                                <td>1,012</td>
-                                <td>taciti</td>
-                                <td>sociosqu</td>
-                                <td>ad</td>
-                                <td>litora</td>
-                            </tr>
-                            <tr>
-                                <td>1,013</td>
-                                <td>torquent</td>
-                                <td>per</td>
-                                <td>conubia</td>
-                                <td>nostra</td>
-                            </tr>
-                            <tr>
-                                <td>1,014</td>
-                                <td>per</td>
-                                <td>inceptos</td>
-                                <td>himenaeos</td>
-                                <td>Curabitur</td>
-                            </tr>
-                            <tr>
-                                <td>1,015</td>
-                                <td>sodales</td>
-                                <td>ligula</td>
-                                <td>in</td>
-                                <td>libero</td>
+                                <td>sed</td>
                             </tr>
                             </tbody>
                         </table>

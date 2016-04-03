@@ -2,60 +2,71 @@
 <html lan="en">
 
     <head>
-      <% include ../partials/head %>
+        <% include ../partials/head %>
+        <link rel="stylesheet" href="/css/about.css">
+        <title>About Us</title>
+
     </head>
 
     <body>
         <% include ../partials/header %>
 
         <div class="content-area">
-            <h1>About Us</h1>
+            <!-- Page Content -->
+            <div class="container">
 
-            <h3>CMPT 315 Project Proposal: Open-Rank</h3>
-            <p class="index-content-p">
-                Tournaments, leagues and various competitions are extremely prevelant in modern day society.
-                Planning for these types of events becomes a burden for small organizations who want a
-                simple outlet for creating small tournaments, leagues and competitions. A system is
-                needed to allow for small organizations to display up-to-date results, schedules,
-                rankings, and statistics for members of that particular organization. The social aspect
-                of competition must also be addressed to account for various types of communications
-                throughout the system, such as being able to banter with others on results in a real-time
-                fashion. Current systems lack this social aspect and only allow for the simple creation of
-                tournament brackets.
-            </p>
+                <!-- Introduction Row -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 class="page-header">About Us
+                            <small>Welcome to our Community!</small>
+                        </h1>
+                        <p class="index-content-p">
 
-            <p class="index-content-p">
-                Based on the lack of social engagement for competitions, Open-Rank will create an
-                environment that promotes communication among participants. It will also give small
-                organizations an intuitive and dynamic system for creating and managing
-                tournaments/leagues. During a tournament, administrators will be able to add in the
-                results instantly which will in turn update visualization charts, leaderboards, and
-                statistics.
-            </p>
+                            We are a small company consisting of four elite team members. Our team is passionate about
+                            recreational sports and computer science. Each member has their own favorite sport which makes
+                            this website unique as it will provide a wide range of expertise. We are looking forward to
+                            creating and growing a friendly community that will make everyone feel comfortable.
+                        </p>
+                    </div>
+                </div>
 
-            <p class="index-content-p">
-                With simple tools, small organizations will remove the hassle of creating tournaments,
-                leagues, and competitions. They will be able to use the Open-Rank system as an easy way
-                to manage competitions on-the-fly. Participants of the organization will also have a place
-                to communicate with each other while being able to view results, leaderboards, and
-                statistics. These features will primarily be built using the following tools: mySQL,
-                node.js, angularjs.
-            </p>
-
-            <h3>Main Goal</h3>
-            <p class="index-content-p">
-                The main goal of this website will be to help small organizations and clubs organize and
-                track the progress of its members through rankings and leaderboards. It will also allow
-                them to create their own tournaments within the site. The Macewan Billiards club has
-                expressed interest in using the sites services upon completion. For some time now, they
-                have been looking into creating a ranking system so that their members can track their
-                progress, however, the process is very time consuming. It would be more beneficial to
-                outsource the ranking system instead of wasting valuable time creating it themselves.
-                The end goal is for this website to be the norm for all up coming clubs/organizations
-                to use our services to store and update their members data. We also hope that this
-                can create opportunities for those members who rank well to be scouted by larger
-                organizations.
-            </p>
+                <!-- Team Members Row -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h2 class="page-header">Our Team</h2>
+                    </div>
+                    <div class="col-lg-6 col-sm-4 text-center">
+                        <img class="img-circle img-responsive img-center" src="https://avatars0.githubusercontent.com/u/15644371?v=3&s=400" width="200" height="200" alt="">
+                        <h3><a href="https://github.com/adfyong">Alan Yong</a>
+                            <small>Code Guru</small>
+                        </h3>
+                        <p>This code genius is not to be taken lightly. Just try him in a <a href="http://play.typeracer.com/">typing race.</a></p>
+                    </div>
+                    <div class="col-lg-6 col-sm-4 text-center">
+                        <img class="img-circle img-responsive img-center" src="https://avatars2.githubusercontent.com/u/15132019?v=3&s=400" width="200" height="200" alt="">
+                        <h3><a href="https://github.com/reboss">John Robbins</a>
+                            <small>Pool Shark</small>
+                        </h3>
+                        <p>This pool shark can beat you blindfolded. If not, he will just poke you in the eye.</p>
+                    </div>
+                    <div class="col-lg-6 col-sm-4 text-center">
+                        <img class="img-circle img-responsive img-center" src="https://avatars0.githubusercontent.com/u/1766280?v=3&s=400" width="200" height="200" alt="">
+                        <h3><a href="https://github.com/AdamEpp">Adam Epp</a>
+                            <small>Sprint Master</small>
+                        </h3>
+                        <p>This sprint master can turn back time. No joke. That is how fast he runs.</p>
+                    </div>
+                    <div class="col-lg-6 col-sm-4 text-center">
+                        <img class="img-circle img-responsive img-center" src="https://avatars3.githubusercontent.com/u/10747839?v=3&s=400" width="200" height="200" alt="">
+                        <h3> <a href="https://github.com/codymoorhouse">Cody Moorhouse</a>
+                            <small>Soccer Ninja</small>
+                        </h3>
+                        <p>This soccer ninja will do anything to score. He kicks so hard the ball lights on fire!</p>
+                    </div>
+                </div>
+            </div>
+            <!-- /.container -->
         </div>
 
         <% include ../partials/footer %>

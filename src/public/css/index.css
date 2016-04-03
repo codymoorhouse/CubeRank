@@ -115,6 +115,9 @@ body {
     text-decoration: none;
 }
 
+#right-menu {
+    float: right;
+}
 #nav-list li a:hover:not(.active) {
     border-bottom: 2px solid #0889c6;
 
