@@ -7,6 +7,34 @@ body {
     text-align: center;
 }
 
+#tournament-container{
+    position: relative;
+    height: 400px;
+    overflow-y: scroll;
+    margin: 20px auto;
+    border-style: groove;
+
+}
+
+#tournament-container table{
+    text-align: left;
+    border-collapse: collapse;
+}
+
+#options-container{
+    background-color: #555;
+    text-align: left;
+}
+
+.tournament-inner {
+    position: relative;
+    height: auto;
+}
+
+.full-height{
+    height: 100%;
+}
+
 #content-area h1{
     text-shadow: 1px 1px #0c31ff;
 }
@@ -148,7 +176,8 @@ footer {
     margin: 0px auto;
     color: #E5FFFD;
     height: 125px;
-    width: 100%
+    width: 100%;
+    clear: both;
 }
 
 footer a{

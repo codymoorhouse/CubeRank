@@ -27,6 +27,17 @@ var match = require('./routes/match');
 var ranking = require('./routes/ranking');
 
 
+var userModel = require('./models/users.js');
+var leagueModel = require('./models/leagues.js');
+var orgModel = require('./models/orgs.js');
+var tournamentModel = require('./models/tournaments.js');
+
+
+//-------------------
+//Handlebar hack
+//-------------------
+
+
 var db = mysql.createConnection({
     host: '127.0.0.1',
     user: 'CubeRank_admin',
@@ -39,16 +50,18 @@ var app = express();
 
 var transporter = nodemailer.createTransport('smtps://adamepp123@gmail.com:password@smtp.gmail.com');
 
+app.set('views', __dirname+'/views');
 app.set('view engine', 'ejs');
+
 
 // uncomment after placing your favicon in /public
 app.use(favicon(path.join(__dirname, '/public/img', 'favicon.ico')));
-
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
 
 app.use('/', routes);
 app.use('/login', login);
@@ -90,6 +103,10 @@ passport.deserializeUser(function(id, done){
 
 
 
+
+app.get('/tournament/:id', function(req, res){
+    res.render('tournament');
+});
 
 // Not sure if this is the right place for this...
 app.get('/send', function (req, res) {

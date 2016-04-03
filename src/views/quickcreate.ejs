@@ -1,64 +1,84 @@
 <!DOCTYPE html>
-<html lan="en">
+<html lan="en" ng-app="tournament">
 
-    <head>
-        <% include ../partials/head %>
-    </head>
+<head>
+    <% include ../partials/head %>
+    <script src="/js/bracket.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $("button").click(function(){
+                var names = $("textarea").val().split('\n');
+                var title = $("input#title").val();
+                alert(names);
+                $.ajax({
+                    type: 'POST',
+                    url: '/api/v1/tournaments/',
+                    data: JSON.stringify({
+                            title: title,
+                            names: names
+                        }),
+                    contentType: "application/json",
+                    dataType: 'json'
+                }).done(function(response) {
 
+                        window.location.href = ('/tournament/'+response.data);
+
+                    });
+                });
+//                $.post('/api/v1/tournaments/',
+//                        JSON.stringify({
+//                            title: title,
+//                            names: names
+//                        },
+//                function(data, status){
+//                    alert("Data: " + data + "\nStatus: " + status);
+//                });
+            });
+    </script>
+</head>
     <body>
         <% include ../partials/header %>
 
-        <div class="content-area">
-            <div class="content-container">
+        <div class="content-container">
 
-                <h1>Tournament Generator</h1>
-                <form name="quick-create" method="post">
-                    <div class="input bold">
-                        <span class="label">Tournament Name:</span>
-                        <input type="text" name="tournamentName">
-                    </div>
+            <h1>Tournament Generator</h1>
+            <form name="quick-create">
 
-                    <div class="input bold">
-                        <span class="label">Tournament Type:</span>
+                <span class="label">Tournament Name:</span>
+                <input type="text" id="title" required ng-model="title" style="margin-left: 62px"><br><br>
 
-                        <select>
-                            <option value='single'>Single Elimination</option>
-                            <option value='double'>Double Elimination</option>
-                        </select>
-                    </div>
+                <div class="input">
+                    <input type="checkbox" name="third_place">
+                    <span class="label">Include a match for third place amongst semifinal losers?</span>
+                </div>
 
-                    <div class="input">
-                        <input type="checkbox" name="third_place">
-                        <span class="label">Include a match for third place amongst semifinal losers?</span>
-                    </div>
-
-                    <div class="float-left">
-                        <p>
-                            Participants / Teams:
-                        </p>
-
-                        <ul>
-                            <li> one participant per line</li>
-                            <li> order by best to worst</li>
-                        </ul>
-
-                        <div class="input">
-                            <input type="checkbox" name="randomizer">
-                            <span class="label">randomize seeds?</span>
-                        </div>
-                    </div>
-
-                    <p class="contact-content-p">
-                        <textarea rows="16" cols="30" name="participants"></textarea>
+                <div class="float-left">
+                    <p>
+                        Participants / Teams:
                     </p>
 
-                    <div class="actions">
-                        <input type="submit" name="generate" value="Generate!" class="glossys">
-                    </div>
-                </form>
-            </div>
-        </div>
+                    <ul>
+                        <li> one participant per line</li>
+                        <li> order by best to worst</li>
+                    </ul>
 
+                    <div class="input">
+                        <input type="checkbox" name="randomizer">
+                        <span class="label">randomize seeds?</span>
+                    </div>
+                </div>
+
+                <p class="contact-content-p">
+                    <textarea rows="16" cols="30" name="participants" required ng-model="participants"></textarea>
+                </p>
+                <button type="submit" name="generate" class="glossys">Generate!</button>
+            </form>
+        </div>
+        <!--<form type="hidden" id="">-->
+            <!--<input type="submit">-->
+        <!--</form>-->
         <% include ../partials/footer %>
-    </body>
+</body>
 </html>
+
