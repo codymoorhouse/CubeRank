@@ -1,5 +1,6 @@
 // Manage Users table
 var bcrypt = require('bcryptjs');
+var salt = bcrypt.genSaltSync(5);
 
 // api/v1/users
 exports.createUser = function(db, req, res) {
@@ -22,7 +23,7 @@ exports.createUser = function(db, req, res) {
                 req.body.lname,
                 req.body.email,
                 req.body.username,
-                bcrypt.hashSync(req.body.password, 8)
+                bcrypt.hashSync(req.body.password, salt)
             ], function (err) {
                 if (err) {
                     db.query(

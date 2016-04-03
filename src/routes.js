@@ -12,9 +12,7 @@ module.exports = function (app, passport, db) {
         failureFlash: true, // allow flash messages
         passReqToCallback: true
     }));
-
-
-
+    
     var userModel = require('./models/users.js');
     var leagueModel = require('./models/leagues.js');
     var orgModel = require('./models/orgs.js');
