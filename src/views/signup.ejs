@@ -11,83 +11,80 @@
         <% include ../partials/header %>
 
         <div ng-app="signup" ng-controller="signupCtrl" class="container">
-            <div class="row">
-                <div class="panel panel-primary">
-                    <div class="panel-body">
-                        <form name="addUser" role="form" novalidate class="signup-form" ng-class="{submitted:addUser.submitted}" ng-submit="create(user)">
-                            <div class="form-group">
-                                <h2>Create account</h2>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label" for="fname">First Name</label>
-
-                                <input type="text" maxlength="50" class="form-control" name="fname" ng-model="user.fname" required>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label" for="lname">Last Name</label>
-                                <input type="text" maxlength="50" class="form-control" name="lname" ng-model="user.lname" required>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label" for="email">Email</label>
-                                <input type="email" maxlength="50" class="form-control" name="email" ng-model="user.email" required>
-
-                                <div ng-show="addUser.email.$invalid && addUser.email.$touched">
-                                    <div class="alert alert-danger">
-                                        <strong>Warning!</strong> You must enter a valid email.
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label" for="username">Username</label>
-                                <input type="text" maxlength="50" class="form-control" ng-model="user.username" name="username" username-dir required>
-                                <span ng-show="addUser.username.$pending.usernameAuth">
-                                    <div class="alert alert-info">
-                                        Checking if username exists.
-                                    </div>
-                                </span>
-                                <span ng-show="addUser.username.$error.usernameAuth">
-                                    <div class="alert alert-danger">
-                                        <strong>Warning!</strong> Username already taken,
-                                    </div>
-                                </span>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label" for="password">Password</label>
-                                <input type="password" maxlength="25" class="form-control" name="password" placeholder="at least 6 characters" length="40" ng-model="user.password" ng-minlength="6" required>
-                                <div ng-show="addUser.password.$error.minlength">
-                                    <div class="alert alert-danger">
-                                        <strong>Warning!</strong> Password must be greater than 6 characters!
-                                    </div>
-                                </div>
-                            <div class="form-group">
-                                <label class="control-label" for="passwordAgain">Retype Password</label>
-                                <input name="passwordAgain" type="password" maxlength="25" class="form-control" placeholder="at least 6 characters" length="40" ng-model="user.passwordAgain" ng-minlength="6" required password-dir="user.password">
-                                <div ng-show="addUser.passwordAgain.$error.passwordDir && addUser.passwordAgain.$touched && addUser.password.$valid">
-                                    <div class="alert alert-danger">
-                                        <strong>Warning!</strong> Passwords do not match!
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <input type="submit" class="btn btn-info btn-block">Create your account
-                                <div ng-show="addUser.$submitted">
-                                        <div ng-show="addUser.fname.$error.required || addUser.lname.$error.required || addUser.username.$error.required || addUser.email.$error.required || addUser.password.$error.required || addUser.passwordAgain.$error.required">
-                                        <div class="alert alert-danger">
-                                            <strong>Warning!</strong> Missing fields.
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <p class="form-group">By creating an account, you agree to our <a href="/terms">Terms of Use</a> and our <a href="/privacy">Privacy Policy</a>.</p>
-                            <hr>
-                            <p>Already have an account? <a href="/login">Sign in</a></p>
+            <div class="panel panel-primary">
+                <div class="panel-body">
+                    <form name="addUser" role="form" novalidate class="signup-form" ng-class="{submitted:addUser.submitted}" ng-submit="create(user)">
+                        <div class="form-group">
+                            <h2>Create account</h2>
                         </div>
-                        </form>
+                        <div class="form-group">
+                            <label class="control-label" for="fname">First Name</label>
+
+                            <input type="text" maxlength="50" class="form-control" name="fname" ng-model="user.fname" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="lname">Last Name</label>
+                            <input type="text" maxlength="50" class="form-control" name="lname" ng-model="user.lname" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="email">Email</label>
+                            <input type="email" maxlength="50" class="form-control" name="email" ng-model="user.email" required>
+
+                            <div ng-show="addUser.email.$invalid && addUser.email.$touched">
+                                <div class="alert alert-danger">
+                                    <strong>Warning!</strong> You must enter a valid email.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="username">Username</label>
+                            <input type="text" maxlength="50" class="form-control" ng-model="user.username" name="username" username-dir required>
+                            <span ng-show="addUser.username.$pending.usernameAuth">
+                                <div class="alert alert-info">
+                                    Checking if username exists.
+                                </div>
+                            </span>
+                            <span ng-show="addUser.username.$error.usernameAuth">
+                                <div class="alert alert-danger">
+                                    <strong>Warning!</strong> Username already taken,
+                                </div>
+                            </span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="password">Password</label>
+                            <input type="password" maxlength="25" class="form-control" name="password" placeholder="at least 6 characters" length="40" ng-model="user.password" ng-minlength="6" required>
+                            <div ng-show="addUser.password.$error.minlength">
+                                <div class="alert alert-danger">
+                                    <strong>Warning!</strong> Password must be greater than 6 characters!
+                                </div>
+                            </div>
+                        <div class="form-group">
+                            <label class="control-label" for="passwordAgain">Retype Password</label>
+                            <input name="passwordAgain" type="password" maxlength="25" class="form-control" placeholder="at least 6 characters" length="40" ng-model="user.passwordAgain" ng-minlength="6" required password-dir="user.password">
+                            <div ng-show="addUser.passwordAgain.$error.passwordDir && addUser.passwordAgain.$touched && addUser.password.$valid">
+                                <div class="alert alert-danger">
+                                    <strong>Warning!</strong> Passwords do not match!
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" class="btn btn-info btn-block">Create your account
+                            <div ng-show="addUser.$submitted">
+                                    <div ng-show="addUser.fname.$error.required || addUser.lname.$error.required || addUser.username.$error.required || addUser.email.$error.required || addUser.password.$error.required || addUser.passwordAgain.$error.required">
+                                    <div class="alert alert-danger">
+                                        <strong>Warning!</strong> Missing fields.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="form-group">By creating an account, you agree to our <a href="/terms">Terms of Use</a> and our <a href="/privacy">Privacy Policy</a>.</p>
+                        <hr>
+                        <p>Already have an account? <a href="/login">Sign in</a></p>
                     </div>
+                    </form>
                 </div>
             </div>
         </div>
-
         <% include ../partials/footer %>
     </body>
 </html>

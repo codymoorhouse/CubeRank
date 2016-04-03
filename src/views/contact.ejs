@@ -3,6 +3,8 @@
 
     <head>
         <% include ../partials/head %>
+        <link rel="stylesheet" href="/css/contact.css">
+
         <script src='/js/jquery-1.12.2.min.js'></script>
         <script src='/js/contact-email.js'></script>
     </head>
@@ -10,29 +12,32 @@
     <body>
     <% include ../partials/header %>
 
-    <div class="content-area">
-        <div class="content-container">
-            <h1>Contact Us</h1>
-
-            <form>
-                <p class="contact-content-p">
-                    <input id="from" type="text" placeholder="E-mail">
-                </p>
-
-                <p class="contact-content-p">
-                    <input id="subject" type="text" placeholder="Subject">
-                </p>
-
-                <p class="contact-content-p">
-                    <textarea id="content" cols="40" rows="5" placeholder="Message"></textarea>
-                </p>
-
-                <p class="contact-content-p">
-                    <input type="submit" id="send_email" value="Send Email">
-                </p>
-            </form>
-
-            <p id="message"></p>
+    <div ng-app="contact" ng-controller="contactCtrl" class="container">
+        <div class="panel panel-primary">
+            <div class="panel-body">
+                <form name="contactUs" role="form" novalidate class="contact-form">
+                    <div class="form-group">
+                        <h2>Contact Us</h2>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" id="from" class="form-control" placeholder="E-mail" name="email" ng-model="email" required>
+                        <div ng-show="contactUs.email.$invalid && contactUs.email.$dirty">
+                            <div class="alert alert-danger">
+                                <strong>Warning!</strong> You must enter a valid email.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="subject" class="form-control" placeholder="Subject">
+                    </div>
+                    <div class="form-group">
+                        <textarea id="content" cols="36" rows="5" class="form-control" placeholder="Message"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" id="send_email" value="Send Email" class="btn btn-info btn-block">
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 

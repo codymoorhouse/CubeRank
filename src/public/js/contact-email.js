@@ -1,3 +1,5 @@
+
+
 $(document).ready(function () {
     var stringFrom = "Email From : ";
     var newLine = "\n";
@@ -16,3 +18,10 @@ $(document).ready(function () {
         });
     });
 });
+
+(function(angular) {
+    'use strict';
+    var app = angular.module('contact', []);
+
+    app.controller('contactCtrl', function() {});
+})(window.angular);
