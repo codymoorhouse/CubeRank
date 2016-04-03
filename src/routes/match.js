@@ -3,7 +3,7 @@ var router = express.Router();
 
 /* GET match listing. */
 router.get('/', function(req, res, next) {
-    res.render('match');
+    res.render('match', { user: req.user });
 });
 
 module.exports = router;

@@ -14,7 +14,6 @@ var bcrypt = require('bcryptjs');
 
 var mysql = require('mysql');
 var contact = require('./routes/contact');
-var userprofile = require('./routes/userprofile');
 var signup = require('./routes/signup');
 var quickcreate = require('./routes/quickcreate');
 var about = require('./routes/about');
@@ -68,7 +67,6 @@ app.use('/', routes);
 app.use('/login', login);
 app.use('/users', users);
 app.use('/contact', contact);
-app.use('/userprofile', userprofile);
 app.use('/signup', signup);
 app.use('/quickcreate', quickcreate);
 app.use('/about', about);
@@ -150,7 +148,8 @@ if (app.get('env') === 'development') {
         res.status(err.status || 500);
         res.render('error', {
             message: err.message,
-            error: err
+            error: err,
+            user: req.user
         });
     });
 }

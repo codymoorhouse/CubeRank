@@ -1,3 +1,4 @@
+<%if (user === undefined) { %>
 <header class="header-content-area">
     <a href="/"><img id="headerLogo" , src="/img/logosmall.png" , alt="CubeRank Logo" )></a>
 
@@ -12,5 +13,20 @@
         </ul>
     </div>
 </header>
-
 <div class="push"></div>
+<% } else{ %>
+<header class="header-content-area">
+    <a href="/"><img id="headerLogo" , src="img/logosmall.png" , alt="CubeRank Logo" )></a>
+
+    <div id="nav-list">
+        <ul>
+            <li><a href="/">Home</a></li>
+
+            <ul id="right-menu">
+                <li><a href="/logout">Logout</a></li>
+            </ul>
+        </ul>
+    </div>
+</header>
+<div class="push"></div>
+<% } %>
