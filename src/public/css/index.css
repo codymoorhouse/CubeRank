@@ -118,7 +118,9 @@ body {
 }
 
 .header-content-area {
+    position: fixed;
     margin: 0px auto;
+    z-index: 9999;
     background: black; /* For browsers that do not support gradients */
     background: -webkit-linear-gradient(45deg, black , #111, #222, #333, #444, #555, #333, black, black); /* For Safari 5.1 to 6.0 */
     background: -o-linear-gradient(45deg, black , #111, #222, #333, #444, #555, #333, black, black); /* For Opera 11.1 to 12.0 */
@@ -138,7 +140,7 @@ body {
 }
 
 .push {
-    height: 125px;
+    height: 60px;
 }
 
 footer {
