@@ -112,6 +112,11 @@ app.get('/tournament/:id', function(req, res){
     res.render('tournament');
 });
 
+app.get('/logout', function(req, res){
+    req.logout();
+    res.redirect('/');
+});
+
 // Not sure if this is the right place for this...
 app.get('/send', function (req, res) {
     var mailOptions = {
