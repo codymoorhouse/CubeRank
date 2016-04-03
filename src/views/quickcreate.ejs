@@ -4,19 +4,50 @@
 <head>
     <% include ../partials/head %>
     <script src="/js/bracket.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $("button").click(function(){
+                var names = $("textarea").val().split('\n');
+                var title = $("input#title").val();
+                alert(names);
+                $.ajax({
+                    type: 'POST',
+                    url: '/api/v1/tournaments/',
+                    data: JSON.stringify({
+                            title: title,
+                            names: names
+                        }),
+                    contentType: "application/json",
+                    dataType: 'json'
+                }).done(function(response) {
+
+                        window.location.replace('/tournament/'+response.data);
+
+                    });
+                });
+//                $.post('/api/v1/tournaments/',
+//                        JSON.stringify({
+//                            title: title,
+//                            names: names
+//                        },
+//                function(data, status){
+//                    alert("Data: " + data + "\nStatus: " + status);
+//                });
+            });
+    </script>
 </head>
     <body>
         <% include ../partials/header %>
 
-        <div class="content-container" ng-controller="BracketController as brackets">
+        <div class="content-container">
 
             <h1>Tournament Generator</h1>
-            <form name="quick-create" ng-submit="brackets.generate(title, participants)">
+            <form name="quick-create">
 
                 <span class="label">Tournament Name:</span>
-                <input type="text" name="title" required ng-model="title" style="margin-left: 62px"><br><br>
+                <input type="text" id="title" required ng-model="title" style="margin-left: 62px"><br><br>
 
-                {{title}}
                 <div class="input">
                     <input type="checkbox" name="third_place">
                     <span class="label">Include a match for third place amongst semifinal losers?</span>
@@ -41,10 +72,13 @@
                 <p class="contact-content-p">
                     <textarea rows="16" cols="30" name="participants" required ng-model="participants"></textarea>
                 </p>
-                <input type="submit" name="generate" value="Generate!" class="glossys">
+                <button type="submit" name="generate" class="glossys">Generate!</button>
             </form>
         </div>
+        <!--<form type="hidden" id="">-->
+            <!--<input type="submit">-->
+        <!--</form>-->
         <% include ../partials/footer %>
-    </body>
+</body>
 </html>
 

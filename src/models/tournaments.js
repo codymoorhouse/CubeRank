@@ -48,7 +48,7 @@ exports.createTournament = function(db, req, res){
                         else{
                             res.json({
                                 statusCode: 200,
-                                message: 'OK'
+                                data: tid
                             });
                         }
                     });
@@ -157,7 +157,7 @@ exports.getMatches = function(db, req, res){
 
 exports.getTournamentMatches = function(db, req, res){
 
-    var query = "SELECT * FROM matches WHERE id = ?"
+    var query = "SELECT * FROM matches WHERE tournament_id = ?"
 
     if (req.query.hasOwnProperty('curr')){
         query +=  "AND match_result = 0";
