@@ -27,6 +27,7 @@ table, th , td  {
     border-collapse: collapse;
     padding: 5px;
     margin: 0 auto;
+    text-align: center;
 }
 table tr:nth-child(odd)	{
     background-color: #444;
