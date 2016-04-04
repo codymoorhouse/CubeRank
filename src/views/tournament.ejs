@@ -14,49 +14,86 @@
 
 
 
-    <div></div>
+    <div id="tournament-container">
     <script type="text/javascript">
 
         var tournament = {teams: [], results: []};
-        $.get('/api/v1/tournaments/' + window.location.href.split('/')[4] + "/matches", function(data){
-//            alert(tournament.teams);
-            for (var i = 0; i < data.data.length ; i+=2){
-                tournament.teams.push([data.data[i].username1, data.data[i+1].username2 ]);
-            }
 
-            $(function() {
-                $(' .demo').bracket({
-                    init: tournament, /* data to initialize the bracket with */
-                    save: null,
-                    userData: ' ',
-                    onMatchClick: onclick,
-                    onMatchHover: onhover,
-                    decorator: null,
-                    skipSecondaryFinal: false,
-                    skipGrandFinalComeback: false,
-                    dir: 'lr'
-                });
-            });
+        $.get('/api/v1/tournaments/' + window.location.href.split('/')[4], function(data){
 
-            function saveFn(){
-                $.ajax({
-                    url: '/script.cgi',
-                    type: 'DELETE',
-                    success: function(result) {
-                        // Do something with the result
-                    }
-                });
-            }
-
-            function onclick(data) {
-                $('#matchCallback').text("onclick(data: '" + data + "')")
-            }
-
-            function onhover(data, hover) {
-                $('#matchCallback').text("onhover(data: '" + data + "', hover: " + hover + ")")
-            }
+            document.getElementById('title').innerHTML = data.data[0].title;
 
         });
+
+        $.get('/api/v1/tournaments/' + window.location.href.split('/')[4] + "/matches", function(data) {
+//            alert(tournament.teams);
+            for (var i = 0; i < data.data.length; i ++) {
+                tournament.teams.push([data.data[i].username1, data.data[i].username2]);
+//                tournament.results.push([null, null]);
+            }
+
+            $.get('/api/v1/tournaments/' + window.location.href.split('/')[4], function(data){
+
+                document.getElementById('title').innerHTML = data.data[0].title;
+                $(function () {
+                    $('div#save .demo').bracket({
+                        init: tournament, /* data to initialize the bracket with */
+                        save: saveFn,
+                        userData: ' ',
+                        onMatchClick: null,
+                        onMatchHover: null,
+                        decorator: null,
+                        skipSecondaryFinal: false,
+                        skipGrandFinalComeback: false,
+                        dir: 'lr'
+                    });
+                });
+
+                function saveFn(data, userData) {
+                    var json = jQuery.toJSON(data);
+                    $('#saveOutput').text('POST ' + userData + ' ' + json);
+                }
+
+            });
+
+
+
+//            $(function() {
+//                var container = $('div#save .demo')
+//                container.bracket({
+//                    init: tournament,
+//                    save: saveFn,
+//                    userData: "http://myapi"})
+//
+//                /* You can also inquiry the current data */
+//                var data = container.bracket('data')
+//                $('#dataOutput').text(jQuery.toJSON(data))
+//            })
+
+
+//            function onclick(data) {
+//                $('#matchCallback').text("onclick(data: '" + data + "')");
+//                $.ajax({
+//                    type: 'PUT',
+//                    url: '/api/v1/tournaments/',
+//                    data: JSON.stringify({
+//                        winner: title,
+//                        names: names
+//                    }),
+//                    contentType: "application/json",
+//                    dataType: 'json'
+//                }).done(function(response) {
+//
+//                    window.location.replace('/tournament/'+response.data);
+//
+//                });
+        });
+
+
+//            function onhover(data, hover) {
+//                $('#matchCallback').text("onhover(data: '" + data + "', hover: " + hover + ")");
+//            }
+
 
 //        {
 //            teams : [
@@ -72,9 +109,11 @@
 
 
     </script>
+    <h2 id="title"></h2>
+    <div id="save" style="margin: 20px 200px">
     <div class="demo"></div>
-
-
+    </div>
+    </div>
 <% include ../partials/footer %>
 </body>
 </html>

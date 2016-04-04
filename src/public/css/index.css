@@ -10,8 +10,10 @@ body {
 #tournament-container{
     position: relative;
     height: 400px;
+    overflow-y: scroll;
     margin: 20px auto;
     border-style: groove;
+
 }
 
 #tournament-container table{
