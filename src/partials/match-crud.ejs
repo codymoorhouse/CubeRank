@@ -8,6 +8,7 @@
                     <thead ng-controller="matchCtrlAdd">
                     <tr>
                         <form name="matchform" role="form" novalidate class="match-form" ng-submit="create(match)">
+                            <th></th>
                             <th>
                                 <div class="form-group">
                                     <label class="control-label" for="match_date">Match Date</label>
@@ -56,6 +57,13 @@
                         <form name="matchform" role="form" novalidate class="match-form" ng-submit="create(match)">
                             <th>
                                 <div class="form-group">
+                                    <label class="control-label" for="id">Match Id</label>
+                                    <input id="match_date" type="text" maxlength="50" class="form-control"
+                                           ng-model="match.id" required>
+                                </div>
+                            </th>
+                            <th>
+                                <div class="form-group">
                                     <label class="control-label" for="match_date">Match Date</label>
                                     <input id="match_date" type="text" maxlength="50" class="form-control"
                                            ng-model="match.match_date" required>
@@ -102,6 +110,13 @@
                         <form name="matchform" role="form" novalidate class="match-form" ng-submit="create(match)">
                             <th>
                                 <div class="form-group">
+                                    <label class="control-label" for="id">Match Id</label>
+                                    <input id="match_date" type="text" maxlength="50" class="form-control"
+                                           ng-model="match.id" required>
+                                </div>
+                            </th>
+                            <th>
+                                <div class="form-group">
                                     <label class="control-label" for="match_date">Match Date</label>
                                     <input id="match_date" type="text" maxlength="50" class="form-control"
                                            ng-model="match.match_date" required>
@@ -145,6 +160,7 @@
                     </tbody>
                     <tbody ng-controller="matchCtrlDis">
                     <tr>
+                        <th><a href="" ng-click="order('id')">id</a></th>
                         <th><a href="" ng-click="order('match_date')">Date</a></th>
                         <th><a href="" ng-click="order('match_result')">Result</a></th>
                         <th><a href="" ng-click="order('tournament_id')">Tournament Id</a></th>
@@ -153,6 +169,7 @@
                         <th></th>
                     </tr>
                     <tr>
+                        <td><input type="text" ng-model="search.id"/></td>
                         <td><input type="text" ng-model="search.match_date"/></td>
                         <td><input type="text" ng-model="search.match_result"/></td>
                         <td><input type="text" ng-model="search.tournament_id"/></td>
@@ -163,6 +180,7 @@
                     <tr ng-repeat="m in match | orderBy:predicate:reverse | filter:search"
                         ng-class-odd="'odd'" |
                         ng-show="$index<25">
+                        <td>{{ m.id}}</td>
                         <td>{{ m.match_date}}</td>
                         <td>{{ m.match_result}}</td>
                         <td>{{ m.tournament_id}}</td>
