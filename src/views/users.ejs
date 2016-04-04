@@ -1,15 +1,39 @@
 <!DOCTYPE html>
 <html lan="en">
 
-<head>
-    <% include ../partials/head %>
-    <script src='/js/jquery-1.12.2.min.js'></script>
-</head>
-<body>
-<% include ../partials/header %>
+    <head>
+        <% include ../partials/head %>
+        <link rel="stylesheet" href="/css/jquery.dataTables.min.css">
+        <link rel="stylesheet" href="/css/users.css">
 
+        <script src="/js/users.js"></script>
+        <script src="/js/jquery.dataTables.min.js"></script>
+    </head>
+    <body>
+        <% include ../partials/header %>
 
+        <div ng-app="usersApp" ng-controller="usersCtrl" class="container">
+            <div class="content-area">
+                <table id="users_table" class="display">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Username</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="person in userList">
+                            <td>{{ person['id'] }}</td>
+                            <td>{{ person['name'] }}</td>
+                            <td >{{ person['username'] }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div ng-init="startDatatable()"></div>
+            </div>
+        </div>
 
-<% include ../partials/footer %>
-</body>
+        <% include ../partials/footer %>
+    </body>
 </html>
