@@ -104,7 +104,7 @@ passport.deserializeUser(function(id, done){
 
 
 
-app.get('/tournament', function(req, res){
+app.get('/tournament/:id', function(req, res){
     res.render('tournament');
 });
 
