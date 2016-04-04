@@ -4,7 +4,6 @@ var salt = bcrypt.genSaltSync(5);
 
 // api/v1/users
 exports.createUser = function(db, req, res) {
-    console.log(req.body);
     if (req.body.fname !== undefined &&
         req.body.fname !== null &&
         req.body.lname !== undefined &&
