@@ -10,7 +10,7 @@
             $("button").click(function(){
                 var names = $("textarea").val().split('\n');
                 var title = $("input#title").val();
-                alert(names);
+//                alert(names);
                 $.ajax({
                     type: 'POST',
                     url: '/api/v1/tournaments/',
@@ -42,11 +42,11 @@
 
         <div class="content-container">
 
-            <h1>Tournament Generator</h1>
+            <h1 style="color: white">Tournament Generator</h1>
             <form name="quick-create">
 
                 <span class="label">Tournament Name:</span>
-                <input type="text" id="title" required ng-model="title" style="margin-left: 62px"><br><br>
+                <input type="text" id="title" required ng-model="title" style="margin-left: 76px"><br><br>
 
                 <div class="input">
                     <input type="checkbox" name="third_place">
@@ -54,11 +54,11 @@
                 </div>
 
                 <div class="float-left">
-                    <p>
+                    <p style="color: white">
                         Participants / Teams:
                     </p>
 
-                    <ul>
+                    <ul style="color: white">
                         <li> one participant per line</li>
                         <li> order by best to worst</li>
                     </ul>
