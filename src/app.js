@@ -38,8 +38,6 @@ var db = mysql.createConnection({
 
 var app = express();
 
-var transporter = nodemailer.createTransport('smtps://adamepp123@gmail.com:password@smtp.gmail.com');
-
 app.set('views', __dirname+'/views');
 app.set('view engine', 'ejs');
 
@@ -118,23 +116,28 @@ app.get('/logout', function(req, res){
     res.redirect('/');
 });
 
-// Not sure if this is the right place for this...
-app.get('/send', function (req, res) {
+var transporter = nodemailer.createTransport('smtps://name@gmail.com:password@smtp.gmail.com');
+app.post('/send', function (req, res) {
     var mailOptions = {
-        to: req.query.to,
-        from: req.query.from,
-        subject: req.query.subject,
-        text: req.query.text
+        to: "youremail@gmail.com",
+        from: req.body.from,
+        subject: req.body.subject,
+        text: "Email From: " + req.body.from + "\n" + req.body.content
     };
     console.log(mailOptions);
     transporter.sendMail(mailOptions, function(error, info) {
         if (error) {
             console.log(error);
+        }else {
+            console.log("Message sent: " + info.response);
         }
-        console.log("Message sent: " + info.response);
+        return res.json({
+            message: "success"
+        });
 
     });
 });
+
 
 require('./routes.js') (app, passport , db);
 

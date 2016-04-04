@@ -3,88 +3,14 @@
 
 <head>
     <% include ../partials/head %>
-    <link rel="stylesheet" href="/css/ranking.css">
 </head>
 
 <body>
 <% include ../partials/header %>
 
-<div class="content-area" ng-app="rank">
-
-    <div ng-controller="leagueCtrl">
-        <h1 ng-repeat="l in rank">Leaderboard For: {{ l.title }}</h1>
-    </div>
-    <div class="container">
-        <div class="row">
-            <div class="panel panel-primary">
-                <div class="panel-body">
-                    <div class="col-xs-6">
-                        <table ng-controller="rankCtrl">
-                            <tr>
-                                <td>Username</td>
-                                <td>Rank</td>
-                            </tr>
-                            <tr ng-repeat="r in rank">
-                                <td>{{ r.username }}</td>
-                                <td>{{ r.user_rank }}</td>
-                            </tr>
-                        </table>
-                    </div>
-                    <div class="col-xs-6">
-                        <h3>Sort By Rank</h3>
-                        <form name="rankfind" role="form" novalidate class="rank-form" ng-submit="create(rank)">
-                            <div class="form-group">
-                                <label class="control-label" for="min">Min Rank</label>
-                                <input type="text" maxlength="5" class="form-control" name="min" ng-model="rank.min" required>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="control-label" for="max">Max Rank</label>
-                                <input type="text" maxlength="5" class="form-control" name="max" ng-model="rank.max" required>
-                            </div>
-                            <hr>
-
-                            <div class="form-group">
-                                <input type="submit" class="btn btn-info btn-block"> </input>
-                            </div>
-
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-</div>
-
-</div>
+<% include ../partials/ranking.ejs%>
 
 <% include ../partials/footer %>
-
-<script>
-    (function () {
-
-        var app = angular.module('rank', []);
-
-        app.controller('rankCtrl', function ($scope, $http) {
-            $http.get("api/v1/leagues/1/userRanks").then(function (response) {
-                $scope.rank = response.data.data;
-            });
-
-            $scope.create = function(rank) {
-                $http.get("api/v1/leagues/1/userRanks?min=?&max=?", rank).then(function(response) {
-                    $scope.rank = response.data.data;
-                });
-            }
-        })
-
-        app.controller('leagueCtrl', function ($scope, $http) {
-            $http.get("api/v1/leagues/1").then(function (response) {
-                $scope.rank = response.data.data;
-            });
-        })
-    })();
-</script>
 
 </body>
 </html>

@@ -4,9 +4,6 @@
     <head>
         <% include ../partials/head %>
         <link rel="stylesheet" href="/css/contact.css">
-
-        <script src='/js/jquery-1.12.2.min.js'></script>
-        <script src='/js/contact-email.js'></script>
     </head>
 
     <body>
@@ -15,7 +12,7 @@
     <div ng-app="contact" ng-controller="contactCtrl" class="container">
         <div class="panel panel-primary">
             <div class="panel-body">
-                <form name="contactUs" role="form" novalidate class="contact-form">
+                <form name="contactUs" role="form" novalidate class="contact-form" method="post" action="/send">
                     <div class="form-group">
                         <h2>Contact Us</h2>
                     </div>
