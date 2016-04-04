@@ -77,11 +77,9 @@
                                 </div>
                                 <div class="form-group">
                                     <input type="submit" class="btn btn-info btn-block" value="Update">
-                                    <div ng-show="updateUser.$submitted">
-                                        <div ng-show="updateUser.passwordCurrent">
-                                            <div class="alert alert-danger">
-                                                <strong>Warning!</strong> Invalid password.
-                                            </div>
+                                    <div ng-show="updateUser.passwordfail">
+                                        <div class="alert alert-danger">
+                                            <strong>Warning!</strong> Invalid password.
                                         </div>
                                     </div>
                                 </div>

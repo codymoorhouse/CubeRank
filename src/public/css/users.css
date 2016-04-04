@@ -1,86 +1,4 @@
-body {
-    color: white;
-}
-
-.sub-header {
-    padding-bottom: 10px;
-    border-bottom: 1px solid #eee;
-}
-
-/*
- * Main content
- */
-
-.main {
-    padding: 20px;
-}
-
-@media (min-width: 768px) {
-    .main {
-        padding-right: 40px;
-        padding-left: 40px;
-    }
-}
-.main .page-header {
-    margin-top: 0;
-}
-
-.placeholders {
-    text-align: center;
-    margin: auto;
-
-    width: 300px;
-    height: 300px;
-}
-.placeholders h4 {
-    margin-bottom: 0;
-}
-.placeholder {
-    margin-bottom: 20px;
-}
-
-.img-container {
-    margin: auto;
-    border: thin solid black;
-    width: 200px;
-    height: 200px;
-    background-color: #999;
-}
-
-.profile-picture {
-    margin: 75px;
-    width: 50px;
-    height: 50px;
-}
-
-.row {
-    margin: auto;
-    padding: auto;
-    width: 500px;
-}
-
-.dashboard-left-content, .dashboard-right-content {
-    float: left;
-}
-
-
-.dashboard-right-content {
-    margin-top: 1%;
-    padding-left: 20px;
-}
-
-.control-panel, .control-panel-item {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-}
-
-.control-panel-item {
-    margin-left:0;
-}
-
-
-table {
+.content-area{
     color: black;
 }
 
@@ -126,4 +44,8 @@ button, input, select, textarea {
     font-size: inherit;
     line-height: inherit;
     color: black;
+}
+
+.container {
+    padding: 0;
 }
