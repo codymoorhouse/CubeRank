@@ -23,7 +23,7 @@ $(document).ready(function() {
             }
             else {
                 //if form is not valid set $scope.updateUser.submitted to true
-                $scope.updateUser.submitted=true;
+                $scope.updateUser.submitted = true;
         }};
 
         $scope.update = function(user) {
@@ -50,6 +50,8 @@ $(document).ready(function() {
             $http.put("api/v1/users/" + $scope.userId, updatedUser).then(function(response) {
                 /* Redirect after user is created */
                 $window.location.href = '/dashboard';
+            }, function(response) {
+                $scope.updateUser.passwordfail = true;
             });
         }
 
