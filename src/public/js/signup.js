@@ -23,28 +23,27 @@
                 $scope.usernames.push(response.data.data[i].username);
             }
 
-        });
+            $scope.create = function(user) {
 
-        $scope.create = function(user) {
+                if (user === undefined ||
+                    user.fname === undefined ||
+                    user.lname === undefined ||
+                    user.email === undefined ||
+                    user.password === undefined ||
+                    user.username === undefined ||
+                    user.password !== user.passwordAgain ||
+                    !$scope.isUsernameValid) {
+                    return false;
+                }
 
-            if (user === undefined ||
-                user.fname === undefined ||
-                user.lname === undefined ||
-                user.email === undefined ||
-                user.password === undefined ||
-                user.username === undefined ||
-                user.password !== user.passwordAgain ||
-                !$scope.isUsernameValid) {
-                return false;
-            }
-
-            $http.post("api/v1/users", user).then(function(response) {
-                /* Redirect after user is created */
-                $http.post("/login", $scope.user).then(function(response) {
-                    $window.location.href = '/dashboard';
+                $http.post("api/v1/users", user).then(function(response) {
+                    /* Redirect after user is created */
+                    $http.post("/login", $scope.user).then(function(response) {
+                        $window.location.href = '/dashboard';
+                    });
                 });
-            });
-        };
+            }
+        });
 
         $scope.create = function (user) {
             $scope.master = angular.copy(user);
