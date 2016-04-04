@@ -17,8 +17,7 @@
                     <div class="row">
                         <div class="dashboard-left-content">
                             <div class="img-container img-circle">
-                                <input type="image" id="upload_icon" src="/img/camera.png" class="profile-picture" al="Submit" value="Upload Photo" name="submit">
-                                <input type="file" id="picture_upload" style="display: none;"/>
+                                <img id="profile-picture" src="/img/no-image.png" class="profile-picture" alt="<%= user['fName'] + ' ' + user['lName'] %>">
                             </div>
                             <h4><%= user['fName'] + ' ' + user['lName'] %></h4>
                             <span class="text-muted"><%= user['username'] %></span>
