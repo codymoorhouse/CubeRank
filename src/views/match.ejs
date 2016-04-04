@@ -3,78 +3,14 @@
 
 <head>
     <% include ../partials/head %>
-    <link rel="stylesheet" href="/css/match.css">
 </head>
 
 <body>
 <% include ../partials/header %>
 
-<div ng-app="matchcreate" ng-controller="matchCtrl" class="container">
-    <div class="row">
-        <div class="panel panel-primary">
-            <div class="panel-body">
-                <form name="matchform" role="form" novalidate class="match-form" ng-submit="create(match)">
-                    <div class="form-group">
-                        <h2>Create match</h2>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label" for="match_date">Match Date</label>
-                        <input id="match_date" type="text" maxlength="50" class="form-control" ng-model="match.match_date" required>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label" for="match_result">Match Result</label>
-                        <input id="match_result" type="text" maxlength="50" class="form-control" ng-model="match.match_result" required>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label" for="tournament_id">tournament id (if needed)</label>
-                        <input id="tournament_id" type="text" maxlength="50" class="form-control" ng-model="match.tournament_id" required>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label" for="user1_id">user 1 id</label>
-                        <input id="user1_id" type="text" maxlength="50" class="form-control" ng-model="match.user1_id" required>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label" for="user2_id">user 2 id</label>
-                        <input id="user2_id" type="text" maxlength="50" class="form-control" ng-model="match.user2_id" required>
-                    </div>
-
-                    <div class="form-group">
-                        <input type="submit" class="btn btn-info btn-block">Create a match</input>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
+<% include ../partials/match-crud.ejs%>
 
 <% include ../partials/footer %>
 
-<script>
-    (function(angular) {
-        'use strict';
-        var app = angular.module('matchcreate', []);
-
-        app.controller('matchCtrl', ['$window', '$scope', '$http', function ($window, $scope, $http) {
-            $scope.master = {};
-
-            $http.get("api/v1/leagues/1/matches").then(function(response) {
-                $scope.signup = response.data.data;
-                
-                $scope.create = function(match) {
-                    $http.post("api/v1/leagues/1/matches", match).then(function(response) {
-                        /* Redirect after user is created */
-                        $window.location.href = '/';
-                    });
-                }
-            });
-
-            $scope.create = function (match) {
-                $scope.master = angular.copy(match);
-            };
-        }]);
-
-    })(window.angular);
-
-</script>
 </body>
 </html>

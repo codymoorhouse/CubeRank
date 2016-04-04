@@ -13,7 +13,7 @@ h2 {
 
 .container {
     margin: 20px auto;
-    max-width: 500px;
+    max-width: 400px;
 }
 
 .panel {
@@ -33,4 +33,16 @@ table tr:nth-child(odd)	{
 }
 table tr:nth-child(even) {
     background-color: #5a5a5a;
+}
+input[type="text"]:focus {
+    outline: none;
+    color: #41B2C6;
+}
+
+a,a:visited  {
+    color: #41B2C6;
+}
+
+a:hover, a:hover:not(.active) {
+    color: #fffcef;
 }
