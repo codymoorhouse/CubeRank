@@ -30,6 +30,7 @@ var terms = require('./routes/terms');
 var privacy = require('./routes/privacy');
 var match = require('./routes/match');
 var ranking = require('./routes/ranking');
+var matchcreate = require('./routes/match-create');
 
 
 
@@ -80,6 +81,7 @@ app.use('/match', match);
 app.use('/leaderboard', ranking);
 app.use('/dashboard', dashboard);
 app.use('/settings', settings);
+app.use('/match-create', matchcreate);
 
 
 passport.serializeUser(function(user, done) {
