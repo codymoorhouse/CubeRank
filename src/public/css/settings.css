@@ -49,9 +49,6 @@ a {
     border: medium solid #FA787E;
 }
 
-.signup-form input.ng-valid.ng-touched {
-    border: medium solid #78FA89;
-}
 
 form.ng-submitted input.ng-invalid {
     border: medium solid #FA787E;

@@ -1,100 +1,97 @@
 <!DOCTYPE html>
 <html lan="en" xmlns="http://www.w3.org/1999/html">
 
-<head>
-    <% include ../partials/head %>
-    <link href="/css/dashboard.css" rel="stylesheet">
-    <link rel="stylesheet" href="/css/settings.css">
+    <head>
+        <% include ../partials/head %>
+        <link href="/css/dashboard.css" rel="stylesheet">
+        <link rel="stylesheet" href="/css/settings.css">
 
-    <script src="/js/settings.js"></script>
+        <script src="/js/settings.js"></script>
 
-    <title> <%= user['fName'] + ' ' + user['lName'] %> </title>
-</head>
+        <title> <%= user['fName'] + ' ' + user['lName'] %> </title>
+    </head>
 
-<body>
-<% include ../partials/header %>
+    <body>
+        <% include ../partials/header %>
 
-<div class="container-fluid">
-    <div class="main">
-            <div ng-app="signup" ng-controller="signupCtrl" class="container">
-                <div class="panel panel-primary">
-                    <div class="panel-body">
-                        <div class="img-container img-circle">
-                            <input type="image" id="upload_icon" src="/img/camera.png" class="profile-picture" al="Submit" value="Upload Photo" name="submit">
-                            <input type="file" id="picture_upload" style="display: none;"/>
+        <div class="container-fluid">
+            <div class="main">
+                <div ng-app="settings" ng-controller="settingsCtrl" ng-init="init(<%= user['id'] %>)" class="container">
+                    <div class="panel panel-primary">
+                        <div class="panel-body">
+                            <div class="img-container img-circle">
+                                <input type="image" id="upload_icon" src="/img/camera.png" class="profile-picture" al="Submit" value="Upload Photo" name="submit">
+                                <input type="file" id="picture_upload" style="display: none;"/>
 
+                            </div>
+
+                            <h4><%= user['fName'] + ' ' + user['lName'] %></h4>
+                            <span class="text-muted"><%= user['username'] %></span>
                         </div>
 
-                        <h4><%= user['fName'] + ' ' + user['lName'] %></h4>
-                        <span class="text-muted"><%= user['username'] %></span>
-                    </div>
-
-                    <div class="panel-body">
-                        <form name="addUser" role="form" novalidate class="signup-form" ng-class="{submitted:addUser.submitted}" ng-submit="create(user)">
-                            <div class="form-group">
-                                <h2>Update Account</h2>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label" for="fname">First Name</label>
-
-                                <input type="text" maxlength="50" class="form-control" name="fname" ng-model="user.fname" required>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label" for="lname">Last Name</label>
-                                <input type="text" maxlength="50" class="form-control" name="lname" ng-model="user.lname" required>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label" for="email">Email</label>
-                                <input type="email" maxlength="50" class="form-control" name="email" ng-model="user.email" required>
-
-                                <div ng-show="addUser.email.$invalid && addUser.email.$touched">
-                                    <div class="alert alert-danger">
-                                        <strong>Warning!</strong> You must enter a valid email.
-                                    </div>
+                        <div class="panel-body">
+                            <form name="updateUser" role="form" novalidate class="signup-form" ng-class="{submitted:updateUser.submitted}" ng-submit="update(user)">
+                                <div class="form-group">
+                                    <h2>Update Account</h2>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label" for="password">Password</label>
-                                <input type="password" maxlength="25" class="form-control" name="password" placeholder="at least 6 characters" length="40" ng-model="user.password" ng-minlength="6" required>
-                                <div ng-show="addUser.password.$error.minlength">
-                                    <div class="alert alert-danger">
-                                        <strong>Warning!</strong> Password must be greater than 6 characters!
-                                    </div>
+                                <div class="form-group">
+                                    <label class="control-label" for="fname">First Name</label>
+                                    <input type="text" maxlength="50" class="form-control" name="fname" ng-model="user.fname" ng-init="user.fname='<%= user['fName'] %>'" required>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label" for="passwordAgain">Retype Password</label>
-                                <input name="passwordAgain" type="password" maxlength="25" class="form-control" placeholder="at least 6 characters" length="40" ng-model="user.passwordAgain" ng-minlength="6" required password-dir="user.password">
-                                <div ng-show="addUser.passwordAgain.$error.passwordDir && addUser.passwordAgain.$touched && addUser.password.$valid">
-                                    <div class="alert alert-danger">
-                                        <strong>Warning!</strong> Passwords do not match!
-                                    </div>
+                                <div class="form-group">
+                                    <label class="control-label" for="lname">Last Name</label>
+                                    <input type="text" maxlength="50" class="form-control" name="lname" ng-model="user.lname" ng-init="user.lname='<%= user['lName'] %>'" required>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <input type="submit" class="btn btn-info btn-block" value="Update   ">
-                                <div ng-show="addUser.$submitted">
-                                    <div ng-show="addUser.fname.$error.required || addUser.lname.$error.required || addUser.email.$error.required || addUser.password.$error.required || addUser.passwordAgain.$error.required">
+                                <div class="form-group">
+                                    <label class="control-label" for="email">Email</label>
+                                    <input type="email" maxlength="50" class="form-control" name="email" ng-model="user.email" ng-init="user.email='<%= user['email'] %>'" required>
+
+                                    <div ng-show="updateUser.email.$invalid && updateUser.email.$dirty ">
                                         <div class="alert alert-danger">
-                                            <strong>Warning!</strong> Missing fields.
+                                            <strong>Warning!</strong> You must enter a valid email.
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </form>
+                                <div class="form-group">
+                                    <label class="control-label" for="password">New Password</label>
+                                    <input type="password" maxlength="25" class="form-control" name="passwordNew" placeholder="at least 6 characters" length="40" ng-model="user.passwordNew" ng-minlength="6">
+                                    <div ng-show="updateUser.passwordNew.$error.minlength">
+                                        <div class="alert alert-danger">
+                                            <strong>Warning!</strong> Password must be greater than 6 characters!
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label" for="passwordAgain">Retype New Password</label>
+                                    <input name="passwordAgain" type="password" maxlength="25" class="form-control" placeholder="at least 6 characters" length="40" ng-model="user.passwordAgain" ng-minlength="6" password-dir="user.passwordNew">
+                                    <div ng-show="updateUser.passwordAgain.$error.passwordDir && updateUser.passwordAgain.$touched && updateUser.passwordNew.$valid">
+                                        <div class="alert alert-danger">
+                                            <strong>Warning!</strong> Passwords do not match!
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label" for="passwordAgain">Current Password</label>
+                                    <input name="passwordCurrent" type="password" maxlength="25" class="form-control" placeholder="••••••••••••••" length="40" ng-model="user.passwordCurrent" required>
+                                </div>
+                                <div class="form-group">
+                                    <input type="submit" class="btn btn-info btn-block" value="Update">
+                                    <div ng-show="updateUser.$submitted">
+                                        <div ng-show="updateUser.passwordCurrent">
+                                            <div class="alert alert-danger">
+                                                <strong>Warning!</strong> Invalid password.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
-
-
             </div>
-
-    </div>
-
-
         </div>
-    </div>
 
-<% include ../partials/footer %>
-</body>
-
+        <% include ../partials/footer %>
+    </body>
 </html>

@@ -143,7 +143,18 @@ exports.updateUser = function(db, req, res) {
     var fname = req.body.fname;
     var lname = req.body.lname;
     var email = req.body.email;
-    var password = req.body.password;
+    var oldpassword = req.body.oldpassword;
+    var newpassword = req.body.newpassword;
+    var password = oldpassword;
+
+    if (oldpassword === undefined || oldpassword === null) {
+        res.status(401);
+        res.json({
+            statusCode: 401,
+            message: "Must specify 'oldpassword'"
+        });
+        return;
+    }
 
     db.query(
         "SELECT * FROM users WHERE id = ?", [req.params.id], function(err, data) {
@@ -167,7 +178,21 @@ exports.updateUser = function(db, req, res) {
                 if (req.body.fname === undefined || req.body.fname === null)  fname = data[0]['fName'];
                 if (req.body.lname === undefined || req.body.lname === null) lname = data[0]['lName'];
                 if (req.body.email === undefined || req.body.email === null) email = data[0]['email'];
-                if (req.body.password === undefined || req.body.password === null) password = data[0]['password'];
+
+                if (!bcrypt.compareSync(oldpassword, data[0]['password'])) {
+                    res.status(401);
+                    res.json({
+                        statusCode: 401,
+                        message: "Password entered does not match"
+                    });
+                    return;
+                } else {
+                    if (newpassword === undefined || newpassword === null) {
+                        password = data[0]['password'];
+                    } else {
+                        password = bcrypt.hashSync(newpassword, salt);
+                    }
+                }
 
                 db.query(
                     "UPDATE users SET fName = ?, lName = ?, email = ?, password = ? WHERE id = ?", [
@@ -196,7 +221,6 @@ exports.updateUser = function(db, req, res) {
                     });
             }
     });
-
 
 };
 
