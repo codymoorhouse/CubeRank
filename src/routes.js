@@ -17,6 +17,7 @@ module.exports = function (app, passport, db) {
     var leagueModel = require('./models/leagues.js');
     var orgModel = require('./models/orgs.js');
     var tournamentModel = require('./models/tournaments.js');
+    var matchModel = require('./models/matches.js');
 
 // ---------------------------- Users Resource ---------------------------- //
 // ----------------------------  Get Requests  ---------------------------- //
@@ -113,6 +114,10 @@ module.exports = function (app, passport, db) {
         orgModel.retrieveOrgUsers(db, req, res);
     });
 
+    app.get('/api/v1/matches/:id/', function (req, res) {
+        matchModel.retrieveMatch(db, req, res);
+    });
+
 // ----------------------------  Post Requests ---------------------------- //
 
     app.post('/api/v1/tournaments/', function (req, res) {
@@ -172,6 +177,12 @@ module.exports = function (app, passport, db) {
     app.put('/api/v1/orgs/:id', function (req, res) {
         orgModel.updateOrg(db, req, res);
     });
+
+    app.put('/api/v1/matches/:id', function (req, res) {
+        matchModel.updateMatch(db, req, res);
+    });
+
+
 
 // ----------------------------  Delete Requests  ------------------------- //
 

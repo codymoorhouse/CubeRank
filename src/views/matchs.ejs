@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <% include ../partials/head %>
+    <script src="/js/angular-route.min.js"></script>
+    <script src="/js/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" href="/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="/css/orgs.css">
+    <script src="/js/match.js"></script>
+</head>
+
+<body>
+<% include ../partials/header %>
+
+<div ng-app="matches" ng-controller="MainController as ctrl" class="content-area">
+    <h1> Confirm Update Or Delete</h1>
+    <div ng-view></div>
+    <a href="/matches/{{match.id}}/edit" target="_self"><button type="button" class="btn btn-info">Update</button></a>
+    <button type="button" class="btn btn-danger" ng-click="ctrl.delete()">Delete</button>
+</div>
+
+
+<% include ../partials/footer %>
+</body>
+</html>
