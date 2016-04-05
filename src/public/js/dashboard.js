@@ -25,14 +25,13 @@
                     }
 
                     $scope.matchList.push($scope.newMatch);
-                }
-            });
-        }
-
-        $scope.startDatatable = function() {
-            $timeout(function(){
-                $('#recent_table').dataTable();
-            }, 0);
-        };
+                
+		}
+		}).then(function() {
+		    $timeout(function() {
+			$('#recent_table').dataTable();
+		    }, 0);
+	    });
+	};
     }]);
 })(window.angular);
