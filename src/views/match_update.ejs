@@ -11,26 +11,17 @@
 <body>
 <% include ../partials/header %>
 
-<div ng-app="create_org" ng-controller="UpdateMatchController" class="container">
+<div ng-app="create_match" ng-controller="UpdateMatchController" class="container">
     <div ng-view></div>
     <div class="panel panel-primary">
         <div class="panel-body">
-            <form name="addOrg" role="form" novalidate ng-submit="update(match)">
+            <form name="addMatch" role="form" novalidate ng-submit="update(match)">
                 <div class="form-group">
-                    <h2>Update {{username1}} vs {{username2}}</h2>
-                </div>
-                <div class="form-group">
-                    <label class="control-label" for="name">Match Date</label>
-                    <input type="text" maxlength="50" class="form-control" name="match_date" ng-model="match.match_date"
-                           required>
+                    <h2>Update</h2>
                 </div>
                 <div class="form-group">
                     <label class="control-label" for="match_result">Match Result</label>
                     <input type="text" class="form-control" name="match_result" ng-model="match.match_result">
-                </div>
-                <div class="form-group">
-                    <label class="control-label" for="tournament_id">Tournament Id</label>
-                    <input type="text" class="form-control" name="tournament_id" ng-model="match.tournament_id">
                 </div>
                 <div class="form-group">
                     <label class="control-label" for="user1_id">User One Id</label>

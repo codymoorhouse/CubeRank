@@ -14,9 +14,8 @@
 <% include ../partials/header %>
 
 <div ng-app="matches" ng-controller="MainController as ctrl" class="content-area">
-    <h1> Confirm Update Or Delete</h1>
     <div ng-view></div>
-    <a href="/matches/{{match.id}}/edit" target="_self"><button type="button" class="btn btn-info">Update</button></a>
+    <h1> Confirm Delete</h1>
     <button type="button" class="btn btn-danger" ng-click="ctrl.delete()">Delete</button>
 </div>
 

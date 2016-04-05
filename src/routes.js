@@ -210,6 +210,10 @@ module.exports = function (app, passport, db) {
     app.delete('/api/v1/orgs/:id', function (req, res) {
         orgModel.deleteOrg(db, req, res);
     });
+
+    app.delete('/api/v1/matches/:id', function (req, res) {
+        matchModel.deleteMatch(db, req, res);
+    });
 // -------------------------- End Users Resource -------------------------- //
 
 };

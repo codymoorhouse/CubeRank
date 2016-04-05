@@ -12,9 +12,7 @@ angular.module('create_match', ['ngRoute'])
         $scope.$on('$routeChangeSuccess', function () {
             $http.get("/api/v1/matches/" + $routeParams.id).then(function (response) {
                 $scope.match = response.data.data[0];
-                $scope.match_date = response.data.data[0].match_date;
                 $scope.match_result = response.data.data[0].match_result;
-                $scope.tournament_id = response.data.data[0].tournament_id;
                 $scope.user1_id = response.data.data[0].user1_id;
                 $scope.user2_id = response.data.data[0].user2_id;
             })
@@ -24,7 +22,7 @@ angular.module('create_match', ['ngRoute'])
             $http.put("/api/v1/matches/" + $routeParams.id, match).then(function (response) {
                 $scope.response = response.status;
                 if (response.status == 200)
-                    $window.location.href = "/matches/" + $routeParams.id;
+                    $window.location.href = "/matches";
                 else
                     $window.alert(response.statusText);
             });
