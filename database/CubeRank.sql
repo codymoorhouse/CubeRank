@@ -75,6 +75,8 @@ CREATE TABLE tournaments(
        id INT UNSIGNED AUTO_INCREMENT NOT NULL,
        title VARCHAR(30),
        league_id INT UNSIGNED NOT NULL,
+       random BIT,
+       match_for_third BIT,
 
        INDEX (league_id),
        FOREIGN KEY (league_id) REFERENCES leagues (id)
