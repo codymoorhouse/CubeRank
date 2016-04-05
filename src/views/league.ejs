@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <% include ../partials/head %>
+    <script src="/js/angular-route.min.js"></script>
+    <script src="/js/jquery.dataTables.min.js"></script>
+    <script src="/js/league.js"></script>
+    <link rel="stylesheet" href="/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="/css/orgs.css">
+</head>
+
+<body>
+<% include ../partials/header %>
+
+<div ng-app="league" ng-controller="MainController as ctrl" class="content-area">
+    <div ng-view></div>
+    <h1>{{league.title}}</h1>
+    <h1>{{league.description}}</h1>
+    <a href="/leagues/{{league.id}}/edit" target="_self"><button type="button" class="btn btn-info">Update</button></a>
+    <button type="button" class="btn btn-danger" ng-click="ctrl.delete()">Delete</button>
+    <div style="width: 75%; margin: 0 auto;" ng-controller="TabsController as tabs">
+        <ul class="nav nav-pills">
+            <li ng-class="{active:tabs.isSet(1)}"><a href ng-click="tabs.setTab(1)">Leagues</a></li>
+            <li ng-class="{active:tabs.isSet(2)}"><a href ng-click="tabs.setTab(2)">Roster</a></li>
+        </ul>
+        <section ng-show="tabs.isSet(2)">
+            <table id="users-table" class="display">
+                <thead>
+                <tr>
+                    <th>Role</th>
+                    <th>Username</th>
+                    <th>Rank</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="user in users">
+                    <td>{{user.user_role == 'O' ? 'Owner' :
+                        (user.user_role == 'A' ? 'Admin' :
+                        'Member') }}</td>
+                    <td>{{user.username}}</td>
+                    <td>{{user.user_rank}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </section>
+
+
+        <section ng-show="tabs.isSet(1)">
+            <h2>Tournaments</h2>
+            <a href="/orgs/{{org.id}}/create-league" target="_self">
+                <button type="button" class="btn btn-info">Create new tournament</button>
+            </a>
+            <ul>
+                <li ng-repeat="tourney in tournaments">
+                    {{ tourney.title }}
+                </li>
+            </ul>
+        </section>
+    </div>
+</div>
+
+
+<% include ../partials/footer %>
+</body>
+</html>

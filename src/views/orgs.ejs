@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <% include ../partials/head %>
+    <script src="/js/angular-route.min.js"></script>
+    <script src="/js/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" href="/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="/css/orgs.css">
+    <script src="/js/orgs.js"></script>
+</head>
+
+<body>
+<% include ../partials/header %>
+
+<div ng-app="orgs" ng-controller="MainController as ctrl" class="container">
+    <div class="content-area">
+        <h1>{{heading}}</h1>
+        <a href="/orgs/create">Create new</a>
+        <hr/>
+        <table id="orgs-table" class="display">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="org in orgs">
+                <td><a href="/orgs/{{org.id}}">{{org.name}}</a></td>
+                <td><a href="/orgs/{{org.id}}">{{org.description}}</a></td>
+            </tr>
+            </tbody>
+        </table>
+        <div ng-init="startDatatable()"></div>
+    </div>
+</div>
+
+
+<% include ../partials/footer %>
+</body>
+</html>

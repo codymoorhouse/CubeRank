@@ -1,4 +1,4 @@
-// Manage Users table
+// manage users table
 var bcrypt = require('bcryptjs');
 var salt = bcrypt.genSaltSync(5);
 

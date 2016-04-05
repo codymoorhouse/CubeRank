@@ -17,13 +17,13 @@
 
 
                 $scope.userList.push($scope.adduser);
-            }
-        });
 
-        $scope.startDatatable = function() {
-            $timeout(function(){
+            }
+        }).then(function() {
+            console.log($scope.userList);
+            $timeout(function() {
                 $('#users_table').dataTable();
             }, 0);
-        };
+        });
     }]);
 })(window.angular);

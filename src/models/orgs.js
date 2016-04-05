@@ -25,8 +25,7 @@ exports.retrieveOrgs = function(db, req, res) {
 // POST /api/orgs
 exports.createOrg = function(db, req, res) {
     var fields = [];
-    if (req.body.name === undefined || req.body.name === null)               fields.push("name");
-    if (req.body.description === undefined || req.body.description === null) fields.push("description");
+    if (req.body.name === undefined || req.body.name === null) fields.push("name");
     console.log(req.body.name);
 
     if (fields.length === 0) {
@@ -34,7 +33,7 @@ exports.createOrg = function(db, req, res) {
             "INSERT INTO organizations (oname, description) VALUES (?, ?)",
             [
                 req.body.name,
-                req.body.description
+                req.body.description || null
             ], function (err) {
                 if (err) {
                     res.status(500);
@@ -182,7 +181,6 @@ exports.retrieveOrgLeagues = function(db, req, res) {
 exports.createLeague = function(db, req, res) {
     var fields = [];
     if (req.body.title === undefined || req.body.title === null)             fields.push("title");
-    if (req.body.description === undefined || req.body.description === null) fields.push("description");
     console.log(req.body.name);
 
     if (fields.length === 0) {
@@ -190,7 +188,7 @@ exports.createLeague = function(db, req, res) {
             "INSERT INTO leagues (title, description, organization_id) VALUES (?, ?, ?)",
             [
                 req.body.title,
-                req.body.description,
+                req.body.description || null,
                 req.params.id
             ], function (err) {
                 if (err) {

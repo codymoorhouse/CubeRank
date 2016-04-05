@@ -1,7 +1,9 @@
 // api/v1/leagues
 exports.retrieveLeagues = function (db, req, res) {
     db.query(
-        "SELECT title FROM CubeRank.leagues", function (err, leagues) {
+        "SELECT leagues.id, leagues.title, leagues.description, " +
+        "organizations.id as org_id, organizations.oname as org_name FROM CubeRank.leagues, CubeRank.organizations " +
+        "WHERE leagues.organization_id = organizations.id", function (err, leagues) {
             if (err) {
                 res.json({
                     statusCode: 500,
@@ -18,7 +20,7 @@ exports.retrieveLeagues = function (db, req, res) {
 // api/v1/leagues/:id
 exports.retrieveLeagueId = function (db, req, res) {
     db.query(
-        "SELECT id, title, description FROM CubeRank.leagues WHERE id = ?", [req.params.id], function (err, leagueInfo) {
+        "SELECT id, title, description, organization_id FROM CubeRank.leagues WHERE id = ?", [req.params.id], function (err, leagueInfo) {
             if (err) {
                 res.json({
                     statusCode: 500,
@@ -86,19 +88,10 @@ exports.retrieveLeagueTournamentId = function (db, req, res) {
             }
 
             else {
-                if (tournamentInfo.length === 0) {
-                    res.json({
-                        statusCode: 404,
-                        data: "league not found"
-                    });
-                }
-
-                else {
-                    res.json({
-                        statusCode: 200,
-                        data: tournamentInfo
-                    });
-                }
+                res.json({
+                    statusCode: 200,
+                    data: tournamentInfo
+                });
             }
         });
 };
@@ -106,7 +99,7 @@ exports.retrieveLeagueTournamentId = function (db, req, res) {
 // /api/v1/leagues/:id/users
 exports.retrieveLeagueUserId = function (db, req, res) {
     db.query(
-        "SELECT DISTINCT username, id FROM CubeRank.league_user, CubeRank.users WHERE league_id = ? AND user_id = id;", [req.params.id], function (err, userInfo) {
+        "SELECT DISTINCT id, username, user_rank, user_role FROM CubeRank.league_user, CubeRank.users WHERE league_id = ? AND user_id = id;", [req.params.id], function (err, userInfo) {
             if (err) {
                 res.json({
                     statusCode: 500,
@@ -115,19 +108,10 @@ exports.retrieveLeagueUserId = function (db, req, res) {
             }
 
             else {
-                if (userInfo.length === 0) {
-                    res.json({
-                        statusCode: 404,
-                        data: "league user not found"
-                    });
-                }
-
-                else {
-                    res.json({
-                        statusCode: 200,
-                        data: userInfo
-                    });
-                }
+                res.json({
+                    statusCode: 200,
+                    data: userInfo
+                });
             }
         });
 };

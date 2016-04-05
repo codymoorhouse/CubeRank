@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lan="en">
+
+<head>
+    <% include ../partials/head %>
+    <link rel="stylesheet" href="/css/signup.css">
+    <script src="/js/angular-route.min.js"></script>
+    <script src="/js/org_update.js"></script>
+</head>
+
+<body>
+<% include ../partials/header %>
+
+<div ng-app="create_org" ng-controller="UpdateOrgController" class="container">
+    <div ng-view></div>
+    <div class="panel panel-primary">
+        <div class="panel-body">
+            <form name="addOrg" role="form" novalidate ng-submit="update(org)">
+                <div class="form-group">
+                    <h2>Update {{name}}</h2>
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="name">Short name (abbreviation)</label>
+                    <input type="text" maxlength="50" class="form-control" name="name" ng-model="org.name" required>
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="description">Long name or description</label>
+                    <input type="textarea" class="form-control" name="description" ng-model="org.description">
+                </div>
+                <div class="form-group">
+                    <input type="submit" class="btn btn-info btn-block" value="Update {{name}}">
+                </div>
+                <pre>{{ org | json }}</pre>
+            </form>
+        </div>
+    </div>
+</div>
+<% include ../partials/footer %>
+</body>
+</html>
