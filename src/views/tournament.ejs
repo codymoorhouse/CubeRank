@@ -18,11 +18,12 @@
 <% include ../partials/header %>
 
 
-
-    <div id="tournament-container">
+    <h2 id="title" style="color: white; float: left; margin-left: 20px"></h2>
+    <div id="tournament-container" style="clear: left">
     <script type="text/javascript">
 
         var tournament = {teams: [], results: []};
+        var previous = {teams: [], results: []};
 
         $.get('/api/v1/tournaments/' + window.location.href.split('/')[4], function(data){
 
@@ -114,7 +115,6 @@
 
 
     </script>
-    <h2 id="title" style="color: white"></h2>
     <div id="save" style="margin: 20px 200px">
     <div class="demo"></div>
     </div>
