@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <% include ../partials/head %>
+    <script src="https://code.angularjs.org/1.2.16/angular-route.min.js"></script>
+    <script src="/js/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" href="/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="/css/orgs.css">
+    <script src="/js/leagues.js"></script>
+</head>
+
+<body>
+<% include ../partials/header %>
+
+<div ng-app="orgs" ng-controller="MainController as ctrl" class="container">
+    <div class="content-area">
+        <h1>{{heading}}</h1>
+        <hr/>
+        <table id="leagues-table" class="display">
+            <thead>
+            <tr>
+                <th>Organization</th>
+                <th>League</th>
+                <th>Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="league in leagues">
+                <td><a href="/orgs/{{league.org_id}}">{{league.org_name}}</a></td>
+                <td><a href="/leagues/{{league.id}}">{{league.title}}</a></td>
+                <td><a href="/leagues/{{league.id}}">{{league.description}}</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<% include ../partials/footer %>
+</body>
+</html>

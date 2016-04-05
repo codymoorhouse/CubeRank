@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <% include ../partials/head %>
+    <link rel="stylesheet" href="/css/signup.css">
+    <script src="https://code.angularjs.org/1.2.16/angular-route.min.js"></script>
+    <script src="/js/league_create.js"></script>
+</head>
+
+<body>
+<% include ../partials/header %>
+
+<div ng-app="create_league" ng-controller="UpdateOrgController" class="container">
+    <div ng-view></div>
+    <div class="panel panel-primary">
+        <div class="panel-body">
+            <form name="addLeague" role="form" novalidate ng-submit="create(league)">
+                <div class="form-group">
+                    <h2>Create league for {{orgname}}</h2>
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="name">Short name (abbreviation)</label>
+                    <input type="text" maxlength="50" class="form-control" name="title" ng-model="league.title" required>
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="description">Long name or description</label>
+                    <input type="textarea" class="form-control" name="description" ng-model="league.description">
+                </div>
+                <div class="form-group">
+                    <input type="submit" class="btn btn-info btn-block" value="Update {{name}}">
+                </div>
+                <pre style="text-align: left;">{{ league | json }}</pre>
+            </form>
+        </div>
+    </div>
+</div>
+<% include ../partials/footer %>
+</body>
+</html>
