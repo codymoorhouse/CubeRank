@@ -20,8 +20,7 @@
 
             }
         }).then(function() {
-            console.log($scope.userList);
-            $timeout(function() {
+	    $timeout(function() {
                 $('#users_table').dataTable();
             }, 0);
         });
