@@ -228,10 +228,12 @@ exports.updateTournament = function(db, req, res){
     });
 };
 
+exports.updateMatches = function(db, req, res){
 
+}
 //UPDATE matches SET match_result=? WHERE id = ?;
 
-exports.updateMatches = function(db, req, res){
+exports.updateMatch = function(db, req, res){
     db.query("UPDATE matches SET match_result = ? WHERE id = ?", [req.body.winner, req.params.id],
     function(err){
         if (err) {

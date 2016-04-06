@@ -8,8 +8,6 @@
     <link rel="stylesheet" href="/css/index.css">
 
     <script src='/js/jquery-1.12.2.min.js'></script>
-    <script src="/js/bracket.js"></script>
-    <script src="/js/jquery-1.12.2.min.js"></script>
     <script src="/js/jquery.bracket.min.js"></script>
     <link rel="stylesheet" href="/css/jquery.bracket.min.css">
 </head>
@@ -23,7 +21,7 @@
     <script type="text/javascript">
 
         var tournament = {teams: [], results: []};
-        var previous = {teams: [], results: []};
+//        var previous = {teams: [], results: []};
 
         $.get('/api/v1/tournaments/' + window.location.href.split('/')[4], function(data){
 
@@ -56,8 +54,15 @@
                 });
 
                 function saveFn(data, userData) {
-                    var json = jQuery.toJSON(data);
+                    var json = JSON.stringify(data);
+                    alert(json);
                     $('#saveOutput').text('POST ' + userData + ' ' + json);
+//                    $.ajax('/api/v1/tournament/'+window.location.href.split('/')[4] + '/' + userData, {
+//                        contentType: 'application/json',
+//                        dataType: 'json',
+//                        type: 'post',
+//                        data: json
+//                    });
                 }
 
             });
