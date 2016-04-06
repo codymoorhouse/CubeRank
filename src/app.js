@@ -28,7 +28,7 @@ var leagues = require('./routes/leagues');
 
 var terms = require('./routes/terms');
 var privacy = require('./routes/privacy');
-var match = require('./routes/match');
+var matches = require('./routes/matches');
 var ranking = require('./routes/ranking');
 
 
@@ -76,7 +76,7 @@ app.use('/quickcreate', quickcreate);
 app.use('/about', about);
 app.use('/terms', terms);
 app.use('/privacy', privacy);
-app.use('/match', match);
+app.use('/matches', matches);
 app.use('/leaderboard', ranking);
 app.use('/dashboard', dashboard);
 app.use('/settings', settings);

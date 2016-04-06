@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lan="en">
+
+<head>
+    <% include ../partials/head %>
+    <link rel="stylesheet" href="/css/signup.css">
+    <script src="/js/match_create.js"></script>
+</head>
+
+<body>
+<% include ../partials/header %>
+
+<div ng-app="create_match" ng-controller="CreateMatchController" class="container">
+    <div class="panel panel-primary">
+        <div class="panel-body">
+            <form name="addMatch" role="form" novalidate class="signup-form" ng-class="{submitted:addMatch.submitted}"
+                  ng-submit="create(match)">
+                <div class="form-group">
+                    <h2>Create Match</h2>
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="name">Match Date</label>
+                    <input type="text" maxlength="50" class="form-control" name="match_date" ng-model="match.match_date"
+                           required>
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="match_result">Match Result</label>
+                    <input type="text" class="form-control" name="match_result" ng-model="match.match_result">
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="tournament_id">Tournament Id</label>
+                    <input type="text" class="form-control" name="tournament_id" ng-model="match.tournament_id">
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="user1_id">User One Id</label>
+                    <input type="text" class="form-control" name="user1_id" ng-model="match.user1_id">
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="user2_id">User Two Id</label>
+                    <input type="text" class="form-control" name="user2_id" ng-model="match.user2_id">
+                </div>
+                <div class="form-group">
+                    <input type="submit" class="btn btn-info btn-block" value="Create match">
+                </div>
+                <pre>{{ match | json }}</pre>
+            </form>
+        </div>
+    </div>
+</div>
+<% include ../partials/footer %>
+</body>
+</html>

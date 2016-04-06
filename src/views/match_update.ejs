@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <% include ../partials/head %>
+    <link rel="stylesheet" href="/css/signup.css">
+    <script src="/js/angular-route.min.js"></script>
+    <script src="/js/match_update.js"></script>
+</head>
+
+<body>
+<% include ../partials/header %>
+
+<div ng-app="create_match" ng-controller="UpdateMatchController" class="container">
+    <div ng-view></div>
+    <div class="panel panel-primary">
+        <div class="panel-body">
+            <form name="addMatch" role="form" novalidate ng-submit="update(match)">
+                <div class="form-group">
+                    <h2>Update</h2>
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="winner">Match Result</label>
+                    <input type="text" class="form-control" name="winner" ng-model="match.winner">
+                </div>
+                <div class="form-group">
+                    <input type="submit" class="btn btn-info btn-block" value="Update Match {{id}}">
+                </div>
+                <pre>{{ match | json }}</pre>
+            </form>
+        </div>
+    </div>
+</div>
+<% include ../partials/footer %>
+</body>
+</html>
