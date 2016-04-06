@@ -24,8 +24,8 @@
                 <th>Match Date</th>
                 <th>Match Result</th>
                 <th>Tournament Id</th>
-                <th>User One Id</th>
-                <th>User Two Id</th>
+                <th>User One</th>
+                <th>User Two</th>
                 <th>Delete</th>
                 <th>Edit</th>
             </tr>
@@ -35,8 +35,8 @@
                 <td>{{match.match_date}}</td>
                 <td>{{match.match_result}}</td>
                 <td>{{match.tournament_id}}</td>
-                <td>{{match.user1_id}}</td>
-                <td>{{match.user2_id}}</td>
+                <td>{{match.username1}}</td>
+                <td>{{match.username2}}</td>
                 <td><a href="/matches/{{match.id}}"><img src="/img/trash.png" alt="trash"></a></td>
                 <td><a href="/matches/{{match.id}}/edit"><img src="/img/edit.png" alt="edit"></a></td>
             </tr>

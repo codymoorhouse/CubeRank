@@ -178,9 +178,9 @@ module.exports = function (app, passport, db) {
         orgModel.updateOrg(db, req, res);
     });
 
-    app.put('/api/v1/matches/:id', function (req, res) {
+/*    app.put('/api/v1/matches/:id', function (req, res) {
         matchModel.updateMatch(db, req, res);
-    });
+    });*/
 
 
 

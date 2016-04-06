@@ -12,9 +12,7 @@ angular.module('create_match', ['ngRoute'])
         $scope.$on('$routeChangeSuccess', function () {
             $http.get("/api/v1/matches/" + $routeParams.id).then(function (response) {
                 $scope.match = response.data.data[0];
-                $scope.match_result = response.data.data[0].match_result;
-                $scope.user1_id = response.data.data[0].user1_id;
-                $scope.user2_id = response.data.data[0].user2_id;
+                $scope.winner = response.data.data[0].winner;
             })
         });
 
