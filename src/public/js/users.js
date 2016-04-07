@@ -20,7 +20,7 @@
 
             }
         }, function (response) {
-            $scope.matchList.push();
+            $scope.userList.push();
         }).then(function() {
             $timeout(function() {
                 $('#users_table').dataTable();
