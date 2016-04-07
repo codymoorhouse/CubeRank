@@ -2,21 +2,27 @@
     'use strict';
     var app = angular.module('dashboardApp', []);
 
+    app.controller('TabsController', function() {
+        this.tab = 1;
+
+        this.setTab = function(tab) {
+            this.tab = tab;
+        };
+
+        this.isSet = function(tab) {
+            return this.tab === tab;
+        }
+    });
+
     app.controller('dashboardCtrl', ['$window', '$timeout', '$scope', '$http', function ($window, $timeout, $scope, $http) {
         $scope.master = {};
         $scope.matchList = [];
         $scope.orgList = [];
         $scope.leagueList = [];
         $scope.tournamentList = [];
-        $scope.table;
 
         $scope.init = function (userId) {
             $scope.userId = userId;
-            $scope.showRecent = true;
-            $scope.showOrgs = false;
-            $scope.showLeagues = false;
-            $scope.showTournaments = false;
-
 
             $http.get("api/v1/users/" + userId + "/matches?recent=30").then(function (response) {
                 for (var i = 0; i < response.data.data.length; i++) {
@@ -39,7 +45,7 @@
                 $scope.matchList.push();
             }).then(function () {
                 $timeout(function () {
-                    $scope.table = $('#recent_table').dataTable();
+                    $('#recent_table').dataTable();
                 }, 0);
             });
 
@@ -103,35 +109,7 @@
                     $('#tournament_table').dataTable();
                 }, 0);
             });
-        };
 
-        $scope.showRecentTable = function() {
-            $scope.showRecent = true;
-            $scope.showOrgs = false;
-            $scope.showLeagues = false;
-            $scope.showTournaments = false;
         };
-
-        $scope.showOrgTable = function() {
-            $scope.showRecent = false;
-            $scope.showOrgs = true;
-            $scope.showLeagues = false;
-            $scope.showTournaments = false;
-        };
-
-        $scope.showLeagueTable = function() {
-            $scope.showRecent = false;
-            $scope.showOrgs = false;
-            $scope.showLeagues = true;
-            $scope.showTournaments = false;
-        };
-
-        $scope.showTournamentTable = function() {
-            $scope.showRecent = false;
-            $scope.showOrgs = false;
-            $scope.showLeagues = false;
-            $scope.showTournaments = true;
-        };
-
     }]);
 })(window.angular);
