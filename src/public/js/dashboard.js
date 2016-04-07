@@ -35,9 +35,11 @@
                     }
 
                     if (response.data.data[i]['player1_id'] == userId) {
-                        $scope.newMatch['opponent'] = response.data.data[i]['player2_name'];
+                        $scope.newMatch['opponent_id'] = response.data.data[i]['player2_id'];
+                        $scope.newMatch['opponent_name'] = response.data.data[i]['player2_name'];
                     } else {
-                        $scope.newMatch['opponent'] = response.data.data[i]['player1_name'];
+                        $scope.newMatch['opponent_id'] = response.data.data[i]['player1_id'];
+                        $scope.newMatch['opponent_name'] = response.data.data[i]['player1_name'];
                     }
                     $scope.matchList.push($scope.newMatch);
                 }
@@ -89,27 +91,27 @@
             });
 
             $http.get("api/v1/users/" + userId + "/tournaments").then(function (response) {
-                for (var i = 0; i < response.data.data.length; i++) {
-                    $scope.newTournament = {
-                        org_id: response.data.data[i]['org_id'],
-                        org_name: response.data.data[i]['org_name'],
-                        league_id: response.data.data[i]['league_id'],
-                        league_name: response.data.data[i]['league_name'],
-                        tournament_id: response.data.data[i]['tournament_description'],
-                        tournament_name: response.data.data[i]['tournament_name'],
-                        ranking: response.data.data[i]['ranking']
-                    }
+                if (response.data.data.length !== 0) {
+                    for (var i = 0; i < response.data.data.length; i++) {
+                        $scope.newTournament = {
+                            org_id: response.data.data[i]['org_id'],
+                            org_name: response.data.data[i]['org_name'],
+                            league_id: response.data.data[i]['league_id'],
+                            league_name: response.data.data[i]['league_name'],
+                            tournament_id: response.data.data[i]['tournament_description'],
+                            tournament_name: response.data.data[i]['tournament_name'],
+                            ranking: response.data.data[i]['ranking']
+                        }
 
-                    $scope.tournamentList.push($scope.newTournament);
+                        $scope.tournamentList.push($scope.newTournament);
+                    }
                 }
-            }, function (response) {
-                $scope.tournamentList.push();
             }).then(function () {
                 $timeout(function () {
-                    $('#tournament_table').dataTable();
+                    var tourn_table = $('#tournament_table').DataTable();
                 }, 0);
-            });
 
+            });
         };
     }]);
 })(window.angular);

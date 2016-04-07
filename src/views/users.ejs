@@ -17,7 +17,6 @@
                 <table id="users_table" class="display">
                     <thead>
                     <tr>
-                        <th>ID</th>
                         <th>First Name</th>
                         <th>Last Name</th>
                         <th>Username</th>
@@ -25,10 +24,9 @@
                     </thead>
                     <tbody>
                         <tr ng-repeat="person in userList">
-                            <td>{{ person['id'] }}</td>
-                            <td>{{ person['fname'] }}</td>
-                            <td>{{ person['lname'] }}</td>
-                            <td >{{ person['username'] }}</td>
+                            <td><a href="/users/{{ person['id'] }}">{{ person['fname'] }}</a></td>
+                            <td><a href="/users/{{ person['id'] }}">{{ person['lname'] }}</a></td>
+                            <td><a href="/users/{{ person['id'] }}">{{ person['username'] }}</a></td>
                         </tr>
                     </tbody>
                 </table>
