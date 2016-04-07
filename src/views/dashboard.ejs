@@ -17,56 +17,126 @@
 
         <div ng-app="dashboardApp" ng-controller="dashboardCtrl" ng-init="init(<%= user['id'] %>)"class="container">
             <div class="container-fluid">
-                <div class="main">
-                    <div class="row">
-                        <div class="dashboard-left-content">
-                            <div class="img-container img-circle">
-                                <img id="profile-picture" src="/img/no-image.png" class="profile-picture" alt="<%= user['fName'] + ' ' + user['lName'] %>">
+                <div ng-controller="TabsController as tabs">
+                    <div class="main">
+                        <div class="row">
+                            <div class="dashboard-left-content">
+                                <div class="img-container img-circle">
+                                    <img id="profile-picture" src="/img/no-image.png" class="profile-picture" alt="<%= user['fName'] + ' ' + user['lName'] %>">
+                                </div>
+                                <h4><%= user['fName'] + ' ' + user['lName'] %></h4>
+                                <span class="text-muted"><%= user['username'] %></span>
                             </div>
-                            <h4><%= user['fName'] + ' ' + user['lName'] %></h4>
-                            <span class="text-muted"><%= user['username'] %></span>
+
+                            <div class="dashboard-right-content">
+                                <h3>My Places:</h3><hr>
+                                <ul class="control-panel">
+                                    <li class="control-panel-item"><a ng-click="tabs.setTab(1)">My Recent Matches</a></li>
+                                    <li class="control-panel-item"><a ng-click="tabs.setTab(2)">My Organizations</a></li>
+                                    <li class="control-panel-item"><a ng-click="tabs.setTab(3)">My Leagues</a></li>
+                                    <li class="control-panel-item"><a ng-click="tabs.setTab(4)">My Tournaments</a></li>
+                                    <li class="control-panel-item"><a ng-click="tabs.setTab(5)">My Teams (coming soon!)</a></li>
+                                </ul>
+                            </div>
                         </div>
 
-                        <div class="dashboard-right-content">
-                            <h3>My Places:</h3><hr>
-                            <ul class="control-panel">
-                                <li class="control-panel-item"><a href='/api/v1/users/<%= user['id'] %>/orgs'>My Organizations</a></li>
-                                <li class="control-panel-item"><a href='/api/v1/users/<%= user['id'] %>/leagues'>My Leagues</a></li>
-                                <li class="control-panel-item"><a href='/api/v1/users/<%= user['id'] %>/tournaments'>My Tournaments</a></li>
-                                <li class="control-panel-item"><a href="">My Teams (coming soon!)</a></li>
-                            </ul>
+                        <div ng-show="tabs.isSet(1)">
+                            <h2 class="sub-header">My Recent Matches <small>(last 30 days)</small></h2>
+                            <div>
+                                <table id="recent_table" class="display">
+                                    <thead>
+                                        <tr>
+                                            <th>League</th>
+                                            <th>Opponent</th>
+                                            <th>Date</th>
+                                            <th>Time</th>
+                                            <th>Winner</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="info in matchList">
+                                            <td><a href="/leagues/{{ info['league_id'] }}">{{ info['league'] }}</a></td>
+                                            <td>{{ info['opponent'] }}</td>
+                                            <td >{{ info['matchdate'] }}</td>
+                                            <td >{{ info['matchtime'] }}</td>
+                                            <td >{{ info['winner'] }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
-                    </div>
 
-                    <h2 class="sub-header">Recent Matches <small>(last 30 days)</small></h2>
-                    <div>
-                        <table id="recent_table" class="display">
-                            <thead>
-                            <tr>
-                                <th>League</th>
-                                <th>Opponent</th>
-                                <th>Date</th>
-                                <th>Time</th>
-                                <th>Winner</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                                <tr ng-repeat="info in matchList">
-                                    <td>{{ info['league'] }}</td>
-                                    <td>{{ info['opponent'] }}</td>
-                                    <td >{{ info['matchdate'] }}</td>
-                                    <td >{{ info['matchtime'] }}</td>
-                                    <td >{{ info['winner'] }}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <div ng-init="startDatatable()"></div>
+                        <div ng-show="tabs.isSet(2)">
+                            <h2 class="sub-header">My Organizations</h2>
+                            <div>
+                                <table id="org_table" class="display">
+                                    <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Description</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr ng-repeat="org in orgList">
+                                        <td><a href="/orgs/{{ org['org_id'] }}">{{ org['org_name'] }}</a></td>
+                                        <td><a href="/orgs/{{ org['org_id'] }}">{{ org['org_description'] }}</a></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div ng-show="tabs.isSet(3)">
+                            <h2 class="sub-header">My Leagues</h2>
+                            <div>
+                                <table id="league_table" class="display">
+                                    <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Description</th>
+                                        <th>Organization</th>
+                                        <th>Ranking</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr ng-repeat="league in leagueList">
+                                        <td><a href="/leagues/{{ league['league_id'] }}">{{ league['league_name'] }}</a></td>
+                                        <td><a href="/leagues/{{ league['league_id'] }}">{{ league['league_description'] }}</a></td>
+                                        <td><a href="/orgs/{{ league['org_id'] }}">{{ league['org_name'] }}</a></td>
+                                        <td>{{ league['ranking'] }}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div ng-show="tabs.isSet(4)">
+                            <h2 class="sub-header">My Tournaments</h2>
+                            <div>
+                                <table id="tournament_table" class="display">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Organization</th>
+                                            <th>League</th>
+                                            <th>Ranking</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="tournament in tournamentList">
+                                            <td><a href="/leagues/{{ tournament['league_id'] }}">{{ tournament['tournament_name'] }}</a></td>
+                                            <td><a href="/orgs/{{ tournament['org_id'] }}">{{ tournament['org_name'] }}</a></td>
+                                            <td><a href="/leagues/{{ tournament['league_id'] }}">{{ tournament['league_name'] }}</a></td>
+                                            <td>{{ tournament['ranking'] }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
         <% include ../partials/footer %>
     </body>
 
