@@ -25,11 +25,12 @@
                     }
 
                     $scope.matchList.push($scope.newMatch);
-                
-		}
-		}).then(function() {
+                }
+		}, function (response) {
+                $scope.matchList.push();
+        }).then(function() {
 		    $timeout(function() {
-			$('#recent_table').dataTable();
+                $('#recent_table').dataTable();
 		    }, 0);
 	    });
 	};
