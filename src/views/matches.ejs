@@ -32,7 +32,7 @@
             </thead>
             <tbody>
             <tr ng-repeat="match in matches">
-                <td>{{match.match_date}}</td>
+                <td>{{match.match_date | date:'MM/dd/yyyy'}} </td>
                 <td>{{match.match_result}}</td>
                 <td>{{match.tournament_id}}</td>
                 <td>{{match.username1}}</td>
