@@ -1,14 +1,15 @@
 <script src="/js/angular-route.min.js"></script>
 <script src="/js/jquery.dataTables.min.js"></script>
+<script src="/js/angular-route.min.js"></script>
 <link rel="stylesheet" href="/css/jquery.dataTables.min.css">
 <link rel="stylesheet" href="/css/orgs.css">
-<div class="content-area" ng-app="MyRank">
+<div class="content-area" ng-app="MyRank" ng-controller="rankCtrl">
 
-    <div ng-controller="leagueCtrl">
-        <h1 ng-repeat="l in rank">Leaderboard For: {{ l.title }}</h1>
+    <div>
+        <h1>Leaderboard For: {{ league.title }}</h1>
     </div>
 
-    <div ng-app="MyRank" ng-controller="rankCtrl">
+    <div>
         <table id="rank-table" class="display">
             <thead>
             <tr>
@@ -29,22 +30,28 @@
 </div>
 
 <script>
-    var app = angular.module('MyRank', []);
+    var app = angular.module('MyRank', ['ngRoute']);
 
-    app.controller('rankCtrl', function ($scope, $http, $timeout, $window) {
+    app.config(function($routeProvider, $locationProvider) {
+        $routeProvider.when('/leaderboard/:id', {
+            controller: 'rankCtrl'
+        });
 
-        $http.get("api/v1/leagues/1/userRanks?min=0&max=5000").then(function (response) {
+        $locationProvider.html5Mode({enabled: true, requireBase: false});
+    });
+
+    app.controller('rankCtrl', function ($scope, $http, $timeout, $window, $routeParams) {
+
+        $http.get("api/v1/leagues/" + ($routeParams.id || 1) + "/userRanks?min=0&max=5000").then(function (response) {
             $scope.rank = response.data.data;
             $timeout(function () {
                 $('#rank-table').dataTable();
             }, 0);
+        });
 
+        $http.get("api/v1/leagues/" + ($routeParams.id || 1)).then(function (response) {
+            console.log(response.data.data);
+            $scope.league = response.data.data[0];
         });
     });
-
-    app.controller('leagueCtrl', function ($scope, $http) {
-        $http.get("api/v1/leagues/1").then(function (response) {
-            $scope.rank = response.data.data;
-        });
-    })
 </script>
