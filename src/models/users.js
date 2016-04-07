@@ -103,7 +103,7 @@ exports.retrieveUsers = function(db, req, res) {
 
 // api/v1/users/:id
 exports.retrieveUser = function(db, req, res) {
-    var selectClause = "SELECT u.id AS id, CONCAT(u.fname, ' ', u.lname) AS name ";
+    var selectClause = "SELECT u.id AS id, u.username AS username, CONCAT(u.fname, ' ', u.lname) AS name ";
     var fromClause = "FROM users AS u ";
     var whereClause = "WHERE id = ?";
 
@@ -118,21 +118,11 @@ exports.retrieveUser = function(db, req, res) {
             }
 
             else {
-                if (userInfo.length === 0) {
-                    res.status(404);
-                    res.json({
-                        statusCode: 404,
-                        data: "User not found"
-                    });
-                }
-
-                else {
-                    res.status(200);
-                    res.json({
-                        statusCode: 200,
-                        data: userInfo
-                    });
-                }
+                res.status(200);
+                res.json({
+                    statusCode: 200,
+                    data: userInfo
+                });
             }
         });
 };
@@ -284,21 +274,11 @@ exports.retrieveUserLeagues = function(db, req, res) {
             }
 
             else {
-                if (userLeagues.length === 0) {
-                    res.status(404);
-                    res.json({
-                        statusCode: 404,
-                        data: "User not found in any leagues"
-                    });
-                }
-
-                else {
-                    res.status(200);
-                    res.json({
-                        statusCode: 200,
-                        data: userLeagues
-                    });
-                }
+                res.status(200);
+                res.json({
+                    statusCode: 200,
+                    data: userLeagues
+                });
             }
         });
 };
@@ -328,22 +308,11 @@ exports.retrieveUserMatches = function(db, req, res) {
             }
 
             else {
-                if (userMatches.length === 0) {
-                    res.status(404);
-
-                    res.json({
-                        statusCode: 404,
-                        data: error404
-                    });
-                }
-
-                else {
-                    res.status(200);
-                    res.json({
-                        statusCode: 200,
-                        data: userMatches
-                    });
-                }
+                res.status(200);
+                res.json({
+                    statusCode: 200,
+                    data: userMatches
+                });
             }
         });
 };
@@ -365,21 +334,11 @@ exports.retrieveUserOrgs = function(db, req, res) {
             }
 
             else {
-                if (userOrgs.length === 0) {
-                    res.status(404);
-                    res.json({
-                        statusCode: 404,
-                        data: "User not found in any organizations"
-                    });
-                }
-
-                else {
-                    res.status(200);
-                    res.json({
-                        statusCode: 200,
-                        data: userOrgs
-                    });
-                }
+                res.status(200);
+                res.json({
+                    statusCode: 200,
+                    data: userOrgs
+                });
             }
         });
 };
@@ -401,21 +360,11 @@ exports.retrieveUserTeams = function(db, req, res) {
             }
 
             else {
-                if (userTeams.length === 0) {
-                    res.status(404);
-                    res.json({
-                        statusCode: 404,
-                        data: "User not found in any teams"
-                    });
-                }
-
-                else {
-                    res.status(200);
-                    res.json({
-                        statusCode: 200,
-                        data: userTeams
-                    });
-                }
+                res.status(200);
+                res.json({
+                    statusCode: 200,
+                    data: userTeams
+                });
             }
         });
 };
@@ -437,21 +386,11 @@ exports.retrieveUserTournaments = function(db, req, res) {
             }
 
             else {
-                if (userTournaments.length === 0) {
-                    res.status(404);
-                    res.json({
-                        statusCode: 404,
-                        data: "User not found in any tournaments"
-                    });
-                }
-
-                else {
-                    res.status(200);
-                    res.json({
-                        statusCode: 200,
-                        data: userTournaments
-                    });
-                }
+                res.status(200);
+                res.json({
+                    statusCode: 200,
+                    data: userTournaments
+                });
             }
         });
 };

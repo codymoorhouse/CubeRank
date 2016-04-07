@@ -38,7 +38,7 @@
                     <td>{{user.user_role == 'O' ? 'Owner' :
                         (user.user_role == 'A' ? 'Admin' :
                         'Member') }}</td>
-                    <td>{{user.username}}</td>
+                    <td><a href="/users/{{user.id}}" target="_self">{{user.username}}</a></td>
                     <td>{{user.user_rank}}</td>
                 </tr>
                 </tbody>
