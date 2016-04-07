@@ -3,11 +3,12 @@
 
 <head>
     <% include ../partials/head %>
-    <script src="/js/angular-route.min.js"></script>
-    <script src="/js/jquery.dataTables.min.js"></script>
     <link rel="stylesheet" href="/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="/css/orgs.css">
+
     <script src="/js/matches.js"></script>
+    <script src="/js/angular-route.min.js"></script>
+    <script src="/js/jquery.dataTables.min.js"></script>
 </head>
 
 <body>
@@ -21,31 +22,34 @@
         <table id="matches-table" class="display">
             <thead>
             <tr>
-                <th>Match Date</th>
-                <th>Match Result</th>
+                <th>League</th>
                 <th>Tournament Id</th>
-                <th>User One</th>
-                <th>User Two</th>
+                <th>Player One</th>
+                <th>Player Two</th>
+                <th>Match Date</th>
+                <th>Match Time</th>
+                <th>Match Result</th>
                 <th>Delete</th>
                 <th>Edit</th>
             </tr>
             </thead>
             <tbody>
-            <tr ng-repeat="match in matches">
-                <td>{{match.match_date | date:'MM/dd/yyyy'}} </td>
-                <td>{{match.match_result}}</td>
-                <td>{{match.tournament_id}}</td>
-                <td>{{match.username1}}</td>
-                <td>{{match.username2}}</td>
-                <td><a href="/matches/{{match.id}}"><img src="/img/trash.png" alt="trash"></a></td>
-                <td><a href="/matches/{{match.id}}/edit"><img src="/img/edit.png" alt="edit"></a></td>
+            <tr ng-repeat="match in matchList">
+                <td><a href="/leagues/{{ match['league_id'] }}">{{ match["league_name"] }}</a></td>
+                <td><a href="/tournaments/{{ match['tournament_id'] }}">{{ match["tournament_id"] }}</a></td>
+                <td><a href="/users/{{ match['player1_id'] }}">{{ match["player1_name"] }}</a></td>
+                <td><a href="/users/{{ match['player2_id'] }}">{{ match["player2_name"] }}</a></td>
+                <td>{{ match["match_date"] }}</td>
+                <td>{{ match["match_time"] }}</td>
+                <td>{{ match["match_winner"] }}</td>
+                <td><a href="/matches/{{ match['match_id'] }}"><img src="/img/trash.png" alt="trash"></a></td>
+                <td><a href="/matches/{{ match['match_id'] }}/edit"><img src="/img/edit.png" alt="edit"></a></td>
             </tr>
             </tbody>
         </table>
         <div ng-init="startDatatable()"></div>
     </div>
 </div>
-
 
 <% include ../partials/footer %>
 </body>
