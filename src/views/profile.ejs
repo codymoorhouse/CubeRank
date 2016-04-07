@@ -28,6 +28,7 @@
                     </div>
 
                     <div class="dashboard-right-content">
+                        <h3>Links:</h3><hr>
                         <ul class="control-panel">
                             <li class="control-panel-item"><a ng-click="tabs.setTab(1)">Recent Matches</a></li>
                             <li class="control-panel-item"><a ng-click="tabs.setTab(2)">Organizations</a></li>
@@ -39,7 +40,7 @@
                 </div>
 
                 <div ng-show="tabs.isSet(1)">
-                    <h2 class="sub-header">My Recent Matches <small>(last 30 days)</small></h2>
+                    <h2 class="sub-header">Recent Matches <small>(last 30 days)</small></h2>
                     <div>
                         <table id="recent_table" class="display">
                             <thead>
@@ -65,7 +66,7 @@
                 </div>
 
                 <div ng-show="tabs.isSet(2)">
-                    <h2 class="sub-header">My Organizations</h2>
+                    <h2 class="sub-header">Organizations</h2>
                     <div>
                         <table id="org_table" class="display">
                             <thead>
@@ -85,7 +86,7 @@
                 </div>
 
                 <div ng-show="tabs.isSet(3)">
-                    <h2 class="sub-header">My Leagues</h2>
+                    <h2 class="sub-header">Leagues</h2>
                     <div>
                         <table id="league_table" class="display">
                             <thead>
@@ -109,7 +110,7 @@
                 </div>
 
                 <div ng-show="tabs.isSet(4)">
-                    <h2 class="sub-header">My Tournaments</h2>
+                    <h2 class="sub-header">Tournaments</h2>
                     <div>
                         <table id="tournament_table" class="display">
                             <thead>

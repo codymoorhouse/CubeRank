@@ -56,10 +56,10 @@
                                     <tbody>
                                         <tr ng-repeat="info in matchList">
                                             <td><a href="/leagues/{{ info['league_id'] }}">{{ info['league'] }}</a></td>
-                                            <td>{{ info['opponent'] }}</td>
-                                            <td >{{ info['matchdate'] }}</td>
-                                            <td >{{ info['matchtime'] }}</td>
-                                            <td >{{ info['winner'] }}</td>
+                                            <td><a href="/users/{{ info['opponent_id'] }}">{{ info['opponent_name'] }}</a></td>
+                                            <td>{{ info['matchdate'] }}</td>
+                                            <td>{{ info['matchtime'] }}</td>
+                                            <td>{{ info['winner'] }}</td>
                                         </tr>
                                     </tbody>
                                 </table>
