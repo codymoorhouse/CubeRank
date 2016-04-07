@@ -19,8 +19,10 @@
                 $scope.userList.push($scope.adduser);
 
             }
+        }, function (response) {
+            $scope.matchList.push();
         }).then(function() {
-	    $timeout(function() {
+            $timeout(function() {
                 $('#users_table').dataTable();
             }, 0);
         });
