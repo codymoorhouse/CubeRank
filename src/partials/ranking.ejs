@@ -1,39 +1,29 @@
-<link rel="stylesheet" href="/css/ranking.css">
-
+<script src="/js/angular-route.min.js"></script>
+<script src="/js/jquery.dataTables.min.js"></script>
+<link rel="stylesheet" href="/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="/css/orgs.css">
 <div class="content-area" ng-app="MyRank">
 
     <div ng-controller="leagueCtrl">
         <h1 ng-repeat="l in rank">Leaderboard For: {{ l.title }}</h1>
     </div>
-    <div class="container">
-        <div class="row">
-            <div class="panel panel-primary">
-                <div class="panel-body">
-                    <div ng-app="MyRank" ng-controller="rankCtrl">
-                        <table>
-                            <thead>
-                            <tr>
-                                <th><a href="" ng-click="order('username')">Name</a></th>
-                                <th><a href="" ng-click="order('user_rank')">Rank</a></th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td><input type="text" ng-model="search.username"/></td>
-                                <td><input type="text" ng-model="search.user_rank"/></td>
-                            </tr>
-                            <tr ng-repeat="user in rank | orderBy:predicate:reverse | filter:search"
-                                ng-class-odd="'odd'" |
-                                ng-show="$index<25">
-                                <td>{{ user.username}}</td>
-                                <td>{{ user.user_rank}}</td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
+
+    <div ng-app="MyRank" ng-controller="rankCtrl">
+        <table id="rank-table" class="display">
+            <thead>
+            <tr>
+                <th>User Name</th>
+                <th>User Rank</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="user in rank">
+                <td>{{ user.username}}</td>
+                <td>{{ user.user_rank}}</td>
+            </tr>
+            </tbody>
+        </table>
+        <div ng-init="startDatatable()"></div>
     </div>
 
 </div>
@@ -41,17 +31,14 @@
 <script>
     var app = angular.module('MyRank', []);
 
-    app.controller('rankCtrl', function ($scope, $http) {
-
-        $scope.predicate = 'name';
-        $scope.reverse = true;
-        $scope.order = function (predicate) {
-            $scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : false;
-            $scope.predicate = predicate;
-        };
+    app.controller('rankCtrl', function ($scope, $http, $timeout, $window) {
 
         $http.get("api/v1/leagues/1/userRanks?min=0&max=5000").then(function (response) {
             $scope.rank = response.data.data;
+            $timeout(function () {
+                $('#rank-table').dataTable();
+            }, 0);
+
         });
     });
 
