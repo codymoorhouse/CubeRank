@@ -127,3 +127,7 @@ button, input, select, textarea {
     line-height: inherit;
     color: black;
 }
+
+a {
+    cursor: pointer;
+}
