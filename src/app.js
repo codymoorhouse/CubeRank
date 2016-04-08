@@ -37,8 +37,8 @@ var leagueTournament = require('./routes/newtournament');
 
 var db = mysql.createConnection({
     host: '127.0.0.1',
-    user: 'root',
-    password: 'toor',
+    user: 'CubeRank_admin',
+    password: 'password',
     database: 'CubeRank'
 });
 
