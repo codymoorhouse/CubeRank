@@ -255,8 +255,8 @@ exports.getTournamentInfo = function (db, req, res){
 
 exports.updateMatches = function(db, req, res){
 
-    db.query('SELECT FIRST(id) FROM matches WHERE tournament_id = ?', [req.body.tournament_id]),
-        function(err, firstMatchId){
+    db.query('SELECT id, user1_id, user2_id FROM matches WHERE tournament_id = ?', [req.body.tournament_id]),
+        function(err, matches){
             if (err){
                 res.json({
                     statusCode: 404,
@@ -272,14 +272,14 @@ exports.updateMatches = function(db, req, res){
                 // ]]}
                 // let's just say I was very disappointed with it :(
 
-                var matchId = firstMatchId + 1;
-                var queryString = "INSERT INTO matches (id, match_results) VALUES ";
+                var firstMatchIdAfterSetMatches = matches.length;
+                var queryString = "INSERT INTO matches (id, match_results, user1_id, user2_id) VALUES ";
                 var matches = req.body.results;
                 if (matches[0][0][0][0] < matches[0][0][0][1]){
-                    queryString += "(" + firstMatchId + ", 1)";
+                    queryString += "(" + matches[0].id + ", 1, " + matches[0].user1_id + ", " + matches[0].user2_id;
                 }
                 else{
-                    queryString += "(" + matches[0][0][0][0] + ", 2)";
+                    queryString += "(" + matches[0].id + ", 2, "+ matches[0].user1_id + ", " + matches[0].user2_id;
                 }
                 for (var i = 0; i < matches.length; i++){
                     for (var j = 0; j < matches[i].length; j++){
