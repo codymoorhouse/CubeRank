@@ -33,8 +33,9 @@
 //            alert(tournament.teams);
             for (var i = 0; i < data.data.length; i ++) {
                 tournament.teams.push([data.data[i].username1, data.data[i].username2]);
-//                tournament.results.push([null, null]);
+                tournament.results.push([null, null]);
             }
+            var previous = tournament;
 
             $.get('/api/v1/tournaments/' + window.location.href.split('/')[4], function(data){
 
@@ -55,8 +56,10 @@
 
                 function saveFn(data, userData) {
                     var json = JSON.stringify(data);
-                    alert(json);
+//                    alert(json);
                     $('#saveOutput').text('POST ' + userData + ' ' + json);
+                    var val = whatsChanged(data, previous);
+                    previous = data;
 //                    $.ajax('/api/v1/tournament/'+window.location.href.split('/')[4] + '/' + userData, {
 //                        contentType: 'application/json',
 //                        dataType: 'json',
@@ -67,56 +70,21 @@
 
             });
 
+            function whatsChanged(data, previous) {
 
+                var update = [];
+                for (var i = 0; i < data.results.length; i++){
+                    alert(data.results[i]);
+                    for (var j = 0; j < data.results[i].length; j++){
+//                        console.log(data.results[i][j][0][0]);
+                        for (var k = 0; k < data.results[i][j].length; k++){
+                            console.log(data.results[i][j][k][0]);
+                        }
+                    }
+                }
+            }
 
-//            $(function() {
-//                var container = $('div#save .demo')
-//                container.bracket({
-//                    init: tournament,
-//                    save: saveFn,
-//                    userData: "http://myapi"})
-//
-//                /* You can also inquiry the current data */
-//                var data = container.bracket('data')
-//                $('#dataOutput').text(jQuery.toJSON(data))
-//            })
-
-
-//            function onclick(data) {
-//                $('#matchCallback').text("onclick(data: '" + data + "')");
-//                $.ajax({
-//                    type: 'PUT',
-//                    url: '/api/v1/tournaments/',
-//                    data: JSON.stringify({
-//                        winner: title,
-//                        names: names
-//                    }),
-//                    contentType: "application/json",
-//                    dataType: 'json'
-//                }).done(function(response) {
-//
-//                    window.location.replace('/tournament/'+response.data);
-//
-//                });
         });
-
-
-//            function onhover(data, hover) {
-//                $('#matchCallback').text("onhover(data: '" + data + "', hover: " + hover + ")");
-//            }
-
-
-//        {
-//            teams : [
-//                ["Team 1", "Team 2"], /* first matchup */
-//                ["Team 3", "Team 4"]  /* second matchup */
-//            ],
-//            results : [
-//                [[1,2], [3,4]],       /* first round */
-//                [[4,6], [2,1]]        /* second round */
-//            ]
-//        }
-
 
 
     </script>

@@ -231,11 +231,27 @@ exports.updateTournament = function(db, req, res){
 };
 
 
-exports.getLeagueNames = function (db, req, res){
-    var tournaments = req.body.tournaments;
-    var queryString = "SELECT title FROM tournament WHERE "
-    db.query("SELECT title FROM db")
-}
+exports.getTournamentInfo = function (db, req, res){
+    var queryString = "SELECT tournaments.id, tournaments.title, leagues.title as league_title," +
+        "leagues.id as league_id FROM tournaments INNER JOIN " +
+        "leagues ON tournaments.league_id=leagues.id ORDER BY tournaments.id ASC";
+    db.query(queryString, function(err, data){
+        if (err){
+            console.log(err);
+            res.json({
+                statusCode: 500,
+                message: "Could not get league names",
+                data: err
+            });
+        }
+        else{
+            res.json({
+                statusCode: 200,
+                data: data
+            });
+        }
+    })
+};
 
 exports.updateMatches = function(db, req, res){
 
