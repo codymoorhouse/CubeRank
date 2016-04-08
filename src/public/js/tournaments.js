@@ -4,7 +4,6 @@ app.controller('tournamentController', ['$scope', '$http', '$timeout', function(
     $http.get("/api/v1/tournaments").then(function (response) {
         $scope.tournaments = response.data.data;
 
-
         $scope.heading = 'Tournaments';
         $timeout(function () {
             $('#leagues-table').dataTable();

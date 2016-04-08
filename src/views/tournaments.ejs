@@ -21,15 +21,15 @@
                     <th>ID</th>
                     <th>Tournament Name</th>
                     <th>League</th>
-                    <th>Contestants</th>
+
                 </tr>
                 </thead>
                 <tbody>
                 <tr ng-repeat="tournament in tournaments">
                     <td>{{ tournament.id }}</td>
                     <td>{{ tournament.title }}</td>
-                    <td>{{ league_name }}</td>
-                    <td >{{ tournament.title }}</td>
+                    <td><a href="/leagues/{{tournament.league_id}}">{{ tournament.league_title }}</a></td>
+
                 </tr>
                 </tbody>
             </table>

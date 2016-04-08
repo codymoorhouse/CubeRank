@@ -30,13 +30,15 @@ var terms = require('./routes/terms');
 var privacy = require('./routes/privacy');
 var matches = require('./routes/matches');
 var ranking = require('./routes/ranking');
+var tournaments = require('./routes/tournaments');
+var leagueTournament = require('./routes/newtournament');
 
 
 
 var db = mysql.createConnection({
     host: '127.0.0.1',
-    user: 'CubeRank_admin',
-    password: 'password',
+    user: 'root',
+    password: 'toor',
     database: 'CubeRank'
 });
 
@@ -80,7 +82,8 @@ app.use('/matches', matches);
 app.use('/leaderboard', ranking);
 app.use('/dashboard', dashboard);
 app.use('/settings', settings);
-
+app.use('/newtournament/:id', leagueTournament);
+app.use('/tournaments', tournaments );
 
 passport.serializeUser(function(user, done) {
     done(null, user.id);

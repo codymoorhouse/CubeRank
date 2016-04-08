@@ -6,8 +6,8 @@
 // /tournaments/
 exports.createTournament = function(db, req, res){
 
-    db.query("INSERT INTO tournaments (title, league_id) VALUES (?, 1)",
-    [ req.body.title, 1 ], function(err){
+    db.query("INSERT INTO tournaments (title, league_id) VALUES (?, ?)",
+    [ req.body.title, req.body.league_id ], function(err){
         if(err){
             res.json({
                 statusCode: 500,
@@ -28,11 +28,11 @@ exports.createTournament = function(db, req, res){
                     console.log(participants);
                     var queryString = "INSERT INTO matches (match_date, league_id, tournament_id," +
                         "username1, username2, user1_id, user2_id) VALUES " +
-                        "(CURDATE(), 1, " + tid + ", '" + participants[0] + "', '"
+                        "(CURDATE(), "+ req.body.league_id +", " + tid + ", '" + participants[0] + "', '"
                         + participants[1] + "', 1, 1)";
 
                     for (var i = 2; i < participants.length; i += 2) {
-                        queryString += ", (CURDATE(), 1, " + tid + ", '" + participants[i] + "', '"
+                        queryString += ", (CURDATE(), "+ req.body.league_id +", " + tid + ", '" + participants[i] + "', '"
                             + participants[i + 1] + "', 1, 1)"
                     }
                     //console.log(queryString);
