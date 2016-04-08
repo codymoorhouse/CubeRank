@@ -136,7 +136,9 @@ exports.getOneTournament = function(db, req, res){
 // /tournaments/{id}/matches
 
 exports.getMatches = function(db, req, res){
-    db.query("SELECT * FROM matches",
+    var selectClause = "SELECT l.id AS league_id, l.title AS league_name, l.description AS league_description, m.tournament_id AS tournament_id,  u1.id AS player1_id, CONCAT(u1.fname, ' ', u1.lname) AS player1_name, u2.id AS player2_id, CONCAT(u2.fname, ' ', u2.lname) AS player2_name, m.id AS match_id, DATE_FORMAT(m.match_date, '%M %d, %Y') AS match_date, DATE_FORMAT(m.match_date, '%H:%i HRS') AS match_time, CASE match_result WHEN 0 THEN 'draw' WHEN 1 THEN CONCAT(u1.fname, ' ', u1.lname) WHEN 2 THEN CONCAT(u2.fname, ' ', u2.lname) ELSE 'incomplete' END AS match_winner ";
+    var fromClause = "FROM matches AS m INNER JOIN users AS u1 ON m.user1_id = u1.id INNER JOIN users AS u2 ON m.user2_id = u2.id INNER JOIN leagues AS l ON m.league_id = l.id ";
+    db.query(selectClause + fromClause,
         [req.params.id], function(err, matches){
         if (err){
             res.json({
@@ -228,9 +230,74 @@ exports.updateTournament = function(db, req, res){
     });
 };
 
+
+exports.getLeagueNames = function (db, req, res){
+    var tournaments = req.body.tournaments;
+    var queryString = "SELECT title FROM tournament WHERE "
+    db.query("SELECT title FROM db")
+}
+
 exports.updateMatches = function(db, req, res){
 
-}
+    db.query('SELECT FIRST(id) FROM matches WHERE tournament_id = ?', [req.body.tournament_id]),
+        function(err, firstMatchId){
+            if (err){
+                res.json({
+                    statusCode: 404,
+                    message: "Could not find tournament"
+                });
+            }
+            else{
+                // the jQuery library that I'm using for the information posts its data as so:
+                // {"teams":[["Team 1","Team 2"],["Team 3","Team 4"]],
+                // "results":[[
+                // [[1,0],[2,7]],
+                // [[1,2], [1,3]]
+                // ]]}
+                // let's just say I was very disappointed with it :(
+
+                var matchId = firstMatchId + 1;
+                var queryString = "INSERT INTO matches (id, match_results) VALUES ";
+                var matches = req.body.results;
+                if (matches[0][0][0][0] < matches[0][0][0][1]){
+                    queryString += "(" + firstMatchId + ", 1)";
+                }
+                else{
+                    queryString += "(" + matches[0][0][0][0] + ", 2)";
+                }
+                for (var i = 0; i < matches.length; i++){
+                    for (var j = 0; j < matches[i].length; j++){
+                        for (var k = 1; k < matches[i][j].length; k++){
+                            if (matches[i][j][k][0] < matches[i][j][k][1]){
+                                queryString += ", (" + matchId + ", 1)";
+                                matchId++;
+                            }
+                        }
+                    }
+                }
+                queryString += "ON DUPLICATE KEY UPDATE id=VALUES(id)," +
+                    "match_results = VALUES(match_results);"
+                db.query(queryString, function(err){
+                   if (err){
+                       res.json({
+                           statusCode: 500,
+                           message: "Could not update tournament matches"
+                       });
+                   }
+                   else{
+                       res.json({
+                           statusCode: 200,
+                           message: "OK"
+                       });
+                   }
+                });
+            }
+
+        }
+
+
+};
+
 //UPDATE matches SET match_result=? WHERE id = ?;
 
 exports.updateMatch = function(db, req, res){
