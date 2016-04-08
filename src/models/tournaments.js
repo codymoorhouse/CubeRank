@@ -6,8 +6,8 @@
 // /tournaments/
 exports.createTournament = function(db, req, res){
 
-    db.query("INSERT INTO tournaments (title, league_id) VALUES (?, 1)",
-    [ req.body.title, 1 ], function(err){
+    db.query("INSERT INTO tournaments (title, league_id) VALUES (?, ?)",
+    [ req.body.title, req.body.league_id ], function(err){
         if(err){
             res.json({
                 statusCode: 500,
@@ -28,11 +28,11 @@ exports.createTournament = function(db, req, res){
                     console.log(participants);
                     var queryString = "INSERT INTO matches (match_date, league_id, tournament_id," +
                         "username1, username2, user1_id, user2_id) VALUES " +
-                        "(CURDATE(), 1, " + tid + ", '" + participants[0] + "', '"
+                        "(CURDATE(), "+ req.body.league_id +", " + tid + ", '" + participants[0] + "', '"
                         + participants[1] + "', 1, 1)";
 
                     for (var i = 2; i < participants.length; i += 2) {
-                        queryString += ", (CURDATE(), 1, " + tid + ", '" + participants[i] + "', '"
+                        queryString += ", (CURDATE(), "+ req.body.league_id +", " + tid + ", '" + participants[i] + "', '"
                             + participants[i + 1] + "', 1, 1)"
                     }
                     //console.log(queryString);
@@ -231,16 +231,59 @@ exports.updateTournament = function(db, req, res){
 };
 
 
-exports.getLeagueNames = function (db, req, res){
-    var tournaments = req.body.tournaments;
-    var queryString = "SELECT title FROM tournament WHERE "
-    db.query("SELECT title FROM db")
-}
+exports.getTournamentInfo = function (db, req, res){
+    var queryString = "SELECT tournaments.id, tournaments.title, leagues.title as league_title," +
+        "leagues.id as league_id FROM tournaments INNER JOIN " +
+        "leagues ON tournaments.league_id=leagues.id ORDER BY tournaments.id ASC";
+    db.query(queryString, function(err, data){
+        if (err){
+            console.log(err);
+            res.json({
+                statusCode: 500,
+                message: "Could not get league names",
+                data: err
+            });
+        }
+        else{
+            res.json({
+                statusCode: 200,
+                data: data
+            });
+        }
+    })
+};
 
 exports.updateMatches = function(db, req, res){
 
-    db.query('SELECT FIRST(id) FROM matches WHERE tournament_id = ?', [req.body.tournament_id]),
-        function(err, firstMatchId){
+    var news;
+    db.query("INSERT INTO matches (match_date, league_id, tournament_id, user1_id, user2_id, username1, username2)" +
+        "VALUES (CURDATE(), 1, ?, ?, ?, ?, ?), (CURDATE(), 1, ?, ?, ?, ?, ?)" +
+        "ON DUPLICATE KEY UPDATE id=VALUES(id)," +
+        "league_id = VALUES(league_id)," +
+        "tournament_id = VALUES(tournament_id)," +
+        "user1_id = VALUES(user1_id)," +
+        "user2_id = VALUES(user2_id)," +
+        "username1 = VALUES(username1)," +
+        "username2 = VALUES(username2);", [], function(err){
+       if (err){
+           res.json({
+               statusCode: 500,
+               message: "could not update matches"
+           });
+       }
+        else{
+           res.json({
+               statusCode: 200,
+               message: "OK"
+           });
+       }
+    });
+}
+
+exports.updateMatches2 = function(db, req, res){
+
+    db.query('SELECT id, user1_id, user2_id FROM matches WHERE tournament_id = ?', [req.body.tournament_id]),
+        function(err, matches){
             if (err){
                 res.json({
                     statusCode: 404,
@@ -256,14 +299,14 @@ exports.updateMatches = function(db, req, res){
                 // ]]}
                 // let's just say I was very disappointed with it :(
 
-                var matchId = firstMatchId + 1;
-                var queryString = "INSERT INTO matches (id, match_results) VALUES ";
+                var firstMatchIdAfterSetMatches = matches.length + matches[matches.length - 1].id;
+                var queryString = "INSERT INTO matches (id, match_results, user1_id, user2_id) VALUES ";
                 var matches = req.body.results;
                 if (matches[0][0][0][0] < matches[0][0][0][1]){
-                    queryString += "(" + firstMatchId + ", 1)";
+                    queryString += "(" + matches[0].id + ", 1, " + matches[0].user1_id + ", " + matches[0].user2_id;
                 }
                 else{
-                    queryString += "(" + matches[0][0][0][0] + ", 2)";
+                    queryString += "(" + matches[0].id + ", 2, "+ matches[0].user1_id + ", " + matches[0].user2_id;
                 }
                 for (var i = 0; i < matches.length; i++){
                     for (var j = 0; j < matches[i].length; j++){

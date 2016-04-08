@@ -36,6 +36,7 @@
                                     <li class="control-panel-item"><a ng-click="tabs.setTab(3)">My Leagues</a></li>
                                     <li class="control-panel-item"><a ng-click="tabs.setTab(4)">My Tournaments</a></li>
                                     <li class="control-panel-item"><a ng-click="tabs.setTab(5)">My Teams (coming soon!)</a></li>
+                                    <!--<li class="control-panel-item"><a href="/newtournament">New Tournament</a></li>-->
                                 </ul>
                             </div>
                         </div>
@@ -96,6 +97,7 @@
                                         <th>Description</th>
                                         <th>Organization</th>
                                         <th>Ranking</th>
+                                        <th></th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -104,6 +106,7 @@
                                         <td><a href="/leagues/{{ league['league_id'] }}">{{ league['league_description'] }}</a></td>
                                         <td><a href="/orgs/{{ league['org_id'] }}">{{ league['org_name'] }}</a></td>
                                         <td>{{ league['ranking'] }}</td>
+                                        <td><a href="/newtournament/{{league['league_id']}}">New Tournament</a></td>
                                     </tr>
                                     </tbody>
                                 </table>

@@ -23,7 +23,7 @@ module.exports = function (app, passport, db) {
 // ----------------------------  Get Requests  ---------------------------- //
 
     app.get('/api/v1/tournaments', function (req, res) {
-        tournamentModel.getTournaments(db, req, res);
+        tournamentModel.getTournamentInfo(db, req, res);
     });
 
     app.get('/api/v1/matches', function (req, res) {
@@ -155,7 +155,7 @@ module.exports = function (app, passport, db) {
 // ----------------------------  Put Requests  ---------------------------- //
 
     app.put('/api/v1/tournaments/:id', function (req, res) {
-        tournamentModel.updateTournament(db, req, res);
+        tournamentModel.updateMatches(db, req, res);
     });
 
     app.put('/api/v1/matches/:id', function (req, res) {

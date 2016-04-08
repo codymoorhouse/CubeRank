@@ -21,22 +21,26 @@
     <script type="text/javascript">
 
         var tournament = {teams: [], results: []};
-//        var previous = {teams: [], results: []};
+        var roundWinners = [];
+        var tid = window.location.href.split('/')[4];
 
-        $.get('/api/v1/tournaments/' + window.location.href.split('/')[4], function(data){
+        $.get('/api/v1/tournaments/' + tid, function(data){
 
             document.getElementById('title').innerHTML = data.data[0].title;
 
         });
 
-        $.get('/api/v1/tournaments/' + window.location.href.split('/')[4] + "/matches", function(data) {
+        $.get('/api/v1/tournaments/' + tid + "/matches", function(data) {
 //            alert(tournament.teams);
             for (var i = 0; i < data.data.length; i ++) {
                 tournament.teams.push([data.data[i].username1, data.data[i].username2]);
-//                tournament.results.push([null, null]);
-            }
+                tournament.results.push([[null, null]]);
+                roundWinners.push([null, null]);
 
-            $.get('/api/v1/tournaments/' + window.location.href.split('/')[4], function(data){
+            }
+            var previous = tournament;
+
+            $.get('/api/v1/tournaments/' +tid, function(data){
 
                 document.getElementById('title').innerHTML = data.data[0].title;
                 $(function () {
@@ -55,9 +59,12 @@
 
                 function saveFn(data, userData) {
                     var json = JSON.stringify(data);
-                    alert(json);
+//                    alert(userData);
                     $('#saveOutput').text('POST ' + userData + ' ' + json);
-//                    $.ajax('/api/v1/tournament/'+window.location.href.split('/')[4] + '/' + userData, {
+                    var val = whatsChanged(data, previous);
+//                    alert(JSON.stringify(val));
+                    previous = data;
+//                    $.ajax('/api/v1/tournament/'+window.location.href.split('/')[4] + '/' + val, {
 //                        contentType: 'application/json',
 //                        dataType: 'json',
 //                        type: 'post',
@@ -67,56 +74,51 @@
 
             });
 
+            function whatsChanged(data, previous) {
 
+//                alert(JSON.stringify(previous))
+                var update = {};
+                var round = 0;
+                var results = data.results;
+                for (var i = 0; i < results.length; i++){
+                    for (var j = 0; j < results[i].length; j++){
+                        round++;
+                        for (var k = 0; k < results[i][j].length; k++){
+                            if (results[i][j][k] !== previous.results[i][j][k]){
 
-//            $(function() {
-//                var container = $('div#save .demo')
-//                container.bracket({
-//                    init: tournament,
-//                    save: saveFn,
-//                    userData: "http://myapi"})
-//
-//                /* You can also inquiry the current data */
-//                var data = container.bracket('data')
-//                $('#dataOutput').text(jQuery.toJSON(data))
-//            })
+                                if (j > 0){
+                                    roundWinners[round] = winner;
+                                    update["update"] = {
+                                        "league_id": 1,
+                                        "tournament_id": tid,
+                                        "username1": data.teams[round-k],
+                                        "username2": data.teams[round-k],
+                                        "user1_id": 1,
+                                        "user2_id": 1
+                                    }
+                                }
+                                if (round % 2 === 0 && roundWinners[round+1] !== '' ||
+                                round % 2 === 1 && roundWinners[round-1] !== ''){
 
+                                    update["newMatch"] = {
+                                            "league_id": 1,
+                                            "tournament_id": tid,
+                                            "username1": null,
+                                            "username2": null,
+                                            "user1_id": 1,
+                                            "user2_id": 1
+                                    };
 
-//            function onclick(data) {
-//                $('#matchCallback').text("onclick(data: '" + data + "')");
-//                $.ajax({
-//                    type: 'PUT',
-//                    url: '/api/v1/tournaments/',
-//                    data: JSON.stringify({
-//                        winner: title,
-//                        names: names
-//                    }),
-//                    contentType: "application/json",
-//                    dataType: 'json'
-//                }).done(function(response) {
-//
-//                    window.location.replace('/tournament/'+response.data);
-//
-//                });
+                                }
+
+                                return update;
+                            }
+                        }
+                    }
+                }
+            }
+
         });
-
-
-//            function onhover(data, hover) {
-//                $('#matchCallback').text("onhover(data: '" + data + "', hover: " + hover + ")");
-//            }
-
-
-//        {
-//            teams : [
-//                ["Team 1", "Team 2"], /* first matchup */
-//                ["Team 3", "Team 4"]  /* second matchup */
-//            ],
-//            results : [
-//                [[1,2], [3,4]],       /* first round */
-//                [[4,6], [2,1]]        /* second round */
-//            ]
-//        }
-
 
 
     </script>
