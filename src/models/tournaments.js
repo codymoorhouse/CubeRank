@@ -255,6 +255,33 @@ exports.getTournamentInfo = function (db, req, res){
 
 exports.updateMatches = function(db, req, res){
 
+    var news;
+    db.query("INSERT INTO matches (match_date, league_id, tournament_id, user1_id, user2_id, username1, username2)" +
+        "VALUES (CURDATE(), 1, ?, ?, ?, ?, ?), (CURDATE(), 1, ?, ?, ?, ?, ?)" +
+        "ON DUPLICATE KEY UPDATE id=VALUES(id)," +
+        "league_id = VALUES(league_id)," +
+        "tournament_id = VALUES(tournament_id)," +
+        "user1_id = VALUES(user1_id)," +
+        "user2_id = VALUES(user2_id)," +
+        "username1 = VALUES(username1)," +
+        "username2 = VALUES(username2);", [], function(err){
+       if (err){
+           res.json({
+               statusCode: 500,
+               message: "could not update matches"
+           });
+       }
+        else{
+           res.json({
+               statusCode: 200,
+               message: "OK"
+           });
+       }
+    });
+}
+
+exports.updateMatches2 = function(db, req, res){
+
     db.query('SELECT id, user1_id, user2_id FROM matches WHERE tournament_id = ?', [req.body.tournament_id]),
         function(err, matches){
             if (err){
@@ -272,7 +299,7 @@ exports.updateMatches = function(db, req, res){
                 // ]]}
                 // let's just say I was very disappointed with it :(
 
-                var firstMatchIdAfterSetMatches = matches.length;
+                var firstMatchIdAfterSetMatches = matches.length + matches[matches.length - 1].id;
                 var queryString = "INSERT INTO matches (id, match_results, user1_id, user2_id) VALUES ";
                 var matches = req.body.results;
                 if (matches[0][0][0][0] < matches[0][0][0][1]){
