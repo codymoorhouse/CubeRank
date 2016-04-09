@@ -155,7 +155,7 @@ module.exports = function (app, passport, db) {
 // ----------------------------  Put Requests  ---------------------------- //
 
     app.put('/api/v1/tournaments/:id', function (req, res) {
-        tournamentModel.updateTournament(db, req, res);
+        tournamentModel.updateMatches(db, req, res);
     });
 
     app.put('/api/v1/matches/:id', function (req, res) {

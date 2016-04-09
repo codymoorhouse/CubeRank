@@ -34,7 +34,7 @@
 //            alert(tournament.teams);
             for (var i = 0; i < data.data.length; i ++) {
                 tournament.teams.push([data.data[i].username1, data.data[i].username2]);
-//                tournament.results.push([null, null]);
+                tournament.results.push([[null, null]]);
                 roundWinners.push([null, null]);
 
             }
@@ -59,11 +59,12 @@
 
                 function saveFn(data, userData) {
                     var json = JSON.stringify(data);
-                    alert(JSON.stringify(data.results[0][0][0]));
+//                    alert(userData);
                     $('#saveOutput').text('POST ' + userData + ' ' + json);
                     var val = whatsChanged(data, previous);
+//                    alert(JSON.stringify(val));
                     previous = data;
-//                    $.ajax('/api/v1/tournament/'+window.location.href.split('/')[4] + '/' + userData, {
+//                    $.ajax('/api/v1/tournament/'+window.location.href.split('/')[4] + '/' + val, {
 //                        contentType: 'application/json',
 //                        dataType: 'json',
 //                        type: 'post',
@@ -75,6 +76,7 @@
 
             function whatsChanged(data, previous) {
 
+//                alert(JSON.stringify(previous))
                 var update = {};
                 var round = 0;
                 var results = data.results;
@@ -83,26 +85,33 @@
                         round++;
                         for (var k = 0; k < results[i][j].length; k++){
                             if (results[i][j][k] !== previous.results[i][j][k]){
-                                if (results[i][j][k].contains(null)){
-                                    return false;
-                                }
-                                var winner = results[i][j][k][0] > results[i][j][k][1] ?
-                                        1 : 2;
+
                                 if (j > 0){
                                     roundWinners[round] = winner;
+                                    update["update"] = {
+                                        "league_id": 1,
+                                        "tournament_id": tid,
+                                        "username1": data.teams[round-k],
+                                        "username2": data.teams[round-k],
+                                        "user1_id": 1,
+                                        "user2_id": 1
+                                    }
                                 }
-                                if (round % 2 === 0 && roundWinners[round+1] != null){
-                                    update = {
-                                        "newMatch" : {
-                                            "league_id" : 1,
-                                            "tournament_id" : tid,
-                                            "username1" : winner,
-                                            "username2" : roundWinners[round+1]
-                                        },
-                                        "update" : {
+                                if (round % 2 === 0 && roundWinners[round+1] !== '' ||
+                                round % 2 === 1 && roundWinners[round-1] !== ''){
 
-                                        }};
+                                    update["newMatch"] = {
+                                            "league_id": 1,
+                                            "tournament_id": tid,
+                                            "username1": null,
+                                            "username2": null,
+                                            "user1_id": 1,
+                                            "user2_id": 1
+                                    };
+
                                 }
+
+                                return update;
                             }
                         }
                     }
