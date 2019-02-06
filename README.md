@@ -1,5 +1,6 @@
 # CubeRank
 
+
 Build
 -----
 In the database folder there is a script called CubeRank.sql.
